@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>내 업무, 파이썬 자동화 가능할까?</title>
+  <style>
+    :root {
+      --c1: #F9F871;
+      --c2: #9BDE7E;
+      --c3: #4BBC8E;
+      --c4: #039590;
+      --c5: #1C6E7D;
+      --c6: #2F4858;
+      --bg: #f7faf9;
+      --text: #1d2b2f;
+      --muted: #66757a;
+      --card: #ffffff;
+      --border: #dfe9e8;
+      --shadow: 0 18px 45px rgba(47, 72, 88, 0.16);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(249, 248, 113, 0.35), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(75, 188, 142, 0.26), transparent 30%),
+        var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 16px;
+    }
+
+    .wrap {
+      width: min(980px, 100%);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      color: var(--c5);
+      font-weight: 700;
+      font-size: 14px;
+      box-shadow: 0 8px 22px rgba(47, 72, 88, 0.08);
+    }
+
+    h1 {
+      margin: 16px 0 10px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+      color: var(--c6);
+    }
+
+    .subtitle {
+      margin: 0 auto;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .progress-area {
+      padding: 26px 28px 0;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .progress {
+      height: 12px;
+      background: #edf3f2;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--c2), var(--c4), var(--c6));
+      border-radius: inherit;
+      transition: width 0.35s ease;
+    }
+
+    .content {
+      padding: 32px 28px 30px;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.22s ease;
+    }
+
+    .screen.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-label {
+      color: var(--c4);
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: clamp(25px, 4vw, 38px);
+      line-height: 1.3;
+      letter-spacing: -0.04em;
+      margin: 0 0 14px;
+      color: var(--c6);
+    }
+
+    .helper {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 16px;
+      margin: 0 0 26px;
+      max-width: 760px;
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 0 0 26px;
+    }
+
+    .example {
+      background: #f4f9f8;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 14px 15px;
+      color: #385257;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary, .btn-secondary {
+      min-width: 150px;
+      padding: 16px 22px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .btn-primary {
+      background: var(--c5);
+      color: white;
+      box-shadow: 0 12px 24px rgba(28, 110, 125, 0.22);
+    }
+
+    .btn-secondary {
+      background: #eaf3f2;
+      color: var(--c6);
+    }
+
+    .btn-ghost {
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      border: 1px solid var(--border);
+    }
+
+    .start-box {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .start-panel {
+      background: linear-gradient(145deg, rgba(155,222,126,0.38), rgba(3,149,144,0.12));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    .start-panel h2 {
+      margin: 0 0 12px;
+      color: var(--c6);
+      letter-spacing: -0.035em;
+    }
+
+    .start-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #385257;
+      line-height: 1.9;
+    }
+
+    .input-row {
+      margin: 22px 0 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--c6);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--c4);
+      box-shadow: 0 0 0 4px rgba(3, 149, 144, 0.12);
+    }
+
+    .result-card {
+      border-radius: 24px;
+      padding: 26px;
+      background: linear-gradient(145deg, #ffffff, #f4faf8);
+      border: 1px solid var(--border);
+    }
+
+    .result-type {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--c1);
+      color: var(--c6);
+      font-size: 14px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .result-title {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing: -0.045em;
+      color: var(--c6);
+    }
+
+    .result-desc {
+      margin: 0 0 18px;
+      color: #405c62;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .result-list {
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .result-list li {
+      padding: 13px 15px;
+      border-radius: 15px;
+      background: #f4f9f8;
+      border: 1px solid var(--border);
+      color: #385257;
+      line-height: 1.55;
+    }
+
+    .history {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .history h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+      color: var(--c6);
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed #dbe7e6;
+      color: #405c62;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .answer {
+      flex: 0 0 auto;
+      font-weight: 900;
+      color: var(--c4);
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 760px) {
+      body { align-items: flex-start; padding-top: 18px; }
+      .start-box { grid-template-columns: 1fr; }
+      .examples { grid-template-columns: 1fr; }
+      .content, .progress-area { padding-left: 20px; padding-right: 20px; }
+      .btn-primary, .btn-secondary { width: 100%; }
+      .actions { flex-direction: column; }
+      .history-item { flex-direction: column; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge">파이썬 자동화 적합성 진단</div>
+      <h1>내 업무, 파이썬으로<br />자동화할 만할까?</h1>
+      <p class="subtitle">
+        자신의 업무 하나를 떠올린 뒤, 예/아니오 질문을 따라가 보세요.
+        마지막에 자동화 적합도와 다음 행동을 확인할 수 있습니다.
+      </p>
+    </section>
+
+    <section class="card" aria-live="polite">
+      <div class="progress-area">
+        <div class="progress-meta">
+          <span id="stepText">시작</span>
+          <span id="progressText">0%</span>
+        </div>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="screen active" id="startScreen">
+          <div class="start-box">
+            <div>
+              <div class="question-label">시작하기 전에</div>
+              <h2 class="question">자동화하고 싶은 업무를 하나 정해보세요.</h2>
+              <p class="helper">
+                너무 거창한 업무가 아니어도 됩니다. 매번 파일을 정리하거나, 엑셀을 취합하거나,
+                반복해서 보고서를 만드는 일처럼 작고 구체적인 업무일수록 판단하기 쉽습니다.
+              </p>
+              <div class="input-row">
+                <label for="taskInput">업무 이름</label>
+                <input id="taskInput" type="text" placeholder="예: 매월 지점별 매출 파일 취합하기" />
+              </div>
+              <div class="actions">
+                <button class="btn-primary" onclick="startDiagnosis()">진단 시작하기</button>
+              </div>
+            </div>
+            <aside class="start-panel">
+              <h2>판단 기준</h2>
+              <ul>
+                <li>반복되는 일인가요?</li>
+                <li>처리 순서가 비슷한가요?</li>
+                <li>입력 자료가 파일이나 데이터로 있나요?</li>
+                <li>결과물 형태가 정해져 있나요?</li>
+                <li>사람의 판단이 많이 필요한가요?</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+
+        <div class="screen" id="questionScreen">
+          <div class="question-label" id="questionLabel"></div>
+          <h2 class="question" id="questionTitle"></h2>
+          <p class="helper" id="questionHelper"></p>
+          <div class="examples" id="examples"></div>
+          <div class="actions">
+            <button class="btn-primary" onclick="answerQuestion('yes')">예</button>
+            <button class="btn-secondary" onclick="answerQuestion('no')">아니오</button>
+            <button class="btn-ghost" onclick="goBack()">이전 질문</button>
+          </div>
+        </div>
+
+        <div class="screen" id="resultScreen">
+          <div class="result-card">
+            <div class="result-type" id="resultType"></div>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-desc" id="resultDesc"></p>
+            <ul class="result-list" id="resultList"></ul>
+            <div class="actions">
+              <button class="btn-primary" onclick="restart()">다른 업무로 다시 진단하기</button>
+              <button class="btn-secondary" onclick="copyResult()">결과 복사하기</button>
+            </div>
+            <div class="history" id="historyBox"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="footer-note">
+      자동화 가능 여부는 절대적인 판정이 아닙니다. 이 진단은 업무를 자동화 관점에서 정리하기 위한 교육용 도구입니다.
+    </p>
+  </main>
+
+  <script>
+    const questions = [
+      {
+        title: "이 업무는 주기적으로 반복되나요?",
+        helper: "자주 하는 일뿐 아니라, 같은 방식으로 다시 하게 되는 일도 반복 업무입니다.",
+        examples: ["매일·매주·매월 하는 일", "정산, 취합, 보고처럼 반복되는 일", "특정 상황마다 다시 발생하는 일"],
+        noResult: "D"
+      },
+      {
+        title: "처리 순서가 매번 거의 비슷한가요?",
+        helper: "자동화는 사람이 하는 순서를 컴퓨터가 따라 하게 만드는 일입니다. 순서가 매번 크게 달라지면 먼저 업무 기준을 정리하는 것이 좋습니다.",
+        examples: ["파일 열기 → 필요한 열 정리", "합계 계산 → 결과 저장", "메일 작성 → 첨부파일 추가"],
+        noResult: "C_STANDARD"
+      },
+      {
+        title: "시작할 때 사용하는 자료가 파일이나 데이터 형태로 있나요?",
+        helper: "파이썬은 엑셀, CSV, PDF, 웹페이지, 폴더 안의 파일처럼 컴퓨터가 읽을 수 있는 자료를 다루는 데 강합니다.",
+        examples: ["엑셀 또는 CSV 파일", "PDF, 이미지, 웹페이지", "폴더 안의 여러 파일"],
+        noResult: "C_DATA"
+      },
+      {
+        title: "최종 결과물의 형태가 정해져 있나요?",
+        helper: "입력과 처리 과정이 있어도 원하는 결과물이 모호하면 자동화 결과도 흔들립니다. 결과물의 형태가 명확할수록 자동화하기 쉽습니다.",
+        examples: ["정리된 엑셀 파일", "보고서, PDF, 메일", "이름이 정리된 파일과 폴더"],
+        noResult: "C_OUTPUT"
+      },
+      {
+        title: "처리 과정에서 사람이 판단해야 하는 부분이 적나요?",
+        helper: "판단이 많다고 해서 자동화가 불가능한 것은 아닙니다. 다만 전체 자동화보다 판단 전후의 반복 작업을 자동화하는 방식이 더 현실적입니다.",
+        examples: ["단순 기준으로 분류 가능", "검토 전 자료 정리 가능", "판단 후 후속 처리 자동화 가능"],
+        noResult: "B",
+        yesResult: "A"
+      }
+    ];
+
+    const results = {
+      A: {
+        type: "결과 A",
+        title: "파이썬 자동화 적합도 높음",
+        desc: "이 업무는 반복성이 있고, 처리 순서와 입력 자료, 결과물이 비교적 명확합니다. 사람이 매번 같은 방식으로 처리하는 부분이 많다면 파이썬 자동화 후보로 삼기 좋습니다.",
+        items: [
+          "먼저 사람이 하는 작업 순서를 5~7단계로 적어보세요.",
+          "입력 자료, 처리 기준, 결과 파일명을 구체적으로 정리해보세요.",
+          "작은 범위부터 자동화한 뒤 점차 기능을 확장하는 방식이 적합합니다."
+        ]
+      },
+      B: {
+        type: "결과 B",
+        title: "부분 자동화에 적합",
+        desc: "이 업무는 사람이 판단해야 하는 부분이 있지만, 전체를 포기할 필요는 없습니다. 판단 전 자료 정리, 판단 후 결과 반영처럼 반복되는 일부 단계를 자동화하면 효과를 볼 수 있습니다.",
+        items: [
+          "사람이 판단해야 하는 단계와 단순 반복 단계를 분리해보세요.",
+          "자료 수집, 파일 정리, 엑셀 취합, 보고서 초안 작성부터 자동화해보세요.",
+          "최종 판단은 사람이 하되, 판단에 필요한 자료를 빠르게 준비하는 방향이 좋습니다."
+        ]
+      },
+      C_STANDARD: {
+        type: "결과 C",
+        title: "업무 표준화가 먼저 필요함",
+        desc: "처리 순서가 매번 다르면 자동화 코드도 불안정해집니다. 바로 코드를 만들기보다 업무의 기본 절차와 기준을 먼저 정리하는 것이 좋습니다.",
+        items: [
+          "업무 순서를 글로 적어보고 매번 달라지는 지점을 표시해보세요.",
+          "달라지는 기준이 꼭 필요한지, 표준화할 수 있는지 검토해보세요.",
+          "표준 절차가 정리되면 그중 반복되는 부분부터 자동화할 수 있습니다."
+        ]
+      },
+      C_DATA: {
+        type: "결과 C",
+        title: "자동화 전 데이터화가 필요함",
+        desc: "파이썬 자동화는 컴퓨터가 읽을 수 있는 자료가 있을 때 효과가 큽니다. 자료가 구두 지시, 종이 문서, 머릿속 판단에만 있다면 먼저 데이터 형태로 바꾸는 과정이 필요합니다.",
+        items: [
+          "반복해서 사용하는 정보를 엑셀 표나 파일 형태로 정리해보세요.",
+          "수기 입력 자료는 표준 양식으로 받는 방법을 고려해보세요.",
+          "데이터가 쌓이면 자동화 가능성이 크게 높아집니다."
+        ]
+      },
+      C_OUTPUT: {
+        type: "결과 C",
+        title: "결과물 기준 정리가 먼저 필요함",
+        desc: "원하는 결과물이 명확하지 않으면 자동화 결과를 검증하기 어렵습니다. 자동화 전에 어떤 형태의 결과가 나오면 성공인지 정해야 합니다.",
+        items: [
+          "최종 결과물이 엑셀, PDF, 메일, 보고서 중 무엇인지 정해보세요.",
+          "파일명, 시트명, 열 이름, 저장 위치 같은 기준을 구체화해보세요.",
+          "성공 기준이 정리되면 파이썬 코드 요청도 훨씬 쉬워집니다."
+        ]
+      },
+      D: {
+        type: "결과 D",
+        title: "자동화 우선순위 낮음",
+        desc: "이 업무는 현재 기준으로 자동화 우선순위가 높지 않습니다. 반복 횟수가 적거나 직접 처리하는 시간이 짧다면 자동화에 드는 시간이 더 클 수 있습니다.",
+        items: [
+          "같은 일이 앞으로 자주 반복될 가능성이 있는지 확인해보세요.",
+          "1회성 업무라면 자동화보다 체크리스트나 템플릿을 만드는 편이 나을 수 있습니다.",
+          "나중에 반복성이 생기면 다시 자동화 후보로 검토할 수 있습니다."
+        ]
+      }
+    };
+
+    let currentIndex = 0;
+    let answers = [];
+    let taskName = "";
+    let finalResultKey = "";
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function updateProgress() {
+      const total = questions.length;
+      const percent = Math.round((currentIndex / total) * 100);
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressText').textContent = percent + '%';
+      document.getElementById('stepText').textContent = currentIndex === 0 && answers.length === 0 ? '시작' : `${Math.min(currentIndex + 1, total)} / ${total}`;
+    }
+
+    function startDiagnosis() {
+      const input = document.getElementById('taskInput').value.trim();
+      taskName = input || "내가 선택한 업무";
+      currentIndex = 0;
+      answers = [];
+      finalResultKey = "";
+      renderQuestion();
+      showScreen('questionScreen');
+    }
+
+    function renderQuestion() {
+      const q = questions[currentIndex];
+      document.getElementById('questionLabel').textContent = `질문 ${currentIndex + 1}`;
+      document.getElementById('questionTitle').textContent = q.title;
+      document.getElementById('questionHelper').textContent = q.helper;
+
+      const examples = document.getElementById('examples');
+      examples.innerHTML = '';
+      q.examples.forEach(text => {
+        const div = document.createElement('div');
+        div.className = 'example';
+        div.textContent = text;
+        examples.appendChild(div);
+      });
+      updateProgress();
+    }
+
+    function answerQuestion(answer) {
+      const q = questions[currentIndex];
+      answers.push({ question: q.title, answer: answer === 'yes' ? '예' : '아니오' });
+
+      if (answer === 'no' && q.noResult) {
+        showResult(q.noResult);
+        return;
+      }
+
+      if (answer === 'yes' && q.yesResult) {
+        showResult(q.yesResult);
+        return;
+      }
+
+      currentIndex++;
+      renderQuestion();
+    }
+
+    function goBack() {
+      if (answers.length === 0) {
+        showScreen('startScreen');
+        currentIndex = 0;
+        updateProgress();
+        return;
+      }
+      answers.pop();
+      currentIndex = Math.max(0, currentIndex - 1);
+      renderQuestion();
+    }
+
+    function showResult(key) {
+      finalResultKey = key;
+      currentIndex = questions.length;
+      updateProgress();
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('progressText').textContent = '100%';
+      document.getElementById('stepText').textContent = '결과';
+
+      const result = results[key];
+      document.getElementById('resultType').textContent = result.type;
+      document.getElementById('resultTitle').textContent = result.title;
+      document.getElementById('resultDesc').textContent = result.desc;
+
+      const list = document.getElementById('resultList');
+      list.innerHTML = '';
+      result.items.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        list.appendChild(li);
+      });
+
+      renderHistory();
+      showScreen('resultScreen');
+    }
+
+    function renderHistory() {
+      const box = document.getElementById('historyBox');
+      box.innerHTML = `<h3>진단한 업무: ${escapeHtml(taskName)}</h3>`;
+      answers.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        div.innerHTML = `<span>${escapeHtml(item.question)}</span><span class="answer">${item.answer}</span>`;
+        box.appendChild(div);
+      });
+    }
+
+    function restart() {
+      document.getElementById('taskInput').value = '';
+      currentIndex = 0;
+      answers = [];
+      finalResultKey = '';
+      updateProgress();
+      showScreen('startScreen');
+    }
+
+    function copyResult() {
+      if (!finalResultKey) return;
+      const result = results[finalResultKey];
+      const historyText = answers.map((item, idx) => `${idx + 1}. ${item.question} → ${item.answer}`).join('\n');
+      const text = `내 업무, 파이썬 자동화 가능할까?\n\n진단한 업무: ${taskName}\n결과: ${result.type} - ${result.title}\n\n${result.desc}\n\n다음 행동:\n- ${result.items.join('\n- ')}\n\n응답 내역:\n${historyText}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        alert('진단 결과가 복사되었습니다.');
+      }).catch(() => {
+        alert('복사가 지원되지 않는 환경입니다. 결과 내용을 직접 선택해 복사해주세요.');
+      });
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    updateProgress();
+  </script>
+</body>
+</html>
