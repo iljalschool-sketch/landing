@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KISTEP Excel AI 교육 | 로직플로우 강의실</title>
+    <meta name="description" content="KISTEP Excel AI 교육 수강생 전용 강의자료 페이지입니다.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            word-break: keep-all;
+        }
+
+        .logic-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%);
+        }
+
+        .hidden-content {
+            display: none;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            transition: all 0.25s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- HEADER -->
+    <header class="fixed w-full top-0 bg-white/90 backdrop-blur-md z-50 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <span class="font-extrabold text-slate-900 text-lg">Logic Flow</span>
+                <span class="hidden sm:inline text-xs text-slate-400 font-semibold">KISTEP 강의실</span>
+            </a>
+
+            <a href="/" class="text-sm font-semibold text-slate-500 hover:text-blue-600 transition">
+                메인으로
+            </a>
+        </div>
+    </header>
+
+    <!-- LOGIN SECTION -->
+    <section id="login-section" class="min-h-screen flex items-center justify-center px-6 logic-gradient text-white">
+        <div class="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl">
+            <div class="text-center mb-8">
+                <p class="text-blue-200 text-sm font-bold tracking-widest uppercase mb-3">Logic Flow Class Room</p>
+                <h1 class="text-3xl font-extrabold mb-4">KISTEP 수강생 전용 강의실</h1>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    강의 중 안내받은 입장코드를 입력해주세요.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <input 
+                    id="access-code"
+                    type="password"
+                    placeholder="입장코드 입력"
+                    class="w-full px-5 py-4 rounded-2xl bg-white text-slate-900 outline-none focus:ring-4 focus:ring-blue-300 text-center font-semibold"
+                    onkeydown="if(event.key === 'Enter') checkCode();"
+                >
+
+                <button 
+                    onclick="checkCode()"
+                    class="w-full bg-yellow-400 text-yellow-950 px-6 py-4 rounded-2xl font-extrabold hover:bg-yellow-300 transition shadow-lg">
+                    입장하기
+                </button>
+
+                <p id="error-message" class="hidden text-center text-sm text-red-200 font-semibold">
+                    입장코드가 맞지 않습니다. 다시 확인해주세요.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLASSROOM SECTION -->
+    <main id="classroom-section" class="hidden-content">
+
+        <!-- HERO -->
+        <section class="pt-32 pb-20 px-6 logic-gradient text-white">
+            <div class="max-w-4xl mx-auto text-center">
+                <p class="text-blue-300 font-bold mb-4 tracking-widest uppercase text-sm">
+                    KISTEP · Excel AI Class
+                </p>
+
+                <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                    KISTEP Excel AI 교육
+                </h1>
+
+                <p class="text-lg text-blue-100 opacity-90 max-w-2xl mx-auto leading-relaxed">
+                    노션 교육자료, 실습자료, 강의 교안을 한 곳에서 확인할 수 있습니다.
+                </p>
+            </div>
+        </section>
+
+        <!-- MATERIAL LINK -->
+        <section class="px-6 -mt-8 relative z-10 pb-20">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-10 card-hover">
+
+                <div class="text-center mb-10">
+                    <p class="text-blue-600 font-bold mb-3 tracking-widest uppercase text-sm">Class Materials</p>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
+                        교육자료 받으러 가기
+                    </h2>
+                    <p class="text-slate-500 leading-relaxed">
+                        아래 링크를 복사하거나 버튼을 눌러 필요한 자료를 확인하세요.
+                    </p>
+                </div>
+
+                <!-- COPYABLE URL -->
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 mb-6">
+                    <div class="flex items-center justify-between px-5 py-3 border-b border-white/10">
+                        <span class="text-xs font-bold text-slate-300">노션 교육자료 링크</span>
+                        <button onclick="copyText('notion-url')" 
+                                class="inline-flex items-center gap-2 text-xs font-bold text-blue-300 hover:text-white transition">
+                            <i class="fas fa-copy"></i>
+                            복사
+                        </button>
+                    </div>
+
+                    <pre class="p-5 overflow-x-auto text-sm leading-relaxed text-slate-100 whitespace-pre-wrap"><code id="notion-url">https://app.notion.com/p/KISTEP-Excel-AI-3a34b7438cc280959c08f055ed97e86d?source=copy_link</code></pre>
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <a href="https://app.notion.com/p/KISTEP-Excel-AI-3a34b7438cc280959c08f055ed97e86d?source=copy_link"
+                       target="_blank"
+                       class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-blue-600 text-white text-sm font-extrabold hover:bg-blue-700 transition shadow-sm">
+                        <i class="fas fa-arrow-up-right-from-square mr-2"></i>
+                        노션 교육자료 바로가기
+                    </a>
+
+                    <a href="./files/KISTEP_실습자료.zip"
+                       download
+                       class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-emerald-600 text-white text-sm font-extrabold hover:bg-emerald-700 transition shadow-sm">
+                        <i class="fas fa-download mr-2"></i>
+                        실습자료 다운로드
+                    </a>
+
+                    <a href="./files/[로직플로우]_KISTEP_고급_활용부터_AI_코딩까지(수강생용).PDF"
+                       download
+                       class="inline-flex items-center justify-center px-6 py-4 rounded-2xl bg-slate-900 text-white text-sm font-extrabold hover:bg-slate-700 transition shadow-sm">
+                        <i class="fas fa-file-pdf mr-2"></i>
+                        강의 교안 다운로드
+                    </a>
+                </div>
+
+                <div class="mt-8 rounded-2xl bg-slate-50 border border-slate-100 p-5">
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        노션 페이지 접속이 원활하지 않으면 실습자료와 강의 교안을 직접 다운로드해서 사용해주세요.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-white py-10 px-6 border-t border-slate-100 text-center">
+            <p class="text-slate-400 text-sm font-medium">
+                © 2026 LOGIC FLOW. Class Room.
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        // 수강생 입장코드
+        const VALID_CODE = "kistep0723";
+
+        function checkCode() {
+            const input = document.getElementById("access-code").value.trim();
+            const errorMessage = document.getElementById("error-message");
+
+            if (input === VALID_CODE) {
+                document.getElementById("login-section").style.display = "none";
+                document.getElementById("classroom-section").style.display = "block";
+
+                sessionStorage.setItem("kistep_class_access", "true");
+            } else {
+                errorMessage.classList.remove("hidden");
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function () {
+            if (sessionStorage.getItem("kistep_class_access") === "true") {
+                document.getElementById("login-section").style.display = "none";
+                document.getElementById("classroom-section").style.display = "block";
+            }
+        });
+
+        function copyText(elementId) {
+            const target = document.getElementById(elementId);
+            const text = target.innerText;
+
+            navigator.clipboard.writeText(text)
+                .then(function () {
+                    alert("복사되었습니다.");
+                })
+                .catch(function () {
+                    alert("복사에 실패했습니다. 직접 드래그해서 복사해주세요.");
+                });
+        }
+    </script>
+
+</body>
+</html>
