@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>경북교육청 수강생 전용 페이지 | Logic Flow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap');
+        body { font-family: 'Pretendard', sans-serif; word-break: keep-all; }
+        .logic-gradient { background: linear-gradient(135deg, #0f172a 0%, #2563eb 100%); }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-white flex items-center justify-center px-5 py-12">
+    <main class="w-full max-w-lg">
+        <section id="login-panel" class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl sm:p-10">
+            <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/20 text-2xl text-blue-300">
+                <i class="fas fa-lock" aria-hidden="true"></i>
+            </div>
+            <p class="mb-2 text-center text-sm font-bold uppercase tracking-widest text-blue-300">Logic Flow</p>
+            <h1 class="mb-3 text-center text-2xl font-extrabold sm:text-3xl">경북교육청 수강생 전용 페이지</h1>
+            <p class="mb-8 text-center leading-relaxed text-slate-300">수강생 확인을 위해 비밀번호를 입력해 주세요.</p>
+            <form id="login-form" class="space-y-4">
+                <label for="password" class="sr-only">비밀번호</label>
+                <input id="password" name="password" type="password" inputmode="numeric" autocomplete="current-password" required
+                    class="w-full rounded-xl border border-white/15 bg-slate-900 px-4 py-3.5 text-center text-lg tracking-[0.35em] text-white outline-none transition placeholder:tracking-normal placeholder:text-slate-500 focus:border-blue-400 focus:ring-2 focus:ring-blue-500/30"
+                    placeholder="비밀번호 입력" aria-describedby="login-error">
+                <p id="login-error" class="hidden text-center text-sm text-rose-300" role="alert">비밀번호가 올바르지 않습니다. 다시 입력해 주세요.</p>
+                <button type="submit" class="w-full rounded-xl bg-blue-600 px-5 py-3.5 font-bold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-slate-950">
+                    강의자료 페이지 입장 <i class="fas fa-arrow-right ml-2" aria-hidden="true"></i>
+                </button>
+            </form>
+        </section>
+
+        <section id="resource-panel" class="hidden rounded-3xl border border-white/10 bg-white/5 p-8 text-center shadow-2xl sm:p-10" aria-labelledby="resource-title">
+            <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/20 text-2xl text-blue-300">
+                <i class="fas fa-book-open" aria-hidden="true"></i>
+            </div>
+            <p class="mb-2 text-sm font-bold uppercase tracking-widest text-blue-300">Gyeongbuk Office of Education</p>
+            <h1 id="resource-title" class="mb-4 text-2xl font-extrabold sm:text-3xl">경북교육청 수강생 전용 페이지</h1>
+            <p class="mb-8 text-slate-300">아래 버튼을 눌러 강의자료를 확인하세요.</p>
+            <a href="https://app.notion.com/p/1022_-_-with-AI-3f94b7438cc280f8816ac19321fb64eb?source=copy_link" target="_blank" rel="noopener noreferrer"
+                class="inline-flex w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-4 font-bold text-slate-900 transition hover:bg-blue-50">
+                <i class="fas fa-external-link-alt text-blue-600" aria-hidden="true"></i>
+                강의자료 노션 바로가기
+            </a>
+        </section>
+        <p class="mt-6 text-center text-xs text-slate-500">© 2026 LOGIC FLOW</p>
+    </main>
+
+    <script>
+        // 정적 페이지용 간단한 입장 확인입니다. 페이지 소스에 자료 주소가 포함되므로 민감한 자료 보호에는 적합하지 않습니다.
+        const PASSWORD_SHA256 = 'e0c86ee499620f4b6067562cdaf87e9a7dcd4b1c649a2545619a2dd3b05ac3f4';
+        const form = document.getElementById('login-form');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('login-error');
+
+        async function sha256(value) {
+            const bytes = new TextEncoder().encode(value);
+            const digest = await crypto.subtle.digest('SHA-256', bytes);
+            return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+        }
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const isValid = await sha256(passwordInput.value) === PASSWORD_SHA256;
+            if (isValid) {
+                document.getElementById('login-panel').classList.add('hidden');
+                document.getElementById('resource-panel').classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+                passwordInput.select();
+            }
+        });
+    </script>
+</body>
+</html>
