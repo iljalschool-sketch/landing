@@ -143,13 +143,16 @@
                 <div class="space-y-4">
                     ${교육.open && 교육.open.length ? `
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">[수강 가능 교육]</p>
-                        ${교육.open.map((과정) => `
-                            <a href="${esc(과정.url)}" target="_blank" rel="noopener"
-                               class="block p-4 bg-slate-50 rounded-xl hover:bg-mint transition border border-transparent hover:border-accent">
+                        ${교육.open.map((과정) => {
+                            // 링크가 없는 '개설 예정' 과정은 a 태그로 만들지 않는다 (빈 링크 방지)
+                            const 속내용 = `
                                 <p class="text-sm font-bold text-slate-900">${esc(과정.title)}</p>
-                                ${과정.cta ? `<p class="text-xs text-brand mt-1 font-semibold">${esc(과정.cta)}</p>` : ''}
-                            </a>
-                        `).join('')}
+                                ${과정.cta ? `<p class="text-xs text-brand mt-1 font-semibold">${esc(과정.cta)}</p>` : ''}`;
+                            return 과정.url
+                                ? `<a href="${esc(과정.url)}" target="_blank" rel="noopener"
+                                      class="block p-4 bg-slate-50 rounded-xl hover:bg-mint transition border border-transparent hover:border-accent">${속내용}</a>`
+                                : `<div class="p-4 bg-slate-50 rounded-xl border border-dashed border-slate-200 opacity-80">${속내용}</div>`;
+                        }).join('')}
                     ` : ''}
 
                     ${교육.classrooms && 교육.classrooms.length ? `
@@ -326,6 +329,31 @@
         채우기('tab-education', 탭_카드('fas fa-graduation-cap', '학력 사항', null, 본문));
     };
 
+    /** 강의 항목 옆에 붙는 작은 배지들 (모집상태 · 형태 · 반복 횟수) */
+    const 배지_모양 = {
+        '신청가능': { 글: '신청 가능',  색: 'bg-accent text-white' },
+        '오픈예정': { 글: '개설 예정',  색: 'bg-amber-400/90 text-amber-950' },
+        '온라인':   { 글: '온라인',     색: 'bg-sky-400/90 text-sky-950' },
+        'VOD':      { 글: 'VOD',        색: 'bg-violet-400/90 text-violet-950' }
+    };
+
+    const 배지 = (강의) => {
+        const 조각들 = [];
+        const 붙이기 = (열쇠) => {
+            const 모양 = 배지_모양[열쇠];
+            if (모양) {
+                조각들.push(`<span class="ml-2 px-2 py-0.5 rounded-full ${모양.색} text-xs font-bold align-middle">${모양.글}</span>`);
+            }
+        };
+
+        붙이기(강의.status);
+        붙이기(강의.format);
+        if (강의.count > 1) {
+            조각들.push(`<span class="ml-2 px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-bold align-middle">${esc(강의.count)}회</span>`);
+        }
+        return 조각들.join('');
+    };
+
     // 주의: lectures.json의 agency(경유 에이전시) 필드는 내부 기록용이므로
     //       의도적으로 화면에 그리지 않는다. 노출 기준은 해당 파일의 _표기원칙 참고.
     const 강의_그리기 = (자료) => {
@@ -341,10 +369,12 @@
                         <p class="${그룹.highlight ? 'text-white font-bold' : 'text-slate-200'}">
                             ${esc(강의.title)}
                             ${강의.client ? `<span class="${그룹.highlight ? 'text-accent' : 'text-slate-500'} text-sm ml-1">(${esc(강의.client)})</span>` : ''}
-                            ${강의.count > 1 ? `<span class="ml-2 px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-bold align-middle">${esc(강의.count)}회</span>` : ''}
+                            ${배지(강의)}
                             ${강의.year ? `<span class="text-slate-500 text-xs ml-2">${esc(강의.year)}</span>` : ''}
                         </p>
-                        ${강의.target ? `<p class="text-slate-500 text-xs mt-1">교육 대상 · ${esc(강의.target)}</p>` : ''}`;
+                        ${강의.target ? `<p class="text-slate-500 text-xs mt-1">교육 대상 · ${esc(강의.target)}</p>` : ''}
+                        ${강의.url && 강의.status === '신청가능'
+                            ? '<p class="text-accent text-xs mt-1 font-bold">신청하러 가기 →</p>' : ''}`;
                     const 클래스 = `career-item${그룹.highlight ? ' highlight' : ''}`;
 
                     return 강의.url

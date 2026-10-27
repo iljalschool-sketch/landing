@@ -25,7 +25,17 @@ def 재계산(파일_경로: Path) -> int:
     수식_수 = 0
     try:
         통합문서 = 엑셀.Workbooks.Open(str(파일_경로.resolve()))
-        엑셀.CalculateFullRebuild()
+
+        # 늦은 바인딩(late binding)에서는 메서드 이름이 바로 안 잡힐 때가 있어
+        # 강한 순서대로 시도한다.
+        for 메서드_이름 in ("CalculateFullRebuild", "CalculateFull", "Calculate"):
+            try:
+                getattr(엑셀, 메서드_이름)()
+                break
+            except AttributeError:
+                continue
+        else:
+            raise RuntimeError("Excel 재계산 메서드를 호출하지 못했습니다")
 
         for 시트 in 통합문서.Worksheets:
             사용범위 = 시트.UsedRange

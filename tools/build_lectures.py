@@ -17,22 +17,25 @@ from openpyxl import load_workbook
 엑셀_경로 = Path("data/강의이력.xlsx")
 강의_경로 = Path("data/lectures.json")
 지표_경로 = Path("data/stats.json")
+과정_경로 = Path("data/courses.json")   # '사업 영역'의 수강 가능 교육 목록
 
 헤더_행 = 4
 첫_데이터_행 = 5
 
 # 엑셀의 '구분' 값 → lectures.json의 그룹 id
 구분_매핑 = OrderedDict([
-    ("대표강의", "featured"),
     ("기관·기업", "institution"),
     ("자체과정", "own"),
 ])
 
-그룹_설정 = {
-    "featured":    {"label": "대표 강의",      "highlight": True},
-    "institution": {"label": "기관·기업 강의", "highlight": False},
-    "own":         {"label": "자체 교육 과정", "highlight": False},
-}
+# 모집상태가 아래 값이면 구분과 상관없이 '수강 신청 가능' 영역으로 올린다.
+모집중_상태 = ("신청가능", "오픈예정")
+
+그룹_설정 = OrderedDict([
+    ("enrollable",  {"label": "수강 신청 가능", "highlight": True}),
+    ("institution", {"label": "기관·기업 강의", "highlight": False}),
+    ("own",         {"label": "자체 교육 과정", "highlight": False}),
+])
 
 
 def 행_읽기() -> list[dict]:
@@ -77,14 +80,38 @@ def 행_읽기() -> list[dict]:
             "기관": 값(행, "표시기관명"),
             "대상": 값(행, "교육대상"),
             "에이전시": 값(행, "에이전시"),
+            "형태": 값(행, "형태") or "오프라인",
             "시간": 값(행, "교육시간") or 0,
             "인원": 값(행, "수강인원") or 0,
             "구분": 값(행, "구분") or "기관·기업",
+            "모집상태": 값(행, "모집상태") or "",
             "표시": str(값(행, "홈페이지표시") or "Y").upper() != "N",
             "링크": 값(행, "신청링크"),
+            "행번호": 행,
         })
 
     return 회차들
+
+
+def 입력_점검(회차들: list[dict]) -> list[str]:
+    """흔한 입력 실수를 찾아 경고 문구 목록으로 돌려준다."""
+    경고들 = []
+    for 회차 in 회차들:
+        위치 = f"{회차['행번호']}행 「{회차['강의명']}」"
+
+        if 회차["모집상태"] == "신청가능" and not 회차["링크"]:
+            경고들.append(f"{위치}: 모집상태가 '신청가능'인데 신청링크가 없습니다. "
+                          f"링크를 넣거나 '오픈예정'으로 바꾸세요.")
+
+        if 회차["모집상태"] and not 회차["표시"]:
+            경고들.append(f"{위치}: 모집상태가 '{회차['모집상태']}'인데 홈페이지표시가 N입니다. "
+                          f"신청 가능 영역에 나오지 않습니다.")
+
+        if 회차["모집상태"] not in ("", *모집중_상태):
+            경고들.append(f"{위치}: 모집상태 '{회차['모집상태']}'를 알 수 없습니다. "
+                          f"비워두거나 {' / '.join(모집중_상태)} 중에서 고르세요.")
+
+    return 경고들
 
 
 def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
@@ -103,13 +130,17 @@ def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
 
     for (강의명, 기관), 묶인것 in 묶음.items():
         회차목록 = 묶인것["회차목록"]
-        그룹id = 구분_매핑.get(묶인것["구분"], "institution")
 
         # 비어 있지 않은 값을 쓰되, 가장 최근 회차의 정보를 우선한다
         최신순 = sorted(회차목록, key=lambda 항목: 항목["일자"] or date.min, reverse=True)
 
         def 첫값(열쇠):
             return next((항목[열쇠] for 항목 in 최신순 if 항목[열쇠]), None)
+
+        # 한 회차라도 모집 중이면 '수강 신청 가능' 영역으로 올린다
+        모집상태 = next((항목["모집상태"] for 항목 in 최신순
+                         if 항목["모집상태"] in 모집중_상태), "")
+        그룹id = "enrollable" if 모집상태 else 구분_매핑.get(묶인것["구분"], "institution")
 
         항목 = {"title": 강의명}
         if 기관:
@@ -118,11 +149,20 @@ def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
             항목["target"] = 첫값("대상")
         if 첫값("에이전시"):
             항목["agency"] = 첫값("에이전시")      # 화면에는 표시되지 않음
+
+        형태 = 첫값("형태")
+        if 형태 and 형태 != "오프라인":
+            항목["format"] = 형태                  # 온라인 / VOD 배지
+
+        if 모집상태:
+            항목["status"] = 모집상태
         if len(회차목록) > 1:
             항목["count"] = len(회차목록)
         if 최신순[0]["일자"]:
             항목["year"] = 최신순[0]["일자"].year
-        if 첫값("링크"):
+
+        # 모집 중이 아닌데 링크만 남아 있으면 '끝난 과정 신청 유도'가 되므로 붙이지 않는다
+        if 첫값("링크") and (모집상태 == "신청가능" or 그룹id != "enrollable"):
             항목["url"] = 첫값("링크")
 
         그룹별[그룹id].append((최신순[0]["일자"] or date.min, 항목))
@@ -135,6 +175,32 @@ def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
         if 항목들:
             결과.append({"id": 그룹id, **설정, "items": 항목들})
     return 결과
+
+
+def 모집중_목록(강의_그룹들: list[dict]) -> list[dict]:
+    """'사업 영역' 섹션에 넣을 수강 가능 교육 목록을 만든다.
+
+    강의 이력과 같은 엑셀에서 나오므로 두 곳이 어긋날 일이 없다.
+    """
+    신청가능_그룹 = next((그룹 for 그룹 in 강의_그룹들 if 그룹["id"] == "enrollable"), None)
+    if not 신청가능_그룹:
+        return []
+
+    목록 = []
+    for 항목 in 신청가능_그룹["items"]:
+        제목 = 항목["title"]
+        if 항목.get("client"):
+            제목 = f"{제목} ({항목['client']})"
+
+        과정 = {"title": 제목}
+        if 항목.get("url"):
+            과정["url"] = 항목["url"]
+            과정["cta"] = "바로가기 →"
+        else:
+            과정["cta"] = "개설 예정"       # 오픈예정: 링크 없이 안내만
+        목록.append(과정)
+
+    return 목록
 
 
 def 지표_계산(회차들: list[dict]) -> dict:
@@ -159,10 +225,22 @@ def 실행() -> None:
     if not 회차들:
         raise SystemExit("[중단] 엑셀에서 읽을 강의가 없습니다.")
 
+    경고들 = 입력_점검(회차들)
+    if 경고들:
+        print("[확인 필요]")
+        for 경고 in 경고들:
+            print(f"  - {경고}")
+        print()
+
     # ── lectures.json : 설명용 키(_로 시작)는 그대로 두고 groups만 교체 ──
     강의_자료 = json.loads(강의_경로.read_text(encoding="utf-8"))
     강의_자료["groups"] = 강의목록_만들기(회차들)
     저장(강의_경로, 강의_자료)
+
+    # ── courses.json : 사업 영역의 '수강 가능 교육'도 같은 출처에서 채운다 ──
+    과정_자료 = json.loads(과정_경로.read_text(encoding="utf-8"))
+    과정_자료["education"]["open"] = 모집중_목록(강의_자료["groups"])
+    저장(과정_경로, 과정_자료)
 
     # ── stats.json : source가 지정된 항목만 값을 채운다 ──
     지표_자료 = json.loads(지표_경로.read_text(encoding="utf-8"))
@@ -184,7 +262,13 @@ def 실행() -> None:
         for 항목 in 그룹["items"]:
             반복 = f" ×{항목['count']}회" if "count" in 항목 else ""
             기관 = f" ({항목['client']})" if "client" in 항목 else ""
-            print(f"    - {항목['title']}{기관}{반복}")
+            표식 = "".join(f" [{항목[열쇠]}]" for 열쇠 in ("status", "format") if 열쇠 in 항목)
+            링크 = " [링크]" if "url" in 항목 else ""
+            print(f"    - {항목['title']}{기관}{반복}{표식}{링크}")
+    print("\n[courses.json] 사업 영역 · 수강 가능 교육")
+    for 과정 in 과정_자료["education"]["open"]:
+        print(f"  - {과정['title']} ({과정['cta']})")
+
     print("\n[stats.json]")
     for 줄 in 갱신된_지표:
         print(f"  {줄}")
