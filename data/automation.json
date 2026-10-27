@@ -2,8 +2,8 @@
   "_주석": "자동화 프로그램 개발 이력입니다. tech는 사용한 도구/AI 조합을 적습니다.",
   "groups": [
     {
-      "id": "major",
-      "label": "주요 프로젝트",
+      "id": "automation",
+      "label": "자동화 개발",
       "highlight": true,
       "layout": "list",
       "items": [
@@ -18,7 +18,15 @@
           "tech": "파이썬 with Claude",
           "client": "연구용역회사",
           "effect": "3단계·40개 키워드 공고를 자동 수집하고, 제외 조건·수의계약·중복을 걸러 신규 공고만 누적·검토하도록"
-        },
+        }
+      ]
+    },
+    {
+      "id": "report",
+      "label": "보고서 생성",
+      "highlight": false,
+      "layout": "list",
+      "items": [
         {
           "title": "역량 측정 보고서 자동 생성 프로그램 개발",
           "tech": "파이썬 with Cursor",

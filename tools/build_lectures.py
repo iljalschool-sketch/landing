@@ -238,11 +238,13 @@ def 개발이력_읽기() -> list[dict] | None:
         원값 = 시트.cell(row=행, column=열번호[헤더]).value
         return 원값.strip() if isinstance(원값, str) else 원값
 
+    # 중요도가 아니라 '무엇을 만들어 주는가'로 나눈다.
+    # 홈페이지 '업무 자동화·솔루션 개발' 카드가 이 기준으로 목록을 보여준다.
     그룹_설정 = OrderedDict([
-        ("major",      {"label": "주요 프로젝트",      "highlight": True,  "layout": "list"}),
-        ("efficiency", {"label": "업무 효율화 자동화", "highlight": False, "layout": "grid"}),
+        ("automation", {"label": "자동화 개발",  "highlight": True,  "layout": "list"}),
+        ("report",     {"label": "보고서 생성",  "highlight": False, "layout": "list"}),
     ])
-    구분_매핑 = {"주요 프로젝트": "major", "업무 효율화": "efficiency"}
+    구분_매핑 = {"자동화 개발": "automation", "보고서 생성": "report"}
     그룹별 = {그룹id: [] for 그룹id in 그룹_설정}
 
     for 행 in range(첫_데이터_행, 시트.max_row + 1):
@@ -264,7 +266,7 @@ def 개발이력_읽기() -> list[dict] | None:
             항목["effect"] = 값(행, "해결한 문제")
         # 에이전시는 읽되 내보내지 않는다 (화면 비노출 원칙)
 
-        그룹별[구분_매핑.get(값(행, "구분"), "efficiency")].append(항목)
+        그룹별[구분_매핑.get(값(행, "구분"), "automation")].append(항목)
 
     return [{"id": 그룹id, **설정, "items": 그룹별[그룹id]}
             for 그룹id, 설정 in 그룹_설정.items() if 그룹별[그룹id]]

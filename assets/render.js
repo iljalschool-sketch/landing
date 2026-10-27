@@ -139,11 +139,13 @@
 
     /* ── 2. 교육 · 솔루션 ──────────────────────────────────────── */
 
-    const 사업영역_그리기 = (자료) => {
+    const 사업영역_그리기 = (자료, 자동화) => {
         if (!자료) return;
 
         const 리포팅 = 자료.reporting;
         const 교육 = 자료.education;
+        // 실제 개발한 건들. 없으면 courses.json의 features로 되돌아간다.
+        const 개발목록 = 개발목록_만들기(자동화);
 
         // 섹션 제목 (교육 중심 포지셔닝)
         채우기('solutions-heading', esc(자료.heading || '교육 · 솔루션'));
@@ -197,16 +199,41 @@
                     <i class="fas fa-arrow-right ml-2 text-sm opacity-0 group-hover:opacity-100 transition-all"></i>
                 </h3>
                 <p class="text-slate-600 leading-relaxed mb-8">${리포팅.body}</p>
-                <div class="space-y-3">
-                    ${리포팅.features.map((특징) => `
-                        <div class="flex items-start">
-                            <i class="fas fa-check-circle text-accent mt-1 mr-3"></i>
-                            <span class="text-sm text-slate-700 font-medium">${esc(특징)}</span>
-                        </div>
-                    `).join('')}
-                </div>
+                ${개발목록 || 리포팅.features.map((특징) => `
+                    <div class="flex items-start mb-3">
+                        <i class="fas fa-check-circle text-accent mt-1 mr-3"></i>
+                        <span class="text-sm text-slate-700 font-medium">${esc(특징)}</span>
+                    </div>
+                `).join('')}
             </a>
         `);
+    };
+
+    /**
+     * 솔루션 카드 안에 실제 개발한 건들을 보여준다.
+     *
+     * '반복 업무 자동화 프로그램 개발' 같은 일반적인 홍보 문구보다
+     * 실제로 만든 것의 이름이 훨씬 설득력이 있다.
+     */
+    const 개발목록_만들기 = (자동화) => {
+        if (!자동화 || !자동화.groups || !자동화.groups.length) return '';
+
+        return 자동화.groups.map((그룹) => `
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+                ${esc(그룹.label)}
+            </p>
+            <div class="space-y-2 mb-6">
+                ${그룹.items.map((항목) => `
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-accent mt-1 mr-3 shrink-0"></i>
+                        <span class="text-sm text-slate-700">
+                            ${esc(항목.title)}
+                            ${항목.client ? `<span class="text-slate-400 text-xs ml-1">(${esc(항목.client)})</span>` : ''}
+                        </span>
+                    </div>
+                `).join('')}
+            </div>
+        `).join('');
     };
 
     /* ── 개발 사례 ─────────────────────────────────────────────── */
@@ -682,7 +709,7 @@
 
         지표_그리기(지표);
         문제_그리기(문제);
-        사업영역_그리기(과정);
+        사업영역_그리기(과정, 자동화);
         사례_그리기(사례);
         소개_그리기(사이트);
         갤러리_그리기(갤러리);
