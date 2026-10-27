@@ -25,7 +25,7 @@
           "client": "멀티캠퍼스",
           "status": "신청가능",
           "expires": "2026-11-23",
-          "count": 3,
+          "count": 5,
           "year": 2026,
           "url": "https://m.multicampus.com/course/crsDetail?corsCd=FA01GK"
         },
@@ -62,10 +62,16 @@
           "year": 2026
         },
         {
-          "title": "AI활용 실무: 사무자동화 마스터 클래스",
+          "title": "생성형 AI와 Python을 활용한 업무자동화",
           "client": "대구YMCA",
-          "target": "대성에너지 직무훈련과정",
-          "count": 6,
+          "target": "대성에너지",
+          "year": 2026
+        },
+        {
+          "title": "생성형 AI 업무활용 과정",
+          "client": "대구YMCA",
+          "target": "대성에너지",
+          "count": 11,
           "year": 2026
         },
         {
@@ -88,12 +94,13 @@
         {
           "title": "AI 활용과 진로",
           "client": "단국대학교",
-          "format": "VOD",
+          "format": "온라인",
           "year": 2026
         },
         {
           "title": "AI 활용 학습법 특강",
           "client": "유원대학교",
+          "format": "온라인",
           "year": 2026
         },
         {
@@ -102,14 +109,13 @@
           "year": 2026
         },
         {
-          "title": "생성형 AI를 활용한 행정 업무 자동화",
-          "client": "공주교육대학교",
-          "format": "온라인",
-          "year": 2026
+          "title": "[Ctrl+AI] 2일만에 끝내는 파이썬 업무 자동화 프로젝트 with ChatGPT",
+          "client": "멀티캠퍼스",
+          "year": 2025
         },
         {
-          "title": "[Ctrl+AI] 2일만에 끝내는 파이썬 업무 자동화 프로젝트 with ChatGPT",
-          "client": "멀티캠퍼스"
+          "title": "AI활용 학습법 특강",
+          "format": "온라인"
         }
       ]
     },
@@ -119,19 +125,9 @@
       "highlight": false,
       "items": [
         {
-          "title": "AI활용 사무자동화 클래스 (파이썬)"
-        },
-        {
-          "title": "AI활용 사무자동화 클래스 (엑셀 VBA)"
-        },
-        {
-          "title": "생성형 AI로 맛보는 파이썬 자동화"
-        },
-        {
-          "title": "함수 없이 쉽게 배우는 엑셀"
-        },
-        {
-          "title": "도서관 사서를 위한 엑셀 실무 교육"
+          "title": "AI로 파이썬 자동화 맛보기",
+          "client": "일잘러스쿨",
+          "year": 2026
         }
       ]
     }
