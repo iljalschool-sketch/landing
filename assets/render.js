@@ -152,11 +152,11 @@
         // 교육을 먼저, 개발·솔루션을 뒤에 그린다.
         // 실제 사업 비중이 교육 중심이므로 순서로도 드러낸다.
         채우기('solutions-grid', `
-            <div class="bg-white p-10 rounded-3xl shadow-sm border-2 border-accent/30 card-hover">
-                <div class="w-14 h-14 bg-mint text-brand rounded-2xl flex items-center justify-center mb-6 text-2xl">
+            <div class="bg-white p-10 rounded-3xl shadow-sm border-2 border-accent/30 card-hover group transition-all">
+                <div class="w-14 h-14 bg-mint text-brand rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-brand group-hover:text-white transition-colors">
                     <i class="${esc(교육.icon)}"></i>
                 </div>
-                <h3 class="text-2xl font-bold mb-1">${esc(교육.title)}</h3>
+                <h3 class="text-2xl font-bold mb-1 group-hover:text-brand transition-colors">${esc(교육.title)}</h3>
                 <p class="text-brand text-sm font-bold mb-4 italic">"${esc(교육.tagline)}"</p>
                 <p class="text-slate-600 leading-relaxed mb-8">${교육.body}</p>
 
