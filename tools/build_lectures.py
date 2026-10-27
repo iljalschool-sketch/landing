@@ -18,7 +18,8 @@ from openpyxl import load_workbook
 엑셀_경로 = Path("../강의이력.xlsx")
 강의_경로 = Path("data/lectures.json")
 지표_경로 = Path("data/stats.json")
-과정_경로 = Path("data/courses.json")   # '사업 영역'의 수강 가능 교육 목록
+과정_경로 = Path("data/courses.json")       # '교육·솔루션'의 수강 가능 교육
+자동화_경로 = Path("data/automation.json")   # 자동화 개발 이력
 
 헤더_행 = 4
 첫_데이터_행 = 5
@@ -207,6 +208,62 @@ def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
     return 결과
 
 
+def 개발이력_읽기() -> list[dict] | None:
+    """'개발이력' 시트를 읽어 automation.json 의 groups 를 만든다.
+
+    시트가 없으면 None을 돌려주고 기존 automation.json을 그대로 둔다.
+    """
+    통합문서 = load_workbook(엑셀_경로, data_only=True)
+    if "개발이력" not in 통합문서.sheetnames:
+        return None
+
+    시트 = 통합문서["개발이력"]
+    열번호 = {str(칸.value).strip(): 칸.column
+              for 칸 in 시트[헤더_행] if 칸.value}
+
+    빠진 = [이름 for 이름 in ("프로젝트명", "구분", "홈페이지표시")
+            if 이름 not in 열번호]
+    if 빠진:
+        raise SystemExit(f"[중단] 개발이력 시트 헤더가 바뀌었습니다. 없는 열: {빠진}")
+
+    def 값(행, 헤더):
+        if 헤더 not in 열번호:
+            return None
+        원값 = 시트.cell(row=행, column=열번호[헤더]).value
+        return 원값.strip() if isinstance(원값, str) else 원값
+
+    그룹_설정 = OrderedDict([
+        ("major",      {"label": "주요 프로젝트",      "highlight": True,  "layout": "list"}),
+        ("efficiency", {"label": "업무 효율화 자동화", "highlight": False, "layout": "grid"}),
+    ])
+    구분_매핑 = {"주요 프로젝트": "major", "업무 효율화": "efficiency"}
+    그룹별 = {그룹id: [] for 그룹id in 그룹_설정}
+
+    for 행 in range(첫_데이터_행, 시트.max_row + 1):
+        이름 = 값(행, "프로젝트명")
+        if not 이름:
+            continue
+        if str(값(행, "비고") or "").startswith("예시"):
+            continue
+        if str(값(행, "홈페이지표시") or "Y").upper() == "N":
+            continue
+
+        항목 = {"title": 이름}
+        if 값(행, "사용도구"):
+            항목["tech"] = 값(행, "사용도구")
+        if 값(행, "표시고객명"):
+            항목["client"] = 값(행, "표시고객명")
+        # '어떤 반복 업무가 없어졌는지' — 교육 메시지와 이어지는 핵심 항목
+        if 값(행, "해결한 문제"):
+            항목["effect"] = 값(행, "해결한 문제")
+        # 에이전시는 읽되 내보내지 않는다 (화면 비노출 원칙)
+
+        그룹별[구분_매핑.get(값(행, "구분"), "efficiency")].append(항목)
+
+    return [{"id": 그룹id, **설정, "items": 그룹별[그룹id]}
+            for 그룹id, 설정 in 그룹_설정.items() if 그룹별[그룹id]]
+
+
 def 모집중_목록(강의_그룹들: list[dict]) -> list[dict]:
     """'사업 영역' 섹션에 넣을 수강 가능 교육 목록을 만든다.
 
@@ -288,6 +345,13 @@ def 실행() -> None:
     과정_자료 = json.loads(과정_경로.read_text(encoding="utf-8"))
     과정_자료["education"]["open"] = 모집중_목록(강의_자료["groups"])
     저장(과정_경로, 과정_자료)
+
+    # ── automation.json : '개발이력' 시트가 있으면 자동화 개발 이력도 갱신 ──
+    개발_그룹 = 개발이력_읽기()
+    if 개발_그룹:
+        자동화_자료 = json.loads(자동화_경로.read_text(encoding="utf-8"))
+        자동화_자료["groups"] = 개발_그룹
+        저장(자동화_경로, 자동화_자료)
 
     # ── stats.json : source가 지정된 항목만 값을 채운다 ──
     지표_자료 = json.loads(지표_경로.read_text(encoding="utf-8"))

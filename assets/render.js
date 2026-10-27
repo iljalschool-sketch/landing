@@ -462,9 +462,14 @@
                     <div class="career-item${그룹.highlight ? ' highlight' : ''}">
                         <p class="${그룹.highlight ? 'text-white font-bold' : 'text-slate-200 text-sm'}">
                             ${esc(항목.title)}
-                            ${!그룹.highlight && 항목.tech ? `<span class="text-slate-500">(${esc(항목.tech)})</span>` : ''}
+                            ${항목.client ? `<span class="text-slate-500 text-xs ml-1">(${esc(항목.client)})</span>` : ''}
+                            ${!그룹.highlight && 항목.tech ? `<span class="text-slate-500 text-xs ml-1">· ${esc(항목.tech)}</span>` : ''}
                         </p>
                         ${그룹.highlight && 항목.tech ? `<p class="text-accent text-xs mt-1">${esc(항목.tech)}</p>` : ''}
+                        ${항목.effect ? `
+                            <p class="text-slate-400 text-xs mt-2 leading-relaxed">
+                                <span class="text-accent">해결</span> ${esc(항목.effect)}
+                            </p>` : ''}
                     </div>
                 `).join('')}
             </div>

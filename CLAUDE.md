@@ -26,7 +26,7 @@
 5. **활동사진은 모자이크 처리된 것만 사용한다.** 원본 폴더(`홍보/Photos-*`)가 아니라
    `홍보/활동사진_모자이크`를 쓴다. EXIF는 스크립트가 제거한다.
 
-6. **`lectures.json`의 `groups`, `stats.json`의 `source` 항목, `courses.json`의 `education.open`은 손으로 고치지 않는다.**
+6. **`lectures.json`·`automation.json`의 `groups`, `stats.json`의 `source` 항목, `courses.json`의 `education.open`은 손으로 고치지 않는다.**
    저장소 바깥의 `../강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
    직접 고치면 다음 실행 때 덮어쓰기 된다. 사용자가 "강의이력 업데이트해줘"라고 하면
    이 스크립트를 실행한다.
@@ -43,7 +43,9 @@
 | `assets/render.js` | `data/*.json` → DOM 렌더링 |
 | `data/*.json` | 모든 콘텐츠 |
 | `../강의이력.xlsx` | 강의 회차 기록의 **원본**. 저장소 **바깥**에 둔다 — GitHub Pages가 저장소 전체를 공개하므로 에이전시명·교육대상이 노출되기 때문 |
-| `tools/build_lectures.py` | 엑셀 → `lectures.json` + `stats.json` + `courses.json`의 `education.open` |
+| `tools/build_lectures.py` | 엑셀 → `lectures.json` + `stats.json` + `courses.json` + `automation.json` |
+| `tools/build_meta.py` | `brand.json` → `index.html` 표식 구간 + OG 이미지 |
+| `tools/add_dev_sheet.py` | 엑셀에 '개발이력' 시트 추가 (최초 1회용) |
 | `tools/build_gallery.py` | 활동사진 리사이즈 + EXIF 제거 + `gallery.json` 생성 |
 | `tools/build_brand.py` | 로고 웹용 변환 + 파비콘 + OG 이미지 + 프로필 |
 | `tools/recalc_excel.py` | Excel COM으로 수식 재계산·오류 검사 (LibreOffice 없는 환경용) |
@@ -54,9 +56,11 @@
 ## 강의 이력 파이프라인
 
 ```
-../강의이력.xlsx  ──(build_lectures.py)──┬──> data/lectures.json  (중복 제거: 같은 강의명+기관은 1줄 + count)
-   회차 단위로 기록                        ├──> data/stats.json     (전체 합산: 수강생·횟수·시간·기관 수)
-                                           └──> data/courses.json   (education.open = 모집 중인 과정)
+../강의이력.xlsx
+  ├─ '강의이력' 시트 ──(build_lectures.py)──┬──> data/lectures.json   (같은 강의명+기관은 1줄 + count)
+  │    회차 단위로 기록                      ├──> data/stats.json      (전체 합산)
+  │                                          └──> data/courses.json    (education.open = 모집 중인 과정)
+  └─ '개발이력' 시트 ──(build_lectures.py)─────> data/automation.json  (자동화 개발 이력)
 ```
 
 - 엑셀은 **회차**를, JSON은 **목록과 합계**를 담는다. 이 분리가 핵심이다.
@@ -135,6 +139,8 @@ JSON 로드에 실패하면 `읽기()`가 `null`을 반환하고, 각 `*_그리�
 
 | 날짜 | 내용 |
 |---|---|
+| 2026-10-28 | 개발 이력을 엑셀 '개발이력' 시트로 이관. '해결한 문제'(어떤 반복 업무가 없어졌는지)를 화면에 표시. 개발 이력의 역할을 '개발 수주'에서 '교육 신뢰 근거'로 재정의 |
+| 2026-10-28 | 교육 중심 포지셔닝 개편. brand.json 단일 관리, 메타로직 전면 제거, '이런 문제를 해결합니다' 신설, 옐로우 강조색 추가 |
 | 2026-10-27 | `모집마감일` 추가. 마감일이 지나면 빌드·화면 두 겹에서 자동으로 '수강 신청 가능'에서 내려간다. 미래 일자 회차는 누적 집계에서 제외 |
 | 2026-10-27 | 분류를 `구분`(성격) + `모집상태`(신청 가능 여부) 두 축으로 분리. 기존 `대표강의` 3분할 폐지. `형태`(온라인/VOD) 추가. `courses.json`의 수강 가능 교육도 엑셀 단일 출처로 통합 |
 | 2026-10-27 | 강의 이력 엑셀 파이프라인 도입. `../강의이력.xlsx` → `lectures.json` + `stats.json` 자동 생성. 기관명 표기 원칙(`_표기원칙`)과 비노출 `agency` 필드 추가 |
