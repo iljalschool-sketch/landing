@@ -1,20 +1,43 @@
 {
-  "_주석": "누적 성과 지표입니다. value 숫자만 바꾸면 사이트에 바로 반영됩니다.",
-  "_확인필요": "아래 value 값은 임시 수치입니다. 실제 숫자로 교체해 주세요.",
+  "_주석": "누적 성과 지표입니다.",
+  "_자동계산": "source가 있는 항목은 data/강의이력.xlsx에서 자동으로 채워집니다. 직접 고치지 마세요. (python tools/build_lectures.py 실행 시 갱신)",
   "_항목형식": {
-    "value": "숫자만 (쉼표·단위 없이). 화면에서는 자동으로 1,234 형태가 되고 카운트업 애니메이션이 붙습니다.",
-    "suffix": "숫자 뒤에 붙일 단위 (예: 명, 회, 곳, +)",
+    "value": "숫자만 (쉼표·단위 없이). 화면에서는 1,234 형태로 표시되고 카운트업 애니메이션이 붙습니다.",
+    "suffix": "숫자 뒤 단위 (예: 명+, 회+, 곳+)",
     "label": "지표 이름",
-    "icon": "Font Awesome 아이콘 클래스"
+    "icon": "Font Awesome 아이콘 클래스",
+    "source": "엑셀 자동 계산 항목. students(수강생) / sessions(강의 횟수) / hours(교육시간) / orgs(기관 수). 없으면 수동 입력입니다."
   },
-
   "heading": "숫자로 보는 로직플로우",
   "subheading": "강의장에서 쌓아온 기록입니다",
-
   "items": [
-    { "value": 2000, "suffix": "명+", "label": "누적 수강생",   "icon": "fas fa-users" },
-    { "value": 120,  "suffix": "회+", "label": "누적 강의 횟수", "icon": "fas fa-chalkboard-teacher" },
-    { "value": 30,   "suffix": "곳+", "label": "협력 기관·기업", "icon": "fas fa-building" },
-    { "value": 40,   "suffix": "편",  "label": "교육 영상",     "icon": "fab fa-youtube" }
+    {
+      "value": 0,
+      "suffix": "명+",
+      "label": "누적 수강생",
+      "icon": "fas fa-users",
+      "source": "students"
+    },
+    {
+      "value": 18,
+      "suffix": "회+",
+      "label": "누적 강의 횟수",
+      "icon": "fas fa-chalkboard-teacher",
+      "source": "sessions"
+    },
+    {
+      "value": 0,
+      "suffix": "시간",
+      "label": "누적 교육시간",
+      "icon": "fas fa-clock",
+      "source": "hours"
+    },
+    {
+      "value": 11,
+      "suffix": "곳+",
+      "label": "협력 기관·기업",
+      "icon": "fas fa-building",
+      "source": "orgs"
+    }
   ]
 }

@@ -326,6 +326,8 @@
         채우기('tab-education', 탭_카드('fas fa-graduation-cap', '학력 사항', null, 본문));
     };
 
+    // 주의: lectures.json의 agency(경유 에이전시) 필드는 내부 기록용이므로
+    //       의도적으로 화면에 그리지 않는다. 노출 기준은 해당 파일의 _표기원칙 참고.
     const 강의_그리기 = (자료) => {
         if (!자료) return;
 
@@ -339,8 +341,10 @@
                         <p class="${그룹.highlight ? 'text-white font-bold' : 'text-slate-200'}">
                             ${esc(강의.title)}
                             ${강의.client ? `<span class="${그룹.highlight ? 'text-accent' : 'text-slate-500'} text-sm ml-1">(${esc(강의.client)})</span>` : ''}
+                            ${강의.count > 1 ? `<span class="ml-2 px-2 py-0.5 rounded-full bg-accent/15 text-accent text-xs font-bold align-middle">${esc(강의.count)}회</span>` : ''}
                             ${강의.year ? `<span class="text-slate-500 text-xs ml-2">${esc(강의.year)}</span>` : ''}
-                        </p>`;
+                        </p>
+                        ${강의.target ? `<p class="text-slate-500 text-xs mt-1">교육 대상 · ${esc(강의.target)}</p>` : ''}`;
                     const 클래스 = `career-item${그룹.highlight ? ' highlight' : ''}`;
 
                     return 강의.url

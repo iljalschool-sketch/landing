@@ -26,6 +26,14 @@
 5. **활동사진은 모자이크 처리된 것만 사용한다.** 원본 폴더(`홍보/Photos-*`)가 아니라
    `홍보/활동사진_모자이크`를 쓴다. EXIF는 스크립트가 제거한다.
 
+6. **`lectures.json`의 `groups`와 `stats.json`의 `source` 항목은 손으로 고치지 않는다.**
+   `data/강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
+   직접 고치면 다음 실행 때 덮어쓰기 된다. 사용자가 "강의이력 업데이트해줘"라고 하면
+   이 스크립트를 실행한다.
+
+7. **`agency`(경유 에이전시)는 절대 화면에 렌더링하지 않는다.** 내부 기록 전용이다.
+   기관명 노출 기준은 `lectures.json`의 `_표기원칙`을 따른다.
+
 ## 파일 구조
 
 | 경로 | 역할 |
@@ -34,10 +42,28 @@
 | `assets/brand.css` | 브랜드 토큰(색·폰트·형태) 및 컴포넌트 스타일 |
 | `assets/render.js` | `data/*.json` → DOM 렌더링 |
 | `data/*.json` | 모든 콘텐츠 |
+| `data/강의이력.xlsx` | 강의 회차 기록의 **원본**. 사용자가 직접 입력한다 |
+| `tools/build_lectures.py` | 엑셀 → `lectures.json` + `stats.json` |
 | `tools/build_gallery.py` | 활동사진 리사이즈 + EXIF 제거 + `gallery.json` 생성 |
 | `tools/build_brand.py` | 로고 웹용 변환 + 파비콘 + OG 이미지 + 프로필 |
+| `tools/recalc_excel.py` | Excel COM으로 수식 재계산·오류 검사 (LibreOffice 없는 환경용) |
+| `tools/make_lecture_workbook.py` | 엑셀 양식 최초 생성. **재실행하면 입력 내용이 사라진다** |
 | `class/<슬러그>/` | 수강생 전용 페이지 (페이지마다 독립 HTML) |
 | `report/` | 리포팅 솔루션 소개 페이지 |
+
+## 강의 이력 파이프라인
+
+```
+data/강의이력.xlsx  ──(build_lectures.py)──┬──> data/lectures.json  (중복 제거: 같은 강의명+기관은 1줄 + count)
+   회차 단위로 기록                        └──> data/stats.json     (전체 합산: 수강생·횟수·시간·기관 수)
+```
+
+- 엑셀은 **회차**를, JSON은 **목록과 합계**를 담는다. 이 분리가 핵심이다.
+- `홈페이지표시 = N`인 행은 `lectures.json`에서 빠지지만 `stats.json` 집계에는 포함된다.
+- 비고가 `예시`로 시작하는 행은 양쪽 모두에서 제외된다.
+- 열은 **헤더 이름**으로 찾으므로 순서가 바뀌어도 동작한다. 헤더가 없으면 중단한다.
+- 엑셀 수식을 고쳤으면 `tools/recalc_excel.py`로 재계산·검증한다.
+  (`xlsx` 스킬의 `recalc.py`는 LibreOffice가 필요한데 이 환경에는 없다.)
 
 ## 렌더링 흐름
 
@@ -70,4 +96,5 @@ JSON 로드에 실패하면 `읽기()`가 `null`을 반환하고, 각 `*_그리�
 
 | 날짜 | 내용 |
 |---|---|
+| 2026-10-27 | 강의 이력 엑셀 파이프라인 도입. `data/강의이력.xlsx` → `lectures.json` + `stats.json` 자동 생성. 기관명 표기 원칙(`_표기원칙`)과 비노출 `agency` 필드 추가 |
 | 2026-10-27 | 데이터/표현 분리 개편. 단일 774줄 `index.html` → `data/*.json` + `assets/`. 신규 브랜드(그린) 적용, 누적 성과 지표·활동사진 갤러리 신설, OG 이미지 복구(기존 404), Pretendard 폰트 로드 경로 수정, 레거시 자산 정리 |

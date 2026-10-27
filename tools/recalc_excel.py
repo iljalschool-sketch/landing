@@ -1,0 +1,59 @@
+# -*- coding: utf-8 -*-
+"""Excel로 통합문서를 재계산하고 수식 오류를 보고한다.
+
+openpyxl은 수식을 문자열로만 써넣고 계산 결과를 저장하지 않는다.
+이 스크립트가 Excel을 띄워 실제로 계산시킨 뒤 같은 자리에 저장한다.
+
+사용법:  python tools/recalc_excel.py data/강의이력.xlsx
+"""
+import sys
+from pathlib import Path
+
+import win32com.client as win32
+
+# Excel이 오류 셀에 남기는 값들
+오류_문자열 = ("#N/A", "#VALUE!", "#REF!", "#DIV/0!", "#NUM!", "#NAME?", "#NULL!")
+
+
+def 재계산(파일_경로: Path) -> int:
+    """파일을 재계산해 저장하고, 발견된 오류 개수를 반환한다."""
+    엑셀 = win32.DispatchEx("Excel.Application")
+    엑셀.Visible = False
+    엑셀.DisplayAlerts = False
+
+    오류_수 = 0
+    수식_수 = 0
+    try:
+        통합문서 = 엑셀.Workbooks.Open(str(파일_경로.resolve()))
+        엑셀.CalculateFullRebuild()
+
+        for 시트 in 통합문서.Worksheets:
+            사용범위 = 시트.UsedRange
+            for 행 in 사용범위.Rows:
+                for 칸 in 행.Cells:
+                    수식 = 칸.Formula
+                    if not isinstance(수식, str) or not 수식.startswith("="):
+                        continue
+                    수식_수 += 1
+                    값 = 칸.Text
+                    if any(오류 in str(값) for 오류 in 오류_문자열):
+                        오류_수 += 1
+                        print(f"  [오류] {시트.Name}!{칸.Address} "
+                              f"= {수식}  →  {값}")
+                    else:
+                        print(f"  [정상] {시트.Name}!{칸.Address}  →  {값}")
+
+        통합문서.Save()
+        통합문서.Close(SaveChanges=True)
+    finally:
+        엑셀.Quit()
+
+    print(f"\n수식 {수식_수}개 중 오류 {오류_수}개")
+    return 오류_수
+
+
+if __name__ == "__main__":
+    경로 = Path(sys.argv[1] if len(sys.argv) > 1 else "data/강의이력.xlsx")
+    if not 경로.exists():
+        sys.exit(f"파일을 찾을 수 없습니다: {경로}")
+    sys.exit(1 if 재계산(경로) else 0)
