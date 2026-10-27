@@ -8,7 +8,7 @@
 사용법:  python tools/build_lectures.py
 """
 import json
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from datetime import date, datetime
 from pathlib import Path
 
@@ -170,9 +170,14 @@ def 강의목록_만들기(회차들: list[dict]) -> list[dict]:
         항목 = {"title": 강의명}
         if 기관:
             항목["client"] = 기관
-        # 교육대상이 표시기관명과 같으면 화면에 같은 이름이 두 번 나오므로 생략한다
-        if 첫값("대상") and 첫값("대상") != 기관:
-            항목["target"] = 첫값("대상")
+        # 교육대상은 회차마다 다를 수 있다 (예: 대구YMCA 과정의 대성에너지·도시개발공사).
+        # 가장 최근 것 하나만 쓰면 나머지 기관이 실적에서 사라지므로 전부 모은다.
+        # 단, 표시기관명과 같은 값은 화면에 같은 이름이 두 번 나오므로 뺀다.
+        대상_빈도 = Counter(회차["대상"] for 회차 in 회차목록
+                            if 회차["대상"] and 회차["대상"] != 기관)
+        if 대상_빈도:
+            # 많이 한 곳을 앞에 둔다
+            항목["target"] = " · ".join(이름 for 이름, _ in 대상_빈도.most_common())
         # 에이전시는 JSON으로 내보내지 않는다.
         # data/*.json 은 누구나 주소로 내려받을 수 있으므로, 화면에 안 그리는 것만으로는
         # 비공개가 되지 않는다. 기록은 저장소 밖 엑셀에만 남긴다.
