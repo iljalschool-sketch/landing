@@ -53,7 +53,9 @@
         };
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="assets/brand.css" rel="stylesheet">
+    <!-- brand:css:start -->
+    <link href="assets/brand.css?v=26c9782e" rel="stylesheet">
+    <!-- brand:css:end -->
 </head>
 <body class="bg-slate-50 text-slate-900">
 
@@ -142,6 +144,19 @@
         <div id="solutions-grid" class="grid md:grid-cols-2 gap-8"></div>
     </section>
 
+    <!-- ───────── 개발 사례 → data/cases.json ───────── -->
+    <section id="cases" class="py-24 px-6 bg-deep text-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 id="cases-heading" class="text-3xl font-bold mb-4 tracking-tight"></h2>
+                <p id="cases-sub" class="text-slate-400 font-medium"></p>
+                <div class="w-16 h-1 bg-point mx-auto mt-6"></div>
+            </div>
+            <div id="cases-list" class="space-y-4"></div>
+            <div id="cases-note" class="mt-14 p-8 bg-white/5 rounded-2xl border border-white/10"></div>
+        </div>
+    </section>
+
     <!-- ───────── 강사 소개 → data/site.json ───────── -->
     <section id="about" class="bg-deep py-24 px-6 text-white">
         <div id="about-body" class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-16"></div>
@@ -211,6 +226,8 @@
         </button>
     </div>
 
-    <script src="assets/render.js"></script>
+    <!-- brand:js:start -->
+    <script src="assets/render.js?v=94c48222"></script>
+    <!-- brand:js:end -->
 </body>
 </html>

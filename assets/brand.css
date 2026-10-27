@@ -203,3 +203,21 @@ body {
         transition-duration: .01ms !important;
     }
 }
+
+/* ── 개발 사례 아코디언 ── */
+.case-detail {
+    display: grid;
+    grid-template-rows: 0fr;              /* 닫힘 */
+    transition: grid-template-rows .35s ease;
+}
+.case-card.open .case-detail {
+    grid-template-rows: 1fr;              /* 열림 */
+}
+.case-detail > div {
+    overflow: hidden;                     /* 접히는 동안 내용이 넘치지 않도록 */
+}
+.case-card button { cursor: pointer; }
+.case-card button:focus-visible {
+    outline: 2px solid var(--point-yellow);
+    outline-offset: -2px;
+}

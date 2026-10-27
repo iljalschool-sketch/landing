@@ -209,6 +209,79 @@
         `);
     };
 
+    /* ── 개발 사례 ─────────────────────────────────────────────── */
+
+    const 사례_그리기 = (자료) => {
+        if (!자료 || !자료.items || !자료.items.length) {
+            const 섹션 = document.getElementById('cases');
+            if (섹션) 섹션.style.display = 'none';
+            return;
+        }
+
+        채우기('cases-heading', esc(자료.heading));
+        채우기('cases-sub', esc(자료.subheading));
+
+        채우기('cases-list', 자료.items.map((사례, 순번) => {
+            // 숫자로 보여줄 수 있는 사례만 before → after 를 띄운다
+            const 지표 = 사례.metric ? `
+                <div class="flex items-center gap-3 mt-4 text-sm">
+                    <span class="text-slate-500">${esc(사례.metric.label)}</span>
+                    <span class="text-slate-400 line-through">${esc(사례.metric.from)}</span>
+                    <i class="fas fa-arrow-right text-point text-xs"></i>
+                    <span class="text-point font-bold">${esc(사례.metric.to)}</span>
+                </div>` : '';
+
+            const 상세 = ['before', 'approach', 'result']
+                .filter((열쇠) => 사례[열쇠])
+                .map((열쇠) => `
+                    <div class="mb-5 last:mb-0">
+                        <p class="text-xs font-bold text-point mb-2">${{
+                            before: '이전에는',
+                            approach: '이렇게 바꿨습니다',
+                            result: '그래서'
+                        }[열쇠]}</p>
+                        <p class="text-slate-300 text-sm leading-relaxed">${esc(사례[열쇠])}</p>
+                    </div>`).join('');
+
+            return `
+                <div class="case-card bg-white/5 rounded-2xl border border-white/10 overflow-hidden transition hover:border-point/40"
+                     data-case="${순번}">
+                    <button class="w-full text-left p-7 flex items-start justify-between gap-4" aria-expanded="false">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-2">${esc(사례.title)}</h3>
+                            <p class="text-slate-400 text-sm leading-relaxed">${esc(사례.summary)}</p>
+                            ${지표}
+                        </div>
+                        <i class="fas fa-chevron-down text-slate-500 mt-1 shrink-0 case-arrow transition-transform"></i>
+                    </button>
+                    <div class="case-detail px-7">
+                        <div class="border-t border-white/10 pt-6 pb-7">
+                            ${상세}
+                            ${사례.tech ? `<p class="text-xs text-slate-500 mt-6">${esc(사례.tech)}</p>` : ''}
+                        </div>
+                    </div>
+                </div>`;
+        }).join(''));
+
+        채우기('cases-note', `
+            <p class="text-slate-300 leading-relaxed">${esc(자료.note || '')}</p>`);
+
+        사례_토글_연결();
+    };
+
+    /** 사례 카드를 눌러 상세를 펼친다 (여러 개를 동시에 열 수 있다). */
+    const 사례_토글_연결 = () => {
+        document.querySelectorAll('.case-card').forEach((카드) => {
+            const 버튼 = 카드.querySelector('button');
+            버튼.addEventListener('click', () => {
+                const 열림 = 카드.classList.toggle('open');
+                버튼.setAttribute('aria-expanded', String(열림));
+                카드.querySelector('.case-arrow').style.transform =
+                    열림 ? 'rotate(180deg)' : '';
+            });
+        });
+    };
+
     /* ── 3. 소개 영상 & 아키텍트 ────────────────────────────────── */
 
     const 소개_그리기 = (자료) => {
@@ -603,13 +676,14 @@
 
     const 시작 = async () => {
         const 파일들 = ['site', 'stats', 'courses', 'gallery', 'education',
-                        'lectures', 'automation', 'videos', 'problems'];
-        const [사이트, 지표, 과정, 갤러리, 학력, 강의, 자동화, 영상, 문제] =
+                        'lectures', 'automation', 'videos', 'problems', 'cases'];
+        const [사이트, 지표, 과정, 갤러리, 학력, 강의, 자동화, 영상, 문제, 사례] =
             await Promise.all(파일들.map(읽기));
 
         지표_그리기(지표);
         문제_그리기(문제);
         사업영역_그리기(과정);
+        사례_그리기(사례);
         소개_그리기(사이트);
         갤러리_그리기(갤러리);
         학력_그리기(학력);

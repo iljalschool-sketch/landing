@@ -12,6 +12,7 @@ JSON에서 직접 그리지 않고 HTML에 '써넣는' 방식을 쓴다.
 
 사용법:  python tools/build_meta.py
 """
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -162,12 +163,32 @@ def OG_이미지_만들기(브랜드: dict) -> None:
     print(f"  og-image.png 재생성 ({저장_경로.stat().st_size // 1024} KB)")
 
 
+def 내용지문(경로: Path) -> str:
+    """파일 내용으로 짧은 지문을 만든다 (캐시 무효화용)."""
+    return hashlib.sha1(경로.read_bytes()).hexdigest()[:8]
+
+
+def 자산_블록(파일: str, 틀: str) -> str:
+    """CSS·JS 주소 뒤에 ?v=지문 을 붙인다.
+
+    브라우저가 예전 파일을 계속 쓰는 것을 막는다. 내용이 바뀌면 지문이
+    바뀌어 새로 받고, 바뀌지 않으면 그대로 캐시를 쓴다.
+    """
+    경로 = Path(파일)
+    주소 = f"{파일}?v={내용지문(경로)}" if 경로.exists() else 파일
+    return 틀.format(주소=주소)
+
+
 def 실행() -> None:
     브랜드 = json.loads(브랜드_경로.read_text(encoding="utf-8"))
     내용 = HTML_경로.read_text(encoding="utf-8")
 
     내용 = 구간_바꾸기(내용, "seo", SEO_블록(브랜드))
     내용 = 구간_바꾸기(내용, "hero", 히어로_블록(브랜드))
+    내용 = 구간_바꾸기(내용, "css", 자산_블록(
+        "assets/brand.css", '    <link href="{주소}" rel="stylesheet">'))
+    내용 = 구간_바꾸기(내용, "js", 자산_블록(
+        "assets/render.js", '    <script src="{주소}"></script>'))
     HTML_경로.write_text(내용, encoding="utf-8")
 
     print("index.html 반영 완료")
