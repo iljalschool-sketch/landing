@@ -18,7 +18,7 @@ from PIL import Image, ImageOps
 썸네일_폴더 = 출력_폴더 / "thumb"
 
 FULL_폭 = 1600   # 라이트박스 확대용
-THUMB_폭 = 900   # 격자 표시용 (배너라 가로가 길어 넉넉히 잡는다)
+THUMB_폭 = 640   # 격자 표시용 (작게 늘어놓으므로 2배 해상도면 충분)
 
 
 def 리사이즈_저장(이미지: Image.Image, 목표_폭: int, 저장_경로: Path, 품질: int) -> int:
