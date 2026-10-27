@@ -26,7 +26,7 @@
       "source": "sessions"
     },
     {
-      "value": 412,
+      "value": 424,
       "suffix": "시간",
       "label": "누적 교육시간",
       "icon": "fas fa-clock",
