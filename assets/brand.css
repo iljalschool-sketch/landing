@@ -147,9 +147,14 @@ body {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-md);
-    aspect-ratio: 4 / 3;
+    /* 원본이 1920x800 배너 비율이라 그대로 맞춘다 (4:3 격자에 넣으면 심하게 잘린다) */
+    aspect-ratio: 12 / 5;
     cursor: pointer;
     background: var(--mint-green);
+}
+.gallery-item:focus-visible {
+    outline: 3px solid var(--light-green);
+    outline-offset: 3px;
 }
 .gallery-item img {
     width: 100%;
