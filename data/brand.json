@@ -1,7 +1,7 @@
 {
   "_주석": "로직플로우의 모든 브랜드 문구를 여기 한 곳에서 관리합니다.",
   "_반영방법": "이 파일을 고친 뒤 python tools/build_meta.py 를 실행하면 index.html의 제목·설명·OG태그·히어로 문구와 OG 이미지가 한 번에 바뀝니다.",
-  "_확정여부": "아래 slogan·keyMessage·mainCopy는 기획서의 추천안이며 아직 확정된 문구가 아닙니다. 자유롭게 바꾸세요.",
+  "_확정여부": "slogan과 mainCopy는 2026-10-27 확정된 문구입니다. 바꾸려면 여기만 고치고 python tools/build_meta.py 를 실행하세요.",
 
   "company": {
     "name": "로직플로우",

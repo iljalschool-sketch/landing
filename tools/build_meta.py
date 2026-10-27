@@ -107,7 +107,8 @@ def 히어로_블록(브랜드: dict) -> str:
         소개_html = 소개
 
     return "\n".join([
-        f'            <p class="text-point font-bold mb-4 tracking-widest text-sm">{브랜드["slogan"]}</p>',
+        # 슬로건은 확정된 브랜드 문구이므로 작게 흘리지 않고 또렷하게 보여준다
+        f'            <p class="text-point font-bold mb-5 tracking-wide text-xl md:text-2xl">{브랜드["slogan"]}</p>',
         '            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">',
         f'                {강조_적용(카피["line1"])} <br>',
         f'                {강조_적용(카피["line2"])}',
