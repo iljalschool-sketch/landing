@@ -7,23 +7,27 @@
     <!-- ===================================================================
          아래 메타태그와 히어로 문구는 검색엔진(구글·네이버·다음) 노출을 위해
          일부러 HTML에 직접 적어둔 것입니다. JSON으로 빼면 크롤러가 못 읽습니다.
-         강의 이력·영상·사진·지표 등 자주 바뀌는 내용은 data/*.json 에 있습니다.
+
+         ★ 직접 고치지 마세요. data/brand.json 을 고친 뒤
+           python tools/build_meta.py 를 실행하면 여기에 자동으로 써집니다.
          =================================================================== -->
-    <title>로직 플로우 (Logic Flow) | 데이터 기반 리포팅 솔루션 & 메타로직 아키텍트</title>
-    <meta name="description" content="데이터 전처리부터 HWP 정량 보고서 작성까지, 휴먼 에러 제로를 지향하는 데이터 기반 리포팅 솔루션 및 메타로직 워크플로우 교육 전문 로직 플로우입니다.">
-    <meta name="keywords" content="정량평가, 데이터 기반 리포팅 솔루션, 보고서 자동화, HWP 보고서 작성, 데이터 전처리, 메타로직, 업무 프로세스 설계, 강혜진">
-    <meta name="author" content="Logic Flow">
+    <!-- brand:seo:start -->
+    <title>로직플로우 (LogicFlow) | AI 업무자동화 교육 · 컨설팅 · 솔루션 개발</title>
+    <meta name="description" content="반복 업무를 줄이는 AI 업무자동화 교육 전문. 기업·공공기관 대상 파이썬, 엑셀, 챗GPT 활용 교육과 업무 자동화 솔루션 개발을 제공합니다.">
+    <meta name="keywords" content="AI 업무자동화 교육, 파이썬 업무자동화, 챗GPT 활용 교육, 엑셀 자동화 교육, 기업교육, 공공기관 교육, 업무 효율화, 사무자동화, 강혜진, 프밍쌤, 로직플로우">
+    <meta name="author" content="LogicFlow">
     <link rel="canonical" href="https://logicflow.ai.kr/">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="로직 플로우">
-    <meta property="og:title" content="로직 플로우 - 데이터 기반 리포팅 솔루션">
-    <meta property="og:description" content="복잡한 데이터 정제부터 한글/워드 보고서 완성까지, 완벽한 리포팅 로직을 설계합니다.">
+    <meta property="og:site_name" content="로직플로우">
+    <meta property="og:title" content="로직플로우 — 일하는 방식을 바꾸고, 성과를 만드는 기업">
+    <meta property="og:description" content="배우는 데서 끝나지 않고, 일하는 방식이 달라지도록. AI 업무자동화 교육·컨설팅·솔루션 개발.">
     <meta property="og:url" content="https://logicflow.ai.kr/">
     <meta property="og:image" content="https://logicflow.ai.kr/images/brand/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- brand:seo:end -->
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="180x180" href="/images/brand/favicon-180.png">
@@ -41,7 +45,8 @@
                         growth: '#166B52',   // 그로스 그린 (보조)
                         accent: '#3DA37A',   // 라이트 그린 (포인트)
                         mint:   '#E8F4EE',   // 민트 그린 (배경)
-                        deep:   '#073024'    // 딥 그린 (가장 어두운 톤)
+                        deep:   '#073024',   // 딥 그린 (가장 어두운 톤)
+                        point:  '#F9F871'    // 옐로우 (강조 — 친절함·주목)
                     }
                 }
             }
@@ -60,12 +65,13 @@
                      class="h-7 md:h-9 w-auto object-contain">
             </a>
 
-            <nav class="hidden md:flex space-x-7 text-sm font-semibold text-slate-600">
-                <a href="#solutions" class="hover:text-brand transition">사업 영역</a>
-                <a href="#about" class="hover:text-brand transition">아키텍트</a>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
+                <a href="#problems" class="hover:text-brand transition">해결하는 문제</a>
+                <a href="#solutions" class="hover:text-brand transition">교육 · 솔루션</a>
+                <a href="#about" class="hover:text-brand transition">강사 소개</a>
                 <a href="#gallery" class="hover:text-brand transition">강의 현장</a>
                 <a href="#career" class="hover:text-brand transition">경력사항</a>
-                <a href="#contact" class="hover:text-brand transition">문의하기</a>
+                <a href="#contact" class="hover:text-brand transition">교육 문의</a>
             </nav>
         </div>
     </header>
@@ -73,19 +79,21 @@
     <!-- ───────── 히어로 (SEO를 위해 정적 유지) ───────── -->
     <section class="pt-32 pb-24 px-6 logic-gradient text-white">
         <div class="max-w-4xl mx-auto text-center">
-            <p class="text-accent font-bold mb-4 tracking-widest uppercase text-sm">Meta-Logic Framework</p>
+            <!-- brand:hero:start -->
+            <p class="text-point font-bold mb-4 tracking-widest text-sm">기술보다 문제에 집중합니다</p>
             <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">
-                단순한 자동화를 넘어 <br>
-                <span class="text-accent">메타로직 아키텍처</span>를 설계합니다
+                배우는 데서 끝나지 않고, <br>
+                <span class="text-point">일하는 방식이 달라지도록</span>
             </h1>
             <p class="text-lg text-mint mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                로직 플로우는 독자적인 '메타로직 프레임워크'를 기반으로 <br class="hidden md:block">
-                업무의 본질을 구조화하고, 지능형 워크플로우를 구축합니다.
+                로직플로우는 AI와 자동화 기술을 활용한 교육, 컨설팅, 솔루션 개발을 통해 <br class="hidden md:block">
+                개인과 조직의 업무 혁신을 돕는 기업입니다.
             </p>
+            <!-- brand:hero:end -->
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="https://open.kakao.com/o/sEbFz6Se" target="_blank" rel="noopener"
-                   class="bg-yellow-400 text-yellow-950 px-8 py-3 rounded-full font-bold hover:bg-yellow-300 transition shadow-lg flex items-center">
-                    <i class="fas fa-comment mr-2"></i>카톡 1:1 상담
+                   class="bg-point text-brand px-8 py-3 rounded-full font-bold hover:brightness-95 transition shadow-lg flex items-center">
+                    <i class="fas fa-comment mr-2"></i>교육 문의하기
                 </a>
                 <a href="https://www.youtube.com/@iljal-school" target="_blank" rel="noopener"
                    class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full font-bold hover:bg-white/20 transition">
@@ -111,16 +119,30 @@
         <div id="intro-video-body" class="max-w-4xl mx-auto"></div>
     </section>
 
-    <!-- ───────── 사업 영역 → data/courses.json ───────── -->
+    <!-- ───────── 해결하는 문제 → data/problems.json ───────── -->
+    <section id="problems" class="py-24 px-6 bg-mint">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14">
+                <h2 id="problems-heading" class="text-3xl font-bold text-slate-900 mb-4 tracking-tight"></h2>
+                <p id="problems-sub" class="text-slate-600 font-medium"></p>
+                <div class="w-16 h-1 bg-brand mx-auto mt-6"></div>
+            </div>
+            <div id="problems-grid" class="grid md:grid-cols-2 gap-5"></div>
+            <p id="problems-note" class="text-center text-sm text-slate-500 mt-10"></p>
+        </div>
+    </section>
+
+    <!-- ───────── 교육 · 솔루션 → data/courses.json ───────── -->
     <section id="solutions" class="py-24 px-6 max-w-6xl mx-auto">
         <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Business Units</h2>
-            <div class="w-16 h-1 bg-brand mx-auto"></div>
+            <h2 id="solutions-heading" class="text-3xl font-bold text-slate-900 mb-4 tracking-tight"></h2>
+            <p id="solutions-sub" class="text-slate-500 font-medium"></p>
+            <div class="w-16 h-1 bg-brand mx-auto mt-6"></div>
         </div>
         <div id="solutions-grid" class="grid md:grid-cols-2 gap-8"></div>
     </section>
 
-    <!-- ───────── 아키텍트 → data/site.json ───────── -->
+    <!-- ───────── 강사 소개 → data/site.json ───────── -->
     <section id="about" class="bg-deep py-24 px-6 text-white">
         <div id="about-body" class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-16"></div>
     </section>

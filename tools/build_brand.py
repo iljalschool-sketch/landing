@@ -48,39 +48,10 @@ def 한글_폰트(크기: int) -> ImageFont.FreeTypeFont:
     return ImageFont.load_default()
 
 
-OG_폭, OG_높이 = 1200, 630
-og = Image.new("RGB", (OG_폭, OG_높이), 브랜드_딥)
-그리기 = ImageDraw.Draw(og)
-
-# 대각선 그라데이션 배경 (브랜드 그라데이션과 동일한 방향)
-for y in range(OG_높이):
-    비율 = y / OG_높이
-    색 = tuple(
-        round(시작 + (끝 - 시작) * 비율)
-        for 시작, 끝 in zip(브랜드_딥, 그로스_그린)
-    )
-    그리기.line([(0, y), (OG_폭, y)], fill=색)
-
-# 우하단 심볼 워터마크
-with Image.open(출력 / "symbol-white.png") as 심볼:
-    워터마크 = 심볼.resize((420, 420), Image.LANCZOS)
-    투명도 = 워터마크.getchannel("A").point(lambda 값: round(값 * 0.08))
-    워터마크.putalpha(투명도)
-    og.paste(워터마크, (OG_폭 - 330, OG_높이 - 300), 워터마크)
-
-# 가로형 화이트 로고
-with Image.open(출력 / "logo-horizontal-white.png") as 로고:
-    로고_폭 = 440
-    로고_높이 = round(로고.height * 로고_폭 / 로고.width)
-    로고 = 로고.resize((로고_폭, 로고_높이), Image.LANCZOS)
-    og.paste(로고, (80, 110), 로고)
-
-그리기.text((80, 285), "데이터 기반 리포팅 솔루션", font=한글_폰트(54), fill=(255, 255, 255))
-그리기.text((80, 365), "메타로직 아키텍처를 설계합니다", font=한글_폰트(54), fill=(168, 224, 199))
-그리기.text((80, 490), "logicflow.ai.kr", font=한글_폰트(30), fill=(140, 190, 170))
-
-og.save(출력 / "og-image.png", "PNG", optimize=True)
-print(f"  og-image.png: {OG_폭}x{OG_높이} ({(출력 / 'og-image.png').stat().st_size // 1024} KB)")
+# OG 이미지(공유 썸네일)는 여기서 만들지 않는다.
+# 문구가 data/brand.json에 있으므로 tools/build_meta.py가 담당한다.
+# 출처가 둘이면 문구를 바꿨을 때 한쪽만 바뀌어 어긋난다.
+print("  og-image.png: tools/build_meta.py 에서 생성합니다")
 
 
 # ── 4. 프로필 사진 ────────────────────────────────────────────────

@@ -106,33 +106,53 @@
 
     /* ── 2. 사업 영역 ───────────────────────────────────────────── */
 
+    /* ── 해결하는 문제 ─────────────────────────────────────────── */
+
+    const 문제_그리기 = (자료) => {
+        // 항목이 없으면 섹션과 메뉴를 숨긴다
+        if (!자료 || !자료.items || !자료.items.length) {
+            const 섹션 = document.getElementById('problems');
+            if (섹션) 섹션.style.display = 'none';
+            const 메뉴 = document.querySelector('nav a[href="#problems"]');
+            if (메뉴) 메뉴.style.display = 'none';
+            return;
+        }
+
+        채우기('problems-heading', esc(자료.heading));
+        채우기('problems-sub', esc(자료.subheading));
+        채우기('problems-note', esc(자료.note || ''));
+        채우기('problems-grid', 자료.items.map((문제) => `
+            <div class="bg-white p-7 rounded-2xl border border-slate-100 shadow-sm card-hover">
+                <div class="flex items-start gap-4 mb-4">
+                    <div class="w-11 h-11 shrink-0 bg-mint text-brand rounded-xl flex items-center justify-center text-lg">
+                        <i class="${esc(문제.icon)}"></i>
+                    </div>
+                    <div>
+                        <p class="text-brand font-bold leading-snug">"${esc(문제.symptom)}"</p>
+                        <p class="text-xs text-slate-400 mt-1 font-semibold">${esc(문제.title)}</p>
+                    </div>
+                </div>
+                <p class="text-sm text-slate-600 leading-relaxed">${esc(문제.body)}</p>
+            </div>
+        `).join(''));
+    };
+
+    /* ── 2. 교육 · 솔루션 ──────────────────────────────────────── */
+
     const 사업영역_그리기 = (자료) => {
         if (!자료) return;
 
         const 리포팅 = 자료.reporting;
         const 교육 = 자료.education;
 
-        채우기('solutions-grid', `
-            <a href="${esc(리포팅.url)}" class="block bg-white p-10 rounded-3xl shadow-sm border border-slate-100 card-hover group transition-all">
-                <div class="w-14 h-14 bg-mint text-brand rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-brand group-hover:text-white transition-colors">
-                    <i class="${esc(리포팅.icon)}"></i>
-                </div>
-                <h3 class="text-2xl font-bold mb-4 group-hover:text-brand transition-colors">
-                    ${esc(리포팅.title)}
-                    <i class="fas fa-arrow-right ml-2 text-sm opacity-0 group-hover:opacity-100 transition-all"></i>
-                </h3>
-                <p class="text-slate-600 leading-relaxed mb-8">${리포팅.body}</p>
-                <div class="space-y-3">
-                    ${리포팅.features.map((특징) => `
-                        <div class="flex items-start">
-                            <i class="fas fa-check-circle text-accent mt-1 mr-3"></i>
-                            <span class="text-sm text-slate-700 font-medium">${esc(특징)}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </a>
+        // 섹션 제목 (교육 중심 포지셔닝)
+        채우기('solutions-heading', esc(자료.heading || '교육 · 솔루션'));
+        채우기('solutions-sub', esc(자료.subheading || ''));
 
-            <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-100 card-hover">
+        // 교육을 먼저, 개발·솔루션을 뒤에 그린다.
+        // 실제 사업 비중이 교육 중심이므로 순서로도 드러낸다.
+        채우기('solutions-grid', `
+            <div class="bg-white p-10 rounded-3xl shadow-sm border-2 border-accent/30 card-hover">
                 <div class="w-14 h-14 bg-mint text-brand rounded-2xl flex items-center justify-center mb-6 text-2xl">
                     <i class="${esc(교육.icon)}"></i>
                 </div>
@@ -167,6 +187,25 @@
                     ` : ''}
                 </div>
             </div>
+
+            <a href="${esc(리포팅.url)}" class="block bg-white p-10 rounded-3xl shadow-sm border border-slate-100 card-hover group transition-all">
+                <div class="w-14 h-14 bg-mint text-brand rounded-2xl flex items-center justify-center mb-6 text-2xl group-hover:bg-brand group-hover:text-white transition-colors">
+                    <i class="${esc(리포팅.icon)}"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 group-hover:text-brand transition-colors">
+                    ${esc(리포팅.title)}
+                    <i class="fas fa-arrow-right ml-2 text-sm opacity-0 group-hover:opacity-100 transition-all"></i>
+                </h3>
+                <p class="text-slate-600 leading-relaxed mb-8">${리포팅.body}</p>
+                <div class="space-y-3">
+                    ${리포팅.features.map((특징) => `
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-accent mt-1 mr-3"></i>
+                            <span class="text-sm text-slate-700 font-medium">${esc(특징)}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </a>
         `);
     };
 
@@ -558,10 +597,13 @@
     /* ── 시작 ───────────────────────────────────────────────────── */
 
     const 시작 = async () => {
-        const 파일들 = ['site', 'stats', 'courses', 'gallery', 'education', 'lectures', 'automation', 'videos'];
-        const [사이트, 지표, 과정, 갤러리, 학력, 강의, 자동화, 영상] = await Promise.all(파일들.map(읽기));
+        const 파일들 = ['site', 'stats', 'courses', 'gallery', 'education',
+                        'lectures', 'automation', 'videos', 'problems'];
+        const [사이트, 지표, 과정, 갤러리, 학력, 강의, 자동화, 영상, 문제] =
+            await Promise.all(파일들.map(읽기));
 
         지표_그리기(지표);
+        문제_그리기(문제);
         사업영역_그리기(과정);
         소개_그리기(사이트);
         갤러리_그리기(갤러리);
