@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""강의 이력 입력용 엑셀(data/강의이력.xlsx)을 생성한다.
+"""강의 이력 입력용 엑셀(../강의이력.xlsx)을 생성한다.
 
 기존 data/lectures.json의 내용을 미리 채워넣어, 빈 표부터 시작하지 않도록 한다.
 한 번 만든 뒤에는 다시 실행할 일이 거의 없다 (실행하면 입력 내용이 사라진다).
@@ -14,7 +14,7 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-저장_경로 = Path("data/강의이력.xlsx")
+저장_경로 = Path("../강의이력.xlsx")
 마지막_행 = 500          # 수식이 내다보는 범위 (행을 더 쓰려면 이 값을 늘린다)
 
 # ── 서식 상수 ──────────────────────────────────────────────────────

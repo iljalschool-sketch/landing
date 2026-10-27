@@ -27,7 +27,7 @@
    `홍보/활동사진_모자이크`를 쓴다. EXIF는 스크립트가 제거한다.
 
 6. **`lectures.json`의 `groups`, `stats.json`의 `source` 항목, `courses.json`의 `education.open`은 손으로 고치지 않는다.**
-   `data/강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
+   저장소 바깥의 `../강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
    직접 고치면 다음 실행 때 덮어쓰기 된다. 사용자가 "강의이력 업데이트해줘"라고 하면
    이 스크립트를 실행한다.
 
@@ -42,7 +42,7 @@
 | `assets/brand.css` | 브랜드 토큰(색·폰트·형태) 및 컴포넌트 스타일 |
 | `assets/render.js` | `data/*.json` → DOM 렌더링 |
 | `data/*.json` | 모든 콘텐츠 |
-| `data/강의이력.xlsx` | 강의 회차 기록의 **원본**. 사용자가 직접 입력한다 |
+| `../강의이력.xlsx` | 강의 회차 기록의 **원본**. 저장소 **바깥**에 둔다 — GitHub Pages가 저장소 전체를 공개하므로 에이전시명·교육대상이 노출되기 때문 |
 | `tools/build_lectures.py` | 엑셀 → `lectures.json` + `stats.json` + `courses.json`의 `education.open` |
 | `tools/build_gallery.py` | 활동사진 리사이즈 + EXIF 제거 + `gallery.json` 생성 |
 | `tools/build_brand.py` | 로고 웹용 변환 + 파비콘 + OG 이미지 + 프로필 |
@@ -54,7 +54,7 @@
 ## 강의 이력 파이프라인
 
 ```
-data/강의이력.xlsx  ──(build_lectures.py)──┬──> data/lectures.json  (중복 제거: 같은 강의명+기관은 1줄 + count)
+../강의이력.xlsx  ──(build_lectures.py)──┬──> data/lectures.json  (중복 제거: 같은 강의명+기관은 1줄 + count)
    회차 단위로 기록                        ├──> data/stats.json     (전체 합산: 수강생·횟수·시간·기관 수)
                                            └──> data/courses.json   (education.open = 모집 중인 과정)
 ```
@@ -137,5 +137,5 @@ JSON 로드에 실패하면 `읽기()`가 `null`을 반환하고, 각 `*_그리�
 |---|---|
 | 2026-10-27 | `모집마감일` 추가. 마감일이 지나면 빌드·화면 두 겹에서 자동으로 '수강 신청 가능'에서 내려간다. 미래 일자 회차는 누적 집계에서 제외 |
 | 2026-10-27 | 분류를 `구분`(성격) + `모집상태`(신청 가능 여부) 두 축으로 분리. 기존 `대표강의` 3분할 폐지. `형태`(온라인/VOD) 추가. `courses.json`의 수강 가능 교육도 엑셀 단일 출처로 통합 |
-| 2026-10-27 | 강의 이력 엑셀 파이프라인 도입. `data/강의이력.xlsx` → `lectures.json` + `stats.json` 자동 생성. 기관명 표기 원칙(`_표기원칙`)과 비노출 `agency` 필드 추가 |
+| 2026-10-27 | 강의 이력 엑셀 파이프라인 도입. `../강의이력.xlsx` → `lectures.json` + `stats.json` 자동 생성. 기관명 표기 원칙(`_표기원칙`)과 비노출 `agency` 필드 추가 |
 | 2026-10-27 | 데이터/표현 분리 개편. 단일 774줄 `index.html` → `data/*.json` + `assets/`. 신규 브랜드(그린) 적용, 누적 성과 지표·활동사진 갤러리 신설, OG 이미지 복구(기존 404), Pretendard 폰트 로드 경로 수정, 레거시 자산 정리 |

@@ -230,7 +230,15 @@
     /* ── 4. 활동사진 갤러리 ─────────────────────────────────────── */
 
     const 갤러리_그리기 = (자료) => {
-        if (!자료) return;
+        // 사진이 없으면 섹션과 메뉴 링크를 통째로 숨긴다
+        // (준비 중인 빈 갤러리가 노출되지 않도록)
+        if (!자료 || !자료.items || !자료.items.length) {
+            const 섹션 = document.getElementById('gallery');
+            if (섹션) 섹션.style.display = 'none';
+            const 메뉴 = document.querySelector('nav a[href="#gallery"]');
+            if (메뉴) 메뉴.style.display = 'none';
+            return;
+        }
 
         채우기('gallery-heading', esc(자료.heading));
         채우기('gallery-sub', esc(자료.subheading));

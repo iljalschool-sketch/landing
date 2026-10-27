@@ -4,7 +4,7 @@
 openpyxl은 수식을 문자열로만 써넣고 계산 결과를 저장하지 않는다.
 이 스크립트가 Excel을 띄워 실제로 계산시킨 뒤 같은 자리에 저장한다.
 
-사용법:  python tools/recalc_excel.py data/강의이력.xlsx
+사용법:  python tools/recalc_excel.py ../강의이력.xlsx
 """
 import sys
 from pathlib import Path
@@ -75,7 +75,7 @@ def 재계산(파일_경로: Path) -> int:
 
 
 if __name__ == "__main__":
-    경로 = Path(sys.argv[1] if len(sys.argv) > 1 else "data/강의이력.xlsx")
+    경로 = Path(sys.argv[1] if len(sys.argv) > 1 else "../강의이력.xlsx")
     if not 경로.exists():
         sys.exit(f"파일을 찾을 수 없습니다: {경로}")
     sys.exit(1 if 재계산(경로) else 0)

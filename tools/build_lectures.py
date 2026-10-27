@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""data/강의이력.xlsx 를 읽어 lectures.json 과 stats.json 을 갱신한다.
+"""../강의이력.xlsx 를 읽어 lectures.json 과 stats.json 을 갱신한다.
 
 엑셀은 '회차' 단위로 기록하고, 결과물은 두 갈래로 나뉜다.
   - lectures.json : 같은 과정의 반복분은 한 줄로 합친다 (목록이므로)
@@ -14,7 +14,8 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-엑셀_경로 = Path("data/강의이력.xlsx")
+# 저장소 밖에 둔다. 공개 사이트에 내부 기록(에이전시명 등)이 노출되지 않도록.
+엑셀_경로 = Path("../강의이력.xlsx")
 강의_경로 = Path("data/lectures.json")
 지표_경로 = Path("data/stats.json")
 과정_경로 = Path("data/courses.json")   # '사업 영역'의 수강 가능 교육 목록

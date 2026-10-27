@@ -4,14 +4,17 @@
 
 **이 문서만 보면 홈페이지 내용을 혼자 수정할 수 있습니다.** 코드는 건드릴 필요 없습니다.
 
-- **강의 이력·누적 지표** → `data/강의이력.xlsx` (엑셀)
+- **강의 이력·누적 지표** → `강의이력.xlsx` (엑셀, 저장소 바깥)
 - **그 밖의 내용** → `data/` 폴더의 JSON 파일
 
 ---
 
 ## 1. 강의할 때마다 하는 기록 (엑셀)
 
-**`data/강의이력.xlsx` 한 파일만 관리하면 됩니다.**
+**`강의이력.xlsx` 한 파일만 관리하면 됩니다.**
+
+위치: `OneDrive\Files\10_LogicFlow\강의이력.xlsx`
+(`landing` 폴더 **바로 바깥**입니다. 홈페이지 저장소 안에 두면 에이전시명·교육대상 같은 내부 기록까지 인터넷에 공개되기 때문입니다.)
 
 강의를 할 때마다 `강의이력` 시트에 **한 줄씩** 추가하세요. 노란 칸이 필수입니다.
 
@@ -169,32 +172,34 @@ git add . && git commit -m "강의 이력 추가" && git push
 ## 4. 폴더 구조
 
 ```
-landing/
-├── index.html              ← 레이아웃 껍데기 (내용 없음)
-├── data/                   ← ★ 내용은 전부 여기 있습니다
-│   ├── 강의이력.xlsx       ★ 강의할 때마다 여기에 기록
-│   ├── site.json           소개 영상 · 아키텍트 소개 · 연락처
-│   ├── stats.json          누적 지표 (엑셀이 자동으로 채움)
-│   ├── courses.json        사업 영역 · 모집 중인 교육 · 수강생 페이지
-│   ├── lectures.json       강의 이력 (엑셀이 자동으로 채움)
-│   ├── automation.json     자동화 개발 이력
-│   ├── education.json      학력
-│   ├── videos.json         유튜브 영상 목록
-│   └── gallery.json        활동사진 목록
-├── assets/
-│   ├── brand.css           ★ 브랜드 색상·폰트 (한 곳에서 관리)
-│   └── render.js           JSON을 읽어 화면을 그리는 코드
-├── images/
-│   ├── brand/              로고 · 파비콘 · OG 이미지 · 프로필
-│   └── gallery/            활동사진 (thumb/ = 격자용 축소본)
-├── tools/
-│   ├── build_lectures.py   엑셀 → lectures.json + stats.json
-│   ├── build_gallery.py    활동사진 리사이즈 · EXIF 제거
-│   ├── build_brand.py      로고 · 파비콘 · OG 이미지 · 프로필 생성
-│   ├── recalc_excel.py     엑셀 수식 재계산 · 오류 검사
-│   └── make_lecture_workbook.py   엑셀 양식 생성 (최초 1회용)
-├── class/                  수강생 전용 페이지
-└── report/                 리포팅 솔루션 소개 페이지
+10_LogicFlow/
+├── 강의이력.xlsx               ★ 강의할 때마다 여기에 기록
+│                               (저장소 바깥 — 인터넷에 공개되지 않습니다)
+└── landing/                    ← 여기부터 홈페이지 저장소. 전부 공개됩니다
+    ├── index.html              레이아웃 껍데기 (내용 없음)
+    ├── data/                   ← ★ 홈페이지 내용
+    │   ├── site.json           소개 영상 · 아키텍트 소개 · 연락처
+    │   ├── stats.json          누적 지표 (엑셀이 자동으로 채움)
+    │   ├── courses.json        사업 영역 · 수강 가능 교육 (엑셀이 자동으로 채움)
+    │   ├── lectures.json       강의 이력 (엑셀이 자동으로 채움)
+    │   ├── automation.json     자동화 개발 이력
+    │   ├── education.json      학력
+    │   ├── videos.json         유튜브 영상 목록
+    │   └── gallery.json        활동사진 목록
+    ├── assets/
+    │   ├── brand.css           ★ 브랜드 색상·폰트 (한 곳에서 관리)
+    │   └── render.js           JSON을 읽어 화면을 그리는 코드
+    ├── images/
+    │   ├── brand/              로고 · 파비콘 · OG 이미지 · 프로필
+    │   └── gallery/            활동사진 (thumb/ = 격자용 축소본)
+    ├── tools/
+    │   ├── build_lectures.py   엑셀 → lectures · stats · courses.json
+    │   ├── build_gallery.py    활동사진 리사이즈 · EXIF 제거
+    │   ├── build_brand.py      로고 · 파비콘 · OG 이미지 · 프로필 생성
+    │   ├── recalc_excel.py     엑셀 수식 재계산 · 오류 검사
+    │   └── make_lecture_workbook.py   엑셀 양식 생성 (최초 1회용)
+    ├── class/                  수강생 전용 페이지
+    └── report/                 리포팅 솔루션 소개 페이지
 ```
 
 ---
