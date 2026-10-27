@@ -10,6 +10,7 @@ import sys
 from pathlib import Path
 
 import win32com.client as win32
+from openpyxl.utils import get_column_letter
 
 # Excel이 오류 셀에 남기는 값들
 오류_문자열 = ("#N/A", "#VALUE!", "#REF!", "#DIV/0!", "#NUM!", "#NAME?", "#NULL!")
@@ -39,19 +40,30 @@ def 재계산(파일_경로: Path) -> int:
 
         for 시트 in 통합문서.Worksheets:
             사용범위 = 시트.UsedRange
-            for 행 in 사용범위.Rows:
-                for 칸 in 행.Cells:
-                    수식 = 칸.Formula
-                    if not isinstance(수식, str) or not 수식.startswith("="):
+            마지막_행 = 사용범위.Row + 사용범위.Rows.Count - 1
+            마지막_열 = 사용범위.Column + 사용범위.Columns.Count - 1
+
+            # Rows/Cells 컬렉션을 순회하면 COM 오류가 날 때가 있어
+            # 좌표로 직접 접근한다.
+            for 행 in range(사용범위.Row, 마지막_행 + 1):
+                for 열 in range(사용범위.Column, 마지막_열 + 1):
+                    try:
+                        칸 = 시트.Cells(행, 열)
+                        수식 = 칸.Formula
+                        if not isinstance(수식, str) or not 수식.startswith("="):
+                            continue
+                        수식_수 += 1
+                        값 = 칸.Text
+                        주소 = f"{시트.Name}!{get_column_letter(열)}{행}"
+                    except Exception as 오류내용:
+                        print(f"  [읽기실패] {시트.Name} {행}행 {열}열: {오류내용}")
                         continue
-                    수식_수 += 1
-                    값 = 칸.Text
+
                     if any(오류 in str(값) for 오류 in 오류_문자열):
                         오류_수 += 1
-                        print(f"  [오류] {시트.Name}!{칸.Address} "
-                              f"= {수식}  →  {값}")
+                        print(f"  [오류] {주소} = {수식}  →  {값}")
                     else:
-                        print(f"  [정상] {시트.Name}!{칸.Address}  →  {값}")
+                        print(f"  [정상] {주소}  →  {값}")
 
         통합문서.Save()
         통합문서.Close(SaveChanges=True)

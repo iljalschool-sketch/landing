@@ -329,6 +329,18 @@
         채우기('tab-education', 탭_카드('fas fa-graduation-cap', '학력 사항', null, 본문));
     };
 
+    /**
+     * 모집이 마감됐는지 확인한다.
+     *
+     * 원래는 엑셀 변환(build_lectures.py) 때 걸러지지만, 변환·배포를 깜빡해도
+     * 끝난 과정이 '신청 가능'으로 남지 않도록 화면에서 한 번 더 확인한다.
+     */
+    const 모집_마감됨 = (강의) => {
+        if (!강의.expires) return false;
+        const 마감일 = new Date(`${강의.expires}T23:59:59`);
+        return !Number.isNaN(마감일.getTime()) && 마감일 < new Date();
+    };
+
     /** 강의 항목 옆에 붙는 작은 배지들 (모집상태 · 형태 · 반복 횟수) */
     const 배지_모양 = {
         '신청가능': { 글: '신청 가능',  색: 'bg-accent text-white' },
@@ -359,12 +371,15 @@
     const 강의_그리기 = (자료) => {
         if (!자료) return;
 
-        const 본문 = 자료.groups.map((그룹) => `
+        const 본문 = 자료.groups.map((그룹) => {
+            const 항목들 = 그룹.items.filter((강의) => !모집_마감됨(강의));
+            if (!항목들.length) return '';      // 전부 마감됐으면 제목도 숨긴다
+            return `
             <p class="text-xs font-bold uppercase tracking-wider mb-4 ${그룹.highlight ? 'text-accent' : 'text-slate-400'}">
                 ${esc(그룹.label)}
             </p>
             <div class="space-y-3 mb-10">
-                ${그룹.items.map((강의) => {
+                ${항목들.map((강의) => {
                     const 내용 = `
                         <p class="${그룹.highlight ? 'text-white font-bold' : 'text-slate-200'}">
                             ${esc(강의.title)}
@@ -382,7 +397,8 @@
                         : `<div class="${클래스}">${내용}</div>`;
                 }).join('')}
             </div>
-        `).join('');
+        `;
+        }).join('');
 
         채우기('tab-lectures', 탭_카드('fas fa-chalkboard-teacher', '강의 이력', null, 본문));
     };
