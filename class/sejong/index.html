@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="ko">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -616,6 +616,46 @@
 </style>
 </head>
 <body>
+<!-- 비밀번호 잠금 -->
+<div id="pw-gate" style="position:fixed;inset:0;z-index:99999;background:var(--bg,#fff);display:flex;align-items:center;justify-content:center;flex-direction:column;font-family:var(--font,sans-serif);">
+  <div style="text-align:center;max-width:360px;padding:24px;">
+    <div style="font-size:2.5rem;margin-bottom:16px;">🔒</div>
+    <h2 style="font-size:1.25rem;font-weight:700;color:var(--fg,#111);margin-bottom:8px;">수강생 전용 페이지</h2>
+    <p style="font-size:0.875rem;color:var(--muted,#666);margin-bottom:24px;">비밀번호를 입력해 주세요.</p>
+    <input id="pw-input" type="password" placeholder="비밀번호" autocomplete="off"
+      style="width:100%;padding:12px 16px;font-size:1rem;border:2px solid var(--line,#e7e8ec);border-radius:8px;background:var(--soft,#f6f7f9);color:var(--fg,#111);outline:none;box-sizing:border-box;text-align:center;letter-spacing:0.15em;"
+      onfocus="this.style.borderColor='var(--accent,#16a34a)'" onblur="this.style.borderColor='var(--line,#e7e8ec)'"
+    >
+    <p id="pw-err" style="color:#ef4444;font-size:0.8rem;margin-top:8px;display:none;">비밀번호가 일치하지 않습니다.</p>
+    <button id="pw-btn" onclick="checkPw()"
+      style="margin-top:16px;width:100%;padding:12px;font-size:0.95rem;font-weight:600;color:#fff;background:var(--accent,#16a34a);border:none;border-radius:8px;cursor:pointer;">
+      입장하기
+    </button>
+  </div>
+</div>
+<style>#pw-gate~*{display:none!important}body.pw-ok #pw-gate{display:none!important}body.pw-ok #pw-gate~*{display:revert!important}</style>
+<script>
+(function(){
+  var KEY='sejong_pw_ok';
+  if(sessionStorage.getItem(KEY)==='1'){document.body.classList.add('pw-ok');}
+  window.checkPw=function(){
+    var v=document.getElementById('pw-input').value;
+    if(v==='20261102'){
+      sessionStorage.setItem(KEY,'1');
+      document.body.classList.add('pw-ok');
+    }else{
+      document.getElementById('pw-err').style.display='block';
+      document.getElementById('pw-input').style.borderColor='#ef4444';
+      document.getElementById('pw-input').value='';
+      document.getElementById('pw-input').focus();
+    }
+  };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!document.body.classList.contains('pw-ok'))checkPw();
+  });
+})();
+</script>
+
 
 <div class="progress" id="progress" style="width: 0%;"></div>
 
