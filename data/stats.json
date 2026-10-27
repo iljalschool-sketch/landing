@@ -19,7 +19,7 @@
       "source": "students"
     },
     {
-      "value": 18,
+      "value": 30,
       "suffix": "회+",
       "label": "누적 강의 횟수",
       "icon": "fas fa-chalkboard-teacher",
@@ -33,7 +33,7 @@
       "source": "hours"
     },
     {
-      "value": 11,
+      "value": 15,
       "suffix": "곳+",
       "label": "협력 기관·기업",
       "icon": "fas fa-building",
