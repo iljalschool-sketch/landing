@@ -1,0 +1,231 @@
+{
+  "_주석": "유튜브 영상 시리즈입니다. videos 배열에 {id, title}을 추가하면 자동 반영됩니다. id는 유튜브 주소 v= 뒤의 값입니다.",
+  "channel": {
+    "name": "일잘러스쿨",
+    "desc": "엑셀, 한글, AI, 자동화 관련 교육 영상 업로드",
+    "links": [
+      {
+        "label": "YouTube 채널",
+        "url": "https://www.youtube.com/@iljal-school",
+        "icon": "fab fa-youtube",
+        "style": "youtube"
+      },
+      {
+        "label": "유튜브 실습 자료실",
+        "url": "./youtube-materials/",
+        "icon": "fas fa-download",
+        "style": "brand"
+      },
+      {
+        "label": "오픈 카톡",
+        "url": "https://open.kakao.com/o/gRZdvU6e",
+        "icon": "fas fa-comment",
+        "style": "kakao"
+      },
+      {
+        "label": "프밍쌤 오픈 프로필",
+        "url": "https://open.kakao.com/o/sEbFz6Se",
+        "icon": "fas fa-user",
+        "style": "kakao"
+      }
+    ]
+  },
+  "series": [
+    {
+      "id": "vba",
+      "icon": "fas fa-robot",
+      "title": "AI와 함께하는 VBA",
+      "desc": "AI를 활용한 엑셀 VBA 자동화",
+      "accent": "brand",
+      "videos": [
+        {
+          "id": "dErLAh4kDxI",
+          "title": "직장인이 싫어하는 쓸모없고 단순한 작업 끝! AI로 자동화 시연 영상(엑셀 시트명 비교)"
+        },
+        {
+          "id": "oLEoK_VTSmY",
+          "title": "1초만에 1년치 업무 준비 끝!(양식 복사해서 시트명 바꾸기)"
+        },
+        {
+          "id": "PwJTBAUJuZg",
+          "title": "직장인을 괴롭히는 반복작업! 같은 양식의 시트를 거래처별로 자동 생성"
+        },
+        {
+          "id": "KVlHqXr3OwQ",
+          "title": "자동으로 만든 목차 시트로 시트 이동을 편리하게!"
+        },
+        {
+          "id": "2STNez6TZNI",
+          "title": "반복되는 셀 한 번에 병합하기!! AI로 VBA코드 만들기!!"
+        },
+        {
+          "id": "mf1Q4_rWsZk",
+          "title": "병합된 셀을 데이터 형태로 원상복구!! AI로 VBA코드 만들기!!"
+        },
+        {
+          "id": "K6DC8nyuJHU",
+          "title": "복잡한 데이터를 각 회사 별로 필터링해서 시트에 나눠서 저장하기"
+        },
+        {
+          "id": "OIG27Cb_8Qc",
+          "title": "각 시트의 내용을 개별 파일로 저장하기"
+        },
+        {
+          "id": "4srFf0H51j0",
+          "title": "여러개의 표에 동일한 서식 적용하는 코드 만들기"
+        },
+        {
+          "id": "QQewJBebXVw",
+          "title": "AI가 생성해준 코드를 내 상황에 맞게 수정하기 / 기본 VBA"
+        },
+        {
+          "id": "3Plaa7a27p8",
+          "title": "10분이면 언제든지 쓰는 '나만의 도구'"
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "icon": "fab fa-python",
+      "title": "AI와 함께하는 파이썬",
+      "desc": "AI를 활용한 파이썬 업무 자동화",
+      "accent": "light",
+      "videos": [
+        {
+          "id": "Mr2XI531lIo",
+          "title": "차트 자동화 끝판왕! 100개도 단 1초면 OK"
+        },
+        {
+          "id": "m7zyLU-3p6U",
+          "title": "이걸 직접 만든다고? 파이썬으로 QR코드까지 생성!!"
+        },
+        {
+          "id": "KyJ56582gsc",
+          "title": "파이썬 설치 NO! 지금 바로 시작하는 구글 콜랩 완전 초보 가이드"
+        },
+        {
+          "id": "RA5EFIzqHS4",
+          "title": "챗GPT랑 파이썬으로 '야근 탈출' 가능한 이유"
+        }
+      ]
+    },
+    {
+      "id": "excel",
+      "icon": "fas fa-table",
+      "title": "함수 없이 배우는 엑셀",
+      "desc": "함수 없이도 가능한 엑셀 활용법",
+      "accent": "growth",
+      "videos": [
+        {
+          "id": "OTxyoG50-Ds",
+          "title": "엑셀 좀 하는 사람들도 의외로 모르는 엑셀의 가장 쉽고 강력한 기능! 빠른 채우기!"
+        },
+        {
+          "id": "8MEtxfAuZEo",
+          "title": "아무도 신경쓰지 않던 버튼의 비밀! 만능 단축키! 빠른 분석!(스파크라인)"
+        },
+        {
+          "id": "OrKm6GPHCx8",
+          "title": "아는 사람만 쓰는 엑셀 표의 숨겨진 기능들!! 표 기능의 모든것"
+        },
+        {
+          "id": "AXk_QgCc9IE",
+          "title": "자동필터 완전 정복!! 원하는 순서로 원하는 자료 만!! 사용자 지정 목록!!"
+        },
+        {
+          "id": "WBdMa-z-t50",
+          "title": "엑셀에서 날짜, 시간 입력하기, 표시 형식 1탄"
+        },
+        {
+          "id": "q3LaSbBLH6c",
+          "title": "사용자 지정 형식, 날짜 표시하기, 시간 표시하기, 표시형식 2탄!"
+        },
+        {
+          "id": "c3nwAZZ7EvU",
+          "title": "찾기 및 바꾸기 완전 정복, 찾으려는 목적을 알고 딱 맞는 방법을 사용하자!"
+        },
+        {
+          "id": "lvku8gLjnHQ",
+          "title": "이면지 빌런 이제 그만!! 엑셀 인쇄 이것만 알면 끝!!"
+        },
+        {
+          "id": "EWOhchDt7KA",
+          "title": "시키는대로 안한다고 열받지 말고 보기에 있는것만 선택하게 하는 드롭다운 메뉴"
+        },
+        {
+          "id": "gv_dzgPWYkc",
+          "title": "꿀팁가득 실전예제! 다중 드롭다운 메뉴! 대,중,소 카테고리 분류"
+        },
+        {
+          "id": "L4UwhQZ0Kz4",
+          "title": "한 장에 맞추기엔 내용이 많고 수동으로 맞추자니 번거로운 분들을 위한 한방!"
+        },
+        {
+          "id": "4L7o-pzSz3s",
+          "title": "연도별로 정리된 자료 차트로 쉽게 만들기! 묶은 세로 막대그래프 그리기"
+        },
+        {
+          "id": "qfowxV6Skrk",
+          "title": "데이터 레이블이 잘 안보일때 할 수 있는 4가지 방법!!"
+        },
+        {
+          "id": "dcPAxGheQCw",
+          "title": "괄호 안의 내용 따로 구분하기, 날짜 형식 바꾸기를 한방에! 텍스트나누기"
+        },
+        {
+          "id": "2J1DCrnx9tA",
+          "title": "중복 값 제거, 중복된 항목 제거, 왜 중복이 아닌 데이터까지 지워졌을까."
+        },
+        {
+          "id": "IJYkEGJAQT4",
+          "title": "반복 작업 그만! 직장인의 작업 효율을 287% 올려줄 간단한 꿀기능 3가지"
+        },
+        {
+          "id": "_aIT9YvhGaM",
+          "title": "막대 그래프에 이미지 넣기 / 복잡한 표 시각화 / 열 피벗 해제"
+        },
+        {
+          "id": "xkX4DZKYZog",
+          "title": "일주일간 직원 데이터 조회하기(두 가지 조건을 만족하는 값을 vlookup으로 찾아오기!)"
+        }
+      ]
+    },
+    {
+      "id": "qna",
+      "icon": "fas fa-hand-paper",
+      "title": "선생님 질문 있어요!",
+      "desc": "구독자 질문 답변 시리즈",
+      "accent": "mint",
+      "videos": [
+        {
+          "id": "KF1ieCuiH4c",
+          "title": "데이터 지울때 함께 삭제되는 이미지 설정하기"
+        },
+        {
+          "id": "-PPRfKGGaSk",
+          "title": "시작일과 종료일을 연결해서 기간 만들기"
+        },
+        {
+          "id": "Qx7yAFZODKY",
+          "title": "영역을 표시하는 그래프 만들기"
+        },
+        {
+          "id": "CfwDxbM3gpM",
+          "title": "텍스트 일부만 계산해서 변경하기(LEFT, MID, & 실전 사용)"
+        },
+        {
+          "id": "RTOwU4Lvewk",
+          "title": "텍스트 일부만 계산해서 변경하기(TEXT, TEXTJOIN, 날짜계산, 배열)"
+        },
+        {
+          "id": "_aIT9YvhGaM",
+          "title": "막대 그래프에 이미지 넣기 / 복잡한 표 시각화 / 열 피벗 해제"
+        },
+        {
+          "id": "xkX4DZKYZog",
+          "title": "일주일간 직원 데이터 조회하기(vlookup / 자동필터 / 필터함수)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+/* ===================================================================
+   로직플로우 브랜드 토큰
+   -------------------------------------------------------------------
+   색상·폰트·간격의 단일 출처(Single Source of Truth)입니다.
+   브랜드 컬러를 바꾸려면 아래 --brand-* 값만 수정하면
+   사이트 전체에 자동 반영됩니다.
+   참고: 11_Assets/logo/03_브랜드가이드/LogicFlow_브랜드가이드_참고.png
+   =================================================================== */
+
+/* Pretendard 정식 CDN (Google Fonts에는 존재하지 않는 폰트임) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+
+:root {
+    /* ── 브랜드 코어 컬러 ── */
+    --brand-green: #0B4D3B;   /* 메인   : 헤더, 짙은 배경, 주요 버튼 */
+    --growth-green: #166B52;  /* 보조   : 그라데이션, 보조 버튼 */
+    --light-green: #3DA37A;   /* 포인트 : 강조 텍스트, 아이콘, 링크 */
+    --mint-green: #E8F4EE;    /* 배경   : 연한 섹션 배경, 카드 배경 */
+
+    /* ── 파생 컬러 (코어에서 유도) ── */
+    --brand-deep: #073024;    /* 가장 어두운 톤 : 경력 섹션 배경 */
+    --brand-gradient: linear-gradient(135deg, var(--brand-deep) 0%, var(--growth-green) 100%);
+
+    /* ── 중립 컬러 ── */
+    --ink: #0f172a;           /* 본문 제목 */
+    --ink-soft: #475569;      /* 본문 */
+    --ink-muted: #94a3b8;     /* 캡션, 부가 설명 */
+    --line: #e2e8f0;          /* 구분선, 테두리 */
+
+    /* ── 타이포그래피 ── */
+    --font-sans: 'Pretendard Variable', Pretendard, -apple-system,
+                 BlinkMacSystemFont, system-ui, 'Malgun Gothic', sans-serif;
+
+    /* ── 형태 ── */
+    --radius-sm: 0.75rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-full: 9999px;
+    --shadow-card: 0 1px 3px rgba(11, 77, 59, 0.06);
+    --shadow-lift: 0 12px 32px rgba(11, 77, 59, 0.14);
+}
+
+/* ── 기본 타이포 ── */
+body {
+    font-family: var(--font-sans);
+    word-break: keep-all;        /* 한글 단어 단위 줄바꿈 */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ── 브랜드 그라데이션 (히어로 배경) ── */
+.logic-gradient { background: var(--brand-gradient); }
+
+/* ── 카드 호버 ── */
+.card-hover { transition: transform .3s ease, box-shadow .3s ease; }
+.card-hover:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+
+/* ── 경력 탭 버튼 ── */
+.tab-btn {
+    cursor: pointer;
+    padding: .625rem 1.25rem;
+    border-radius: var(--radius-full);
+    font-size: .875rem;
+    font-weight: 600;
+    transition: all .3s ease;
+    border: 1px solid rgba(255,255,255,.15);
+    background: rgba(255,255,255,.05);
+    color: var(--ink-muted);
+}
+.tab-btn:hover { background: rgba(255,255,255,.1); color: #e2e8f0; }
+.tab-btn.active {
+    background: var(--growth-green);
+    color: #fff;
+    border-color: var(--growth-green);
+    box-shadow: 0 4px 15px rgba(22, 107, 82, .45);
+}
+
+/* ── 탭 콘텐츠 전환 ── */
+.tab-content { display: none; animation: fadeIn .4s ease; }
+.tab-content.active { display: block; }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 경력 항목 ── */
+.career-item {
+    padding: .75rem 1rem;
+    border-left: 2px solid rgba(61, 163, 122, .3);
+    transition: all .2s ease;
+}
+.career-item:hover {
+    border-left-color: var(--light-green);
+    background: rgba(255,255,255,.03);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.career-item.highlight {
+    border-left-color: var(--light-green);
+    background: rgba(61, 163, 122, .1);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* ── 영상 시리즈 카드 ── */
+.series-card { cursor: pointer; transition: all .3s ease; }
+.series-card:hover { transform: translateY(-3px); }
+.series-card.expanded { grid-column: 1 / -1; }
+
+.video-list { display: none; margin-top: 1rem; }
+.video-list.show { display: block; animation: fadeIn .3s ease; }
+
+.video-link {
+    display: flex;
+    align-items: center;
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    transition: all .2s ease;
+    text-decoration: none;
+    color: #cbd5e1;
+    font-size: .85rem;
+}
+.video-link:hover { background: rgba(255,255,255,.08); color: #fff; }
+.video-link .video-num {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: rgba(61, 163, 122, .22);
+    color: var(--light-green);
+    font-size: .7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: .75rem;
+    flex-shrink: 0;
+}
+
+/* ── 누적 성과 지표 카운터 ── */
+.stat-value {
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--brand-green);
+    font-variant-numeric: tabular-nums;  /* 숫자 폭 고정 (카운트업 시 흔들림 방지) */
+}
+
+/* ── 활동사진 갤러리 ── */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    aspect-ratio: 4 / 3;
+    cursor: pointer;
+    background: var(--mint-green);
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .45s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-caption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.5rem .9rem .8rem;
+    background: linear-gradient(transparent, rgba(7, 48, 36, .85));
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+
+/* ── 라이트박스 ── */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(7, 48, 36, .94);
+    padding: 2rem;
+}
+.lightbox.show { display: flex; }
+.lightbox img {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: var(--radius-md);
+    object-fit: contain;
+}
+
+/* ── 접근성: 모션 최소화 설정 존중 ── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}

@@ -1,0 +1,56 @@
+{
+  "_주석": "사이트 전역 정보입니다. 단, 페이지 제목·설명·OG태그·히어로 문구는 검색엔진 노출을 위해 index.html 상단에 직접 적혀 있습니다.",
+  "introVideo": {
+    "heading": "자동화의 시작, 로직 설계가 우선입니다",
+    "subheading": "자동화의 기초 체력을 길러주는 오프라인 강의 안내 영상입니다.",
+    "youtubeId": "Rb_ihykKErw",
+    "title": "자동화, 무엇부터 해야 할지 막막한 사람 손!"
+  },
+  "about": {
+    "eyebrow": "Meta-Logic Architect",
+    "name": "강혜진",
+    "alias": "프밍쌤",
+    "photo": "images/brand/profile.jpg",
+    "quote": "단순한 지식 전달이 아닌, 업무의 본질을 꿰뚫는 <strong>메타로직</strong>을 전수합니다.",
+    "body": "데이터 기반 리포팅 솔루션 설계와 교육공학적 메타인지 연구를 결합하여, 실질적인 업무 혁신을 만드는 아키텍처 설계법을 제시합니다.",
+    "tags": [
+      "교육공학 박사 과정",
+      "메타로직 프레임워크 개발자",
+      "로직플로우 대표"
+    ]
+  },
+  "contact": {
+    "heading": "Contact Us",
+    "channels": [
+      {
+        "label": "KakaoTalk",
+        "desc": "1:1 실시간 상담",
+        "url": "https://open.kakao.com/o/sEbFz6Se",
+        "icon": "fas fa-comment",
+        "style": "kakao"
+      },
+      {
+        "label": "Email",
+        "desc": "sophia_kang@naver.com",
+        "url": "mailto:sophia_kang@naver.com",
+        "icon": "far fa-envelope",
+        "style": "brand"
+      },
+      {
+        "label": "Call",
+        "desc": "010-9088-8741",
+        "url": null,
+        "icon": "fas fa-phone-alt",
+        "style": "neutral"
+      },
+      {
+        "label": "YouTube",
+        "desc": "일잘러스쿨",
+        "url": "https://www.youtube.com/@iljal-school",
+        "icon": "fab fa-youtube",
+        "style": "youtube"
+      }
+    ],
+    "copyright": "© 2026 LOGIC FLOW. Data-Driven Reporting Solution."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "_주석": "자동화 프로그램 개발 이력입니다. tech는 사용한 도구/AI 조합을 적습니다.",
+  "groups": [
+    {
+      "id": "major",
+      "label": "주요 프로젝트",
+      "highlight": true,
+      "layout": "list",
+      "items": [
+        { "title": "국내 대기업 DX프로젝트 자동화 프로그램 개발", "tech": "VBA with ChatGPT" },
+        { "title": "데이터 기반 공정지도 대시보드 개발", "tech": "VBA with ChatGPT" },
+        { "title": "나라장터 키워드 검색 및 트래킹 시스템 개발", "tech": "파이썬 with Claude" },
+        { "title": "역량 측정 보고서 자동 생성 프로그램 개발", "tech": "파이썬 with Cursor" }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "label": "업무 효율화 자동화",
+      "highlight": false,
+      "layout": "grid",
+      "items": [
+        { "title": "지출결의서 내역 비교하여 누락된 내역 찾기", "tech": "파이썬 with Claude" },
+        { "title": "엑셀로 정리된 지출결의 내용 회사 시스템에 자동 업로드", "tech": "VBA with ChatGPT" },
+        { "title": "카드승인번호로 매출 전표에서 필요한 영수증 자동 캡쳐 저장", "tech": "오토핫키, 파이썬" },
+        { "title": "교육평가결과 자동 계산 시스템 개발", "tech": "엑셀" },
+        { "title": "교육 운영 후 통계 자료 자동 생성", "tech": "엑셀" },
+        { "title": "주간 업무 보고 자료 자동 생성", "tech": "엑셀" },
+        { "title": "만족도 조사 결과 보고서 내용 자동 작성", "tech": "엑셀" },
+        { "title": "전체 수료증 자동 출력 파일", "tech": "엑셀" },
+        { "title": "엑셀 일정표 → 구글 캘린더 입력", "tech": "오토핫키" },
+        { "title": "카드내역 전각/반각 문자 자동 변환", "tech": "VBA with ChatGPT" }
+      ]
+    }
+  ]
+}

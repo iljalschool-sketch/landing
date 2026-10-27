@@ -1,0 +1,40 @@
+{
+  "_주석": "메인 '사업 영역' 섹션에 노출되는 수강 가능 교육과 수강생 전용 페이지 목록입니다.",
+
+  "reporting": {
+    "title": "데이터 기반 리포팅 솔루션",
+    "url": "/report",
+    "icon": "fas fa-file-contract",
+    "body": "전문 인력이 단순 데이터 가공에 매몰되지 않도록 합니다. 대학 및 기관의 정량지표 보고서 작성을 지원하여 업무 효율을 극대화합니다.",
+    "features": [
+      "HWP/Word 기반 정량 보고서 생성",
+      "휴먼 에러 제로 데이터 검증 로직"
+    ]
+  },
+
+  "education": {
+    "title": "Meta-Logic 워크플로우 교육",
+    "tagline": "메타로직 아키텍트 양성 과정",
+    "icon": "fas fa-brain",
+    "body": "자체 개발한 <strong>메타로직 프레임워크</strong>를 통해 복잡한 업무를 구조화하는 '생각의 힘'을 기릅니다. 단순 툴 활용을 넘어 지능형 워크플로우를 설계하는 전문가로 성장하세요.",
+
+    "_주석_open": "모집 중인 교육입니다. 모집이 끝나면 해당 항목을 지우세요.",
+    "open": [
+      {
+        "title": "챗GPT 활용 업무 자동화 (KISTI)",
+        "url": "https://kacademy.kisti.re.kr/eduappl/eduappl/eduActiveViewInfo.do?crsOprtnSeq=2023&crsMastSeq=K449&crsEduTpye=searchInfo&pageIndex=1&searchListCnt=10&searchCrsTtl=%EC%97%85%EB%AC%B4%EC%9E%90%EB%8F%99%ED%99%94&dspLinkMenuId=KO0014&dspMenuId=KO0014"
+      },
+      {
+        "title": "ChatGPT와 파이썬 업무자동화 (멀티캠퍼스)",
+        "url": "https://m.multicampus.com/course/crsDetail?corsCd=FA01GK",
+        "cta": "바로가기 →"
+      }
+    ],
+
+    "_주석_classrooms": "class/ 폴더에 만든 수강생 전용 페이지를 연결합니다.",
+    "classrooms": [
+      { "title": "경북교육청 수강생 전용 페이지", "url": "./class/gyeongbuk/", "cta": "강의 자료실 입장하기 →" },
+      { "title": "세종연구원 · AI를 활용한 엑셀 데이터 활용", "url": "./class/sejong/", "cta": "강의실 바로 가기 →" }
+    ]
+  }
+}
