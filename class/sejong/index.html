@@ -1,0 +1,2160 @@
+﻿<!doctype html>
+<html lang="ko">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>세종연구원 AI아카데미 과정 1 — 엑셀·데이터 활용 (1·2일차)</title>
+<meta name="description" content="세종연구원 AI아카데미 과정 1(AI를 활용한 엑셀·데이터 활용) 1·2일차 실습형 교안. 보고서형→분석용 표 변환, 데이터 전처리, 피벗테이블, 수식 해독·작성, 차트·대시보드, 매크로를 ㈜다온유통 가상 데이터로 직접 만들고 확인한다.">
+<script>
+
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('lesson-theme'); } catch (e) {}
+    if (!t) t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    var s = null;
+    try { s = localStorage.getItem('lesson-font'); } catch (e) {}
+    if (s) document.documentElement.style.fontSize = s + 'px';
+  })();
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+
+  :root {
+    --bg: #ffffff;
+    --fg: #111418;
+    --fg2: #2c3038;
+    --muted: #666c76;
+    --line: #e7e8ec;
+    --line-strong: #cdd0d6;
+    --soft: #f6f7f9;
+    --code-bg: #f6f7f9;
+    --accent: #16a34a;
+    --accent-ink: #15803d;
+    --accent-soft: #f0fdf4;
+    --on-accent: #ffffff;
+    --radius: 10px;
+    --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    --mono: "JetBrains Mono", D2Coding, Consolas, "Pretendard Variable", Pretendard, monospace;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1013;
+    --fg: #eceef1;
+    --fg2: #d2d5da;
+    --muted: #9aa0a9;
+    --line: #252a31;
+    --line-strong: #394049;
+    --soft: #161a1f;
+    --code-bg: #14171c;
+    --accent: #4ade80;
+    --accent-ink: #86efac;
+    --accent-soft: #052e16;
+    --on-accent: #0e1013;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { font-size: 16px; scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  a { color: var(--accent-ink); text-underline-offset: 3px; }
+  strong { font-weight: 700; }
+  em.hl { font-style: normal; font-weight: 700; color: var(--accent-ink); }
+  svg.lucide { width: 1em; height: 1em; stroke-width: 2; vertical-align: -0.125em; flex-shrink: 0; }
+
+  /* ---------- Top bar ---------- */
+  .progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--accent); z-index: 60; }
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 0 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; font-weight: 700; font-size: .9375rem; }
+  .brand .mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent); color: var(--on-accent);
+  }
+  .brand span.txt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tools {
+    display: flex; align-items: center; gap: 2px;
+    padding: 3px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg);
+  }
+  .tools .sep { width: 1px; height: 20px; background: var(--line); margin: 0 3px; }
+  .tool {
+    position: relative;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; border: 0; border-radius: 9px;
+    background: transparent; color: var(--fg2); cursor: pointer; font-size: 1.125rem;
+  }
+  .tool:hover { background: var(--soft); color: var(--fg); }
+  .tool:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .tool[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute; top: calc(100% + 8px); right: 0;
+    padding: 4px 8px; border-radius: 6px;
+    background: var(--fg); color: var(--bg);
+    font-size: .75rem; font-weight: 500; line-height: 1.4; white-space: nowrap; pointer-events: none;
+  }
+  .tool .i-sun, .mbtn .i-sun { display: none; }
+  :root[data-theme="dark"] .tool .i-sun, :root[data-theme="dark"] .mbtn .i-sun { display: inline; }
+  :root[data-theme="dark"] .tool .i-moon, :root[data-theme="dark"] .mbtn .i-moon { display: none; }
+  .tool-toc { display: none; }
+
+  /* ---------- Layout ---------- */
+  .layout {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 56px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  .toc {
+    position: sticky; top: 76px;
+    align-self: start;
+    max-height: calc(100vh - 92px);
+    overflow-y: auto;
+    padding: 28px 4px 40px 0;
+    font-size: .875rem;
+    scrollbar-width: thin;
+  }
+  .toc-title { display: flex; align-items: center; gap: 8px; font-size: .75rem; font-weight: 700; letter-spacing: .06em; color: var(--muted); margin: 0 0 12px; }
+  .toc ol { list-style: none; margin: 0; padding: 0; }
+  .toc .toc-part { margin: 18px 0 6px; font-size: .75rem; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+  .toc a {
+    display: flex; gap: 8px;
+    padding: 5px 10px; border-radius: 7px;
+    color: var(--fg2); text-decoration: none; line-height: 1.45;
+    border-left: 2px solid transparent;
+  }
+  .toc a .n { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 1.4em; }
+  .toc a:hover { background: var(--soft); }
+  .toc a.active { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; border-left-color: var(--accent); border-radius: 0 7px 7px 0; }
+  .toc a.active .n { color: var(--accent-ink); }
+  .scrim { display: none; }
+
+  main { min-width: 0; width: 100%; max-width: 800px; padding: 8px 0 120px; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 56px 0 36px; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: .8125rem; font-weight: 700; color: var(--accent-ink); letter-spacing: .02em; margin: 0 0 14px; }
+  .hero h1 { font-size: 2.375rem; line-height: 1.28; letter-spacing: -0.025em; margin: 0 0 14px; font-weight: 800; }
+  .hero .sub { font-size: 1.125rem; color: var(--muted); margin: 0 0 28px; line-height: 1.6; }
+  .meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; }
+  .meta div { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); }
+  .meta .ic { display: inline-flex; color: var(--accent-ink); font-size: 1.125rem; margin-top: 3px; }
+  .meta dt { font-size: .75rem; color: var(--muted); font-weight: 600; margin: 0; }
+  .meta dd { margin: 0; font-size: .9375rem; font-weight: 600; line-height: 1.5; }
+
+  /* ---------- Part & chapter ---------- */
+  .part {
+    margin: 72px 0 8px;
+    padding: 22px 24px;
+    border-radius: 14px;
+    background: var(--soft);
+    border: 1px solid var(--line);
+  }
+  .part-label { display: inline-block; font-size: .75rem; font-weight: 800; letter-spacing: .08em; color: var(--accent-ink); margin-bottom: 4px; }
+  .part-title { font-size: 1.375rem; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.015em; line-height: 1.4; }
+  .part p { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+  .chapter { padding-top: 56px; }
+  .ch-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 18px; }
+  .ch-num {
+    flex-shrink: 0;
+    font-size: .875rem; font-weight: 800; font-variant-numeric: tabular-nums;
+    color: var(--accent-ink);
+    border: 1.5px solid var(--accent);
+    border-radius: 8px;
+    padding: 3px 8px; margin-top: 6px;
+    line-height: 1.3;
+  }
+  .ch-kicker { display: flex; align-items: center; gap: 6px; margin: 0 0 4px; font-size: .8125rem; color: var(--muted); font-weight: 600; }
+  .chapter h2 { font-size: 1.625rem; line-height: 1.38; letter-spacing: -0.02em; margin: 0; font-weight: 800; }
+  .chapter h3 { font-size: 1.1875rem; margin: 40px 0 10px; line-height: 1.45; letter-spacing: -0.01em; font-weight: 700; display: flex; gap: 10px; align-items: baseline; }
+  .chapter h3 .sn { color: var(--muted); font-weight: 600; font-size: .9375rem; font-variant-numeric: tabular-nums; }
+  .chapter h4 { font-size: 1rem; margin: 24px 0 8px; font-weight: 700; }
+  p { margin: 0 0 14px; }
+  .lead { font-size: 1.125rem; color: var(--fg2); }
+  ul, ol { margin: 0 0 16px; padding-left: 1.3em; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--muted); }
+
+  /* ---------- Finished-product preview ---------- */
+  .ch-num .lucide { vertical-align: -0.2em; }
+  .demo { margin: 18px 0 12px; border: 1.5px solid var(--fg); border-radius: 14px; overflow: hidden; background: var(--bg); }
+  .demo-bar { display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 14px; border-bottom: 1px solid var(--line); background: var(--soft); }
+  .demo-bar .dots { display: inline-flex; gap: 6px; }
+  .demo-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
+  .demo-name { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; font-size: .8125rem; font-weight: 600; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .demo-actions { display: flex; gap: 2px; }
+  .demo-actions .tool { color: var(--fg2); text-decoration: none; }
+  .demo iframe { display: block; width: 100%; height: 720px; border: 0; background: #ffffff; }
+  .demo-print { display: none; }
+  .demo:fullscreen { border: 0; border-radius: 0; display: flex; flex-direction: column; }
+  .demo:fullscreen iframe { flex: 1; height: auto; }
+  .demo.expanded { position: fixed; inset: 12px; z-index: 80; margin: 0; display: flex; flex-direction: column; }
+  .demo.expanded iframe { flex: 1; height: auto; }
+  body.demo-open .scrim { display: block; position: fixed; inset: 0; z-index: 75; background: rgba(0,0,0,.45); }
+
+  .datafile { display: flex; align-items: center; gap: 14px; margin: 16px 0 20px; padding: 14px 16px; border: 1px solid var(--accent); border-radius: var(--radius); background: var(--accent-soft); }
+  .datafile .df-ic { display: inline-flex; font-size: 1.5rem; color: var(--accent-ink); }
+  .datafile .df-b { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.5; }
+  .datafile .df-b b { font-size: .9688rem; overflow-wrap: anywhere; }
+  .datafile .df-b span { font-size: .8125rem; color: var(--muted); }
+  .datafile .df-dl { text-decoration: none; }
+  @media (max-width: 720px) { .datafile { flex-wrap: wrap; } .datafile .df-dl { width: 100%; justify-content: center; } }
+
+  .demo-tabs { display: inline-flex; flex-wrap: wrap; gap: 4px; padding: 4px; margin: 6px 0 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); }
+  .demo-tabs button { display: inline-flex; align-items: center; gap: 7px; border: 0; border-radius: 9px; padding: 8px 14px; background: transparent; color: var(--muted); font: inherit; font-size: .9063rem; font-weight: 600; cursor: pointer; }
+  .demo-tabs button.on { background: var(--bg); color: var(--fg); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+  .demo-tabs button.on .lucide { color: var(--accent-ink); }
+
+  /* ---------- Callouts & quotes ---------- */
+  .callout {
+    display: flex; gap: 12px;
+    margin: 20px 0;
+    padding: 16px 18px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .callout .ci { font-size: 1.125rem; color: var(--muted); margin-top: 3px; display: inline-flex; }
+  .callout .cb > :last-child { margin-bottom: 0; }
+  .callout .ct { font-size: .8125rem; font-weight: 700; color: var(--muted); margin: 0 0 4px; letter-spacing: .02em; }
+  .callout.key { background: var(--accent-soft); border-color: transparent; border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+  .callout.key .ci, .callout.key .ct { color: var(--accent-ink); }
+  .callout.key .cb p { font-weight: 600; color: var(--fg); }
+  .callout.warn .ci { color: var(--fg); }
+  .callout.warn { border-color: var(--line-strong); border-style: dashed; }
+
+  blockquote.say {
+    position: relative;
+    margin: 18px 0;
+    padding: 12px 16px 12px 44px;
+    border-radius: var(--radius);
+    background: var(--soft);
+    color: var(--fg2);
+    font-size: 1.0625rem;
+  }
+  blockquote.say::before {
+    content: "\201C";
+    position: absolute; left: 14px; top: 2px;
+    font-size: 2.25rem; line-height: 1.2; font-weight: 800; color: var(--line-strong);
+  }
+  blockquote.say p { margin: 0; }
+  blockquote.say cite { display: block; font-style: normal; font-size: .8125rem; color: var(--muted); margin-top: 4px; }
+  blockquote.say.no { text-decoration: line-through; text-decoration-color: var(--line-strong); text-decoration-thickness: 1.5px; }
+  blockquote.say.no cite { text-decoration: none; }
+
+  .statement {
+    margin: 22px 0;
+    padding: 22px 24px;
+    border: 1.5px solid var(--accent);
+    border-radius: 14px;
+    font-size: 1.1875rem;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+  .statement small { display: block; font-size: .8125rem; font-weight: 700; color: var(--accent-ink); margin-bottom: 8px; letter-spacing: .02em; }
+
+  .motto { text-align: center; margin: 26px 0; padding: 20px 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .motto .en { font-size: 1.625rem; font-weight: 800; letter-spacing: -0.01em; }
+  .motto .ko { color: var(--muted); font-size: .9375rem; margin-top: 4px; }
+
+  /* ---------- Chips & flows ---------- */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 16px; padding: 0; list-style: none; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: .875rem; background: var(--bg); line-height: 1.6; }
+  .chip.dim { color: var(--muted); border-style: dashed; }
+  .chip.on { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); font-weight: 600; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 4px; margin: 12px 0 18px; padding: 0; list-style: none; }
+  .flow li { display: inline-flex; align-items: center; gap: 4px; margin: 0; }
+  .flow li + li::before { content: ""; display: inline-block; width: 14px; height: 14px; margin-right: 4px; background: var(--muted); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E") center/contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='m12 5 7 7-7 7'/%3E%3C/svg%3E") center/contain no-repeat; }
+  .flow .chip { font-weight: 500; }
+
+  /* ---------- Stepper ---------- */
+  .stepper { list-style: none; padding: 0; margin: 16px 0 20px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; counter-reset: st; }
+  .stepper li { margin: 0; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); font-size: .9375rem; font-weight: 600; line-height: 1.4; }
+  .stepper li::before {
+    counter-increment: st; content: counter(st);
+    flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--accent-ink); font-size: .8125rem; font-weight: 800;
+  }
+
+  /* ---------- Cards ---------- */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 16px 0 20px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 20px; }
+  .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 16px 12px; background: var(--bg); min-width: 0; }
+  .card h4 { margin: 0 0 8px; display: flex; align-items: center; gap: 8px; font-size: 1rem; }
+  .card h4 .lucide { color: var(--accent-ink); }
+  .card ul { margin: 0; padding-left: 1.1em; font-size: .9375rem; }
+  .card li { margin: 2px 0; }
+  .card p { font-size: .9375rem; margin-bottom: 8px; }
+  .card .tag { display: inline-block; font-size: .75rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: .03em; }
+
+  .compare { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0 20px; }
+  .compare .side { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; min-width: 0; }
+  .compare .side-h { display: flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: .8125rem; font-weight: 700; border-bottom: 1px solid var(--line); background: var(--soft); color: var(--muted); }
+  .compare .good { border-color: var(--accent); }
+  .compare .good .side-h { background: var(--accent-soft); color: var(--accent-ink); border-bottom-color: transparent; }
+  .compare .side-b { padding: 12px 14px; font-size: .9375rem; }
+  .compare .side-b p:last-child { margin-bottom: 0; }
+  .compare .bad .side-b { color: var(--muted); }
+
+  /* ---------- Tables ---------- */
+  .table-wrap { overflow-x: auto; margin: 14px 0 20px; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; font-size: .9375rem; line-height: 1.55; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-size: .8125rem; font-weight: 700; color: var(--muted); white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td .lucide { color: var(--muted); }
+  td.yes { font-weight: 700; }
+  td.yes .lucide { color: var(--accent-ink); }
+  td.no { color: var(--muted); }
+  tr.total td { font-weight: 700; background: var(--soft); }
+  tr.pick td { background: var(--accent-soft); font-weight: 700; }
+  code.inl { font-family: var(--mono); font-size: .875em; padding: 1px 6px; border-radius: 5px; background: var(--code-bg); border: 1px solid var(--line); }
+
+  /* ---------- Formula ---------- */
+  .formulas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0 20px; }
+  .formula { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; min-width: 0; }
+  .formula.wide { grid-column: 1 / -1; }
+  .formula .fn { font-size: .8125rem; font-weight: 700; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .formula .fx { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 1.0625rem; font-weight: 600; }
+  .frac { display: inline-flex; flex-direction: column; align-items: stretch; text-align: center; line-height: 1.5; }
+  .frac .nu { padding: 0 8px 3px; border-bottom: 1.5px solid var(--fg); }
+  .frac .de { padding: 3px 8px 0; }
+  .formula .op { color: var(--muted); font-weight: 500; }
+
+  /* ---------- Code & prompts ---------- */
+  .codebox { position: relative; margin: 14px 0 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--code-bg); overflow: hidden; }
+  .codebox pre { margin: 0; padding: 14px 16px; overflow-x: auto; font-family: var(--mono); font-size: .875rem; line-height: 1.7; color: var(--fg); white-space: pre; }
+  .codebox > .copy-btn { position: absolute; top: 8px; right: 8px; }
+  .codebox.plain pre { padding-right: 88px; }
+  .prompt { background: var(--bg); }
+  .codebox .ph { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--soft); position: relative; }
+  .codebox .ph .lucide { color: var(--accent-ink); }
+  .codebox .ph .pl { font-size: .75rem; font-weight: 800; color: var(--accent-ink); letter-spacing: .04em; white-space: nowrap; }
+  .codebox .ph .pt { font-size: .9375rem; font-weight: 700; flex: 1; min-width: 0; }
+  .codebox .ph > .copy-btn { position: absolute; top: 10px; right: 12px; }
+  .prompt pre { font-family: var(--font); font-size: .9375rem; line-height: 1.75; white-space: pre-wrap; word-break: keep-all; background: var(--bg); padding: 16px 18px; }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 10px; border-radius: 7px;
+    border: 1px solid var(--line-strong); background: var(--bg); color: var(--fg2);
+    font-family: var(--font); font-size: .8125rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .copy-btn.done { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+
+  /* ---------- Diagrams ---------- */
+  figure.diagram { margin: 18px 0 24px; padding: 18px 14px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+  figure.diagram .scroll { overflow-x: auto; max-width: 100%; }
+  figure.diagram .mermaid { display: flex; justify-content: center; min-height: 60px; color: transparent; font-size: 0; }
+  figure.diagram .mermaid[data-done] { color: inherit; font-size: inherit; }
+  figure.diagram.wide .mermaid svg { min-width: 640px; }
+  figure.diagram figcaption { display: flex; align-items: center; gap: 6px; justify-content: center; margin-top: 10px; font-size: .8125rem; color: var(--muted); }
+  .mermaid svg { max-width: 100%; height: auto; }
+
+  /* ---------- Checklist ---------- */
+  .checklist { list-style: none; padding: 0; margin: 14px 0 20px; display: grid; gap: 6px; }
+  .checklist li { margin: 0; }
+  .checklist button {
+    width: 100%; display: flex; align-items: flex-start; gap: 12px; text-align: left;
+    padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg); color: var(--fg); font: inherit; font-size: .9688rem; line-height: 1.55; cursor: pointer;
+  }
+  .checklist .box { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; border: 1.5px solid var(--line-strong); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; color: transparent; font-size: .875rem; }
+  .checklist button[aria-pressed="true"] { border-color: var(--accent); }
+  .checklist button[aria-pressed="true"] .box { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .checklist button[aria-pressed="true"] .t { color: var(--muted); }
+  .hint { display: flex; align-items: center; gap: 6px; font-size: .8125rem; color: var(--muted); margin: -8px 0 16px; }
+
+  /* ---------- Mock UI ---------- */
+  .mock-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 20px; }
+  .mock { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; min-width: 0; }
+  .mock .ml { display: flex; align-items: center; gap: 6px; font-size: .8125rem; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .mock .mv { font-size: 2.125rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; font-variant-numeric: tabular-nums; }
+  .mock .mv small { font-size: 1rem; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .mock .ms { font-size: .875rem; color: var(--muted); margin-top: 4px; }
+  .mock .ms b { color: var(--accent-ink); }
+  .mock .vr { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: .9375rem; }
+  .mock .vr:last-child { border-bottom: 0; }
+  .mock .vr span { display: inline-flex; align-items: center; gap: 8px; }
+  .mock .vr b { font-variant-numeric: tabular-nums; }
+  .ask { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 7px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-weight: 700; font-size: .9375rem; }
+  .settings .sr { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .9375rem; }
+  .settings .sr:last-child { border-bottom: 0; }
+  .settings .fld { min-width: 76px; text-align: right; padding: 3px 10px; border: 1px solid var(--line-strong); border-radius: 6px; font-variant-numeric: tabular-nums; font-weight: 600; background: var(--bg); }
+
+  .swatches { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 18px; }
+  .swatch { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .swatch .sw { height: 54px; border-bottom: 1px solid var(--line); }
+  .swatch .sl { padding: 8px 12px; font-size: .875rem; }
+  .swatch .sl b { display: block; }
+  .swatch .sl span { color: var(--muted); font-size: .8125rem; }
+
+  .type-scale td:first-child { white-space: nowrap; }
+  .type-scale .sample { font-weight: 700; line-height: 1.25; white-space: nowrap; }
+
+  /* ---------- Timeline & ladder ---------- */
+  .timeline { list-style: none; padding: 0; margin: 18px 0 20px; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 1.5px; background: var(--line); }
+  .timeline li { position: relative; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 14px; margin: 0 0 10px; }
+  .timeline .dot { position: relative; z-index: 1; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--line-strong); background: var(--bg); display: inline-flex; align-items: center; justify-content: center; font-size: .8125rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--fg2); }
+  .timeline li.on .dot { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+  .timeline .tb { padding: 4px 0 6px; }
+  .timeline .tt { font-weight: 700; font-size: 1rem; line-height: 1.45; }
+  .timeline .td { color: var(--muted); font-size: .9375rem; line-height: 1.55; }
+
+  .ladder { list-style: none; padding: 0; margin: 18px 0 20px; }
+  .ladder li { margin: 0 0 6px; padding: 10px 14px; border: 1px solid var(--line); border-radius: var(--radius); display: flex; gap: 12px; align-items: baseline; font-size: 1rem; }
+  .ladder li .st { flex-shrink: 0; font-size: .75rem; font-weight: 800; color: var(--muted); min-width: 3.2em; }
+  .ladder li:last-child { border-color: var(--accent); background: var(--accent-soft); }
+  .ladder li:last-child .st { color: var(--accent-ink); }
+  .ladder li:nth-child(1) { margin-left: 0; }
+  .ladder li:nth-child(2) { margin-left: 12px; }
+  .ladder li:nth-child(3) { margin-left: 24px; }
+  .ladder li:nth-child(4) { margin-left: 36px; }
+  .ladder li:nth-child(5) { margin-left: 48px; }
+  .ladder li:nth-child(6) { margin-left: 60px; }
+  .ladder li:nth-child(7) { margin-left: 72px; }
+  .ladder li:nth-child(8) { margin-left: 84px; }
+
+  /* ---------- Chain ---------- */
+  .chain-intro { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 18px; }
+  .chain-intro a { text-decoration: none; }
+
+  /* ---------- Summary ---------- */
+  .summary { margin-top: 18px; border: 1.5px solid var(--fg); border-radius: 14px; overflow: hidden; }
+  .summary-h { padding: 14px 20px; background: var(--fg); color: var(--bg); font-weight: 800; font-size: 1.0625rem; display: flex; align-items: center; gap: 8px; }
+  .summary ol { list-style: none; margin: 0; padding: 14px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; counter-reset: sm; }
+  .summary li { margin: 0; display: flex; gap: 10px; align-items: baseline; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: .9688rem; font-weight: 600; line-height: 1.45; }
+  .summary li::before { counter-increment: sm; content: counter(sm, decimal-leading-zero); font-size: .8125rem; font-weight: 800; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+  .summary li.last { grid-column: 1 / -1; }
+
+  footer.end { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8125rem; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 24px; }
+    main { margin: 0 auto; }
+    .tool-toc { display: inline-flex; }
+    .toc {
+      position: fixed; top: 0; left: 0; bottom: 0; z-index: 70;
+      width: min(300px, 86vw); max-height: none;
+      padding: 20px 16px 40px; background: var(--bg);
+      border-right: 1px solid var(--line);
+      transform: translateX(-102%);
+    }
+    body.toc-anim .toc { transition: transform .22s ease; }
+    body.toc-open .toc { transform: none; }
+    body.toc-open .scrim { display: block; position: fixed; inset: 0; z-index: 65; background: rgba(0,0,0,.35); }
+  }
+  @media (max-width: 720px) {
+    html { scroll-padding-top: 66px; }
+    .layout { padding: 0 16px; }
+    .topbar { padding: 0 12px; height: 52px; }
+    .brand span.txt { display: none; }
+    .tool { width: 32px; height: 32px; }
+    .hero { padding: 36px 0 28px; }
+    .hero h1 { font-size: 1.75rem; }
+    .hero .sub { font-size: 1rem; }
+    .meta, .grid-3, .grid-2, .compare, .formulas, .mock-row, .summary ol { grid-template-columns: minmax(0, 1fr); }
+    .stepper { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .swatches { grid-template-columns: minmax(0, 1fr); }
+    .chapter { padding-top: 44px; }
+    .chapter h2 { font-size: 1.375rem; }
+    .ch-head { gap: 12px; }
+    .part { margin-top: 56px; padding: 18px; }
+    .statement { font-size: 1.0625rem; padding: 18px; }
+    .motto .en { font-size: 1.25rem; }
+    .ladder li:nth-child(n) { margin-left: 0; }
+    .demo iframe { height: 560px; }
+    .demo.expanded { inset: 0; border-radius: 0; }
+    .tool[data-tip]:hover::after { display: none; }
+  }
+
+
+  /* ---------- Illustrations (고정 인물 손그림) ---------- */
+  figure.illus { margin: 22px 0 26px; }
+  figure.illus img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: #ffffff; }
+  figure.illus figcaption { margin-top: 10px; font-size: .875rem; color: var(--muted); line-height: 1.55; text-align: center; }
+  :root[data-theme="dark"] figure.illus img { filter: brightness(.93); }
+
+  /* ---------- Mobile-only parts (hidden on desktop) ---------- */
+  .mbar, .msheet, .fold-btn, .demo-launch, .toc-grab, .scroll-hint { display: none; }
+  .zoom { position: fixed; inset: 0; z-index: 90; background: var(--bg); display: none; flex-direction: column; }
+  body.zoom-open .zoom { display: flex; }
+  .zoom-h { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border-bottom: 1px solid var(--line); font-weight: 700; font-size: .875rem; }
+  .zoom-h span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .zoom-b { flex: 1; overflow: auto; padding: 18px; touch-action: pan-x pan-y pinch-zoom; -webkit-overflow-scrolling: touch; }
+  .zoom-b svg { width: 190%; max-width: none !important; height: auto; }
+  .zoom-hint { padding: 8px 16px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); font-size: .8125rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+  @media (max-width: 720px) {
+    body { -webkit-tap-highlight-color: transparent; }
+    .topbar { height: 48px; }
+    .topbar .tools { display: none; }
+    .brand span.txt { display: inline; font-size: .875rem; }
+    .progress { display: none; }
+    main { padding-bottom: calc(110px + env(safe-area-inset-bottom)); }
+
+    /* 엄지가 닿는 하단 바 */
+    .mbar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 58; gap: 4px; align-items: center;
+      padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); background: var(--bg); border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(0,0,0,.05); }
+    .mbar .mb { flex: 0 0 auto; min-width: 46px; height: 50px; border: 0; background: transparent; color: var(--fg2); border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font: inherit; font-size: .6875rem; font-weight: 600; cursor: pointer; }
+    .mbar .mb .lucide { font-size: 1.25rem; }
+    .mbar .mb:disabled { opacity: .3; }
+    .mbar .mb:active, .mbar .mcur:active { background: var(--soft); }
+    .mbar .mcur { flex: 1; min-width: 0; height: 50px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft); color: var(--fg);
+      display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 4px 12px 6px; font: inherit; text-align: left; position: relative; overflow: hidden; cursor: pointer; }
+    .mcur-n { font-size: .6875rem; font-weight: 800; color: var(--accent-ink); letter-spacing: .02em; }
+    .mcur-t { font-size: .8438rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .mcur-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); }
+    .mcur-bar i { display: block; height: 100%; width: 0; background: var(--accent); }
+
+    /* 목차 = 아래에서 올라오는 시트 */
+    .toc { top: auto !important; left: 0 !important; right: 0; bottom: 0 !important; width: 100% !important; max-height: 78vh; border-right: 0 !important;
+      border-top: 1px solid var(--line); border-radius: 18px 18px 0 0; transform: translateY(102%) !important; padding: 8px 16px calc(24px + env(safe-area-inset-bottom)) !important; z-index: 70 !important; }
+    body.toc-open .toc { transform: none !important; }
+    .toc-grab { display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--line-strong); margin: 6px auto 14px; }
+    .toc a { padding: 10px 12px; font-size: .9375rem; }
+
+    /* 보기 설정 시트 */
+    .msheet { display: block; position: fixed; left: 8px; right: 8px; bottom: calc(74px + env(safe-area-inset-bottom)); z-index: 66; background: var(--bg);
+      border: 1px solid var(--line); border-radius: 16px; padding: 6px 16px; box-shadow: 0 12px 40px rgba(0,0,0,.18);
+      transform: translateY(12px); opacity: 0; pointer-events: none; transition: transform .18s ease, opacity .18s ease; }
+    body.msheet-open .msheet { transform: none; opacity: 1; pointer-events: auto; }
+    body.msheet-open .scrim { display: block; position: fixed; inset: 0; z-index: 64; background: rgba(0,0,0,.2); }
+    .mrow { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; font-weight: 600; font-size: .9375rem; }
+    .mrow + .mrow { border-top: 1px solid var(--line); }
+    .mrow .grp { display: flex; gap: 6px; }
+    .mbtn { min-width: 48px; height: 42px; border: 1px solid var(--line-strong); border-radius: 10px; background: var(--bg); color: var(--fg);
+      font: inherit; font-weight: 700; font-size: .875rem; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 0 12px; cursor: pointer; }
+
+    /* 누르기 쉬운 크기 */
+    .chip { padding: 6px 12px; }
+    .chain-intro { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding: 0 16px 6px; }
+    .chain-intro::-webkit-scrollbar { display: none; }
+    .chain-intro .chip { flex: 0 0 auto; }
+    .demo-tabs { display: flex; width: 100%; }
+    .demo-tabs button { flex: 1 1 0; min-width: 0; justify-content: center; padding: 10px 8px; font-size: .8125rem; white-space: normal; line-height: 1.35; text-align: center; }
+
+    /* 긴 프롬프트는 접어 둔다 */
+    .codebox.prompt.fold pre { max-height: 14.5em; overflow: hidden; position: relative; }
+    .codebox.prompt.fold pre::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4.5em; background: linear-gradient(rgba(255,255,255,0), var(--bg)); }
+    .fold-btn { display: flex; width: 100%; justify-content: center; align-items: center; gap: 6px; padding: 12px; border: 0; border-top: 1px solid var(--line);
+      background: var(--soft); color: var(--accent-ink); font: inherit; font-size: .875rem; font-weight: 700; cursor: pointer; }
+    .codebox.prompt .ph { flex-wrap: wrap; }
+    .codebox.prompt .ph .pt { flex-basis: 100%; order: 3; }
+
+    /* 옆으로 넘치는 표·그림 안내 */
+    .scroll-hint { display: flex; align-items: center; gap: 6px; margin: -12px 0 16px; font-size: .75rem; color: var(--muted); }
+    figure.diagram .scroll-hint { margin: 8px 0 0; justify-content: center; }
+
+    /* 다이어그램은 눌러서 크게 */
+    figure.diagram { cursor: zoom-in; }
+    figure.diagram figcaption::after { content: "누르면 크게"; margin-left: 6px; padding: 1px 7px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); font-size: .6875rem; }
+
+    /* 완성본은 전체 화면 실행 카드로 */
+    .demo:not(.expanded) iframe { display: none; }
+    .demo-launch { display: flex; align-items: center; gap: 12px; padding: 16px; }
+    .demo-launch .dl-ic { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent-ink); display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .demo-launch .dl-t { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.45; }
+    .demo-launch .dl-t b { font-size: .9375rem; }
+    .demo-launch .dl-t span { font-size: .8125rem; color: var(--muted); }
+    .demo.expanded .demo-launch { display: none; }
+    .demo.expanded .demo-bar { padding: 8px 8px 8px 14px; }
+    .demo-print + .hint, .demo ~ .hint { display: none; }
+  }
+
+  @media print {
+    .topbar, .toc, .progress, .scrim, .copy-btn, .hint, .demo iframe, .demo-actions, .mbar, .msheet, .zoom, .fold-btn, .demo-launch, .scroll-hint, .demo-tabs { display: none !important; }
+    .codebox.prompt.fold pre { max-height: none !important; }
+    .demo-print { display: block; margin: 0; padding: 14px; font-weight: 600; }
+    .layout { display: block; padding: 0; }
+    main { max-width: none; padding: 0; }
+    .chapter, .part { break-inside: avoid-page; }
+    figure.diagram, .codebox, .table-wrap, .card { break-inside: avoid; }
+    .codebox pre { white-space: pre-wrap; }
+  }
+  /* ---- 이 강의에서 더한 부품(02 카탈로그 등록: 단계 머리, 인용 출처, PART 메타, 로고) ---- */
+  .chapter h4.step { display: flex; align-items: baseline; gap: 10px; margin: 26px 0 8px; font-size: 1rem; }
+  .stepno { flex: none; font-size: .75rem; font-weight: 700; color: var(--accent-ink); border: 1.5px solid var(--accent); border-radius: 999px; padding: 1px 9px; font-variant-numeric: tabular-nums; }
+  .callout.quote .src { font-size: .8125rem; color: var(--muted); margin-top: 6px; }
+  .part-meta { margin-top: 12px; grid-template-columns: minmax(0, 1fr); }
+  .chapter.part-intro { margin-top: 18px; }
+  .part-meta dd { font-size: .9375rem; }
+  .hero-logo { margin: 0 0 18px; }
+  .hero-logo img { height: 40px; width: auto; display: block; }
+  .hero-logo .lg-dark { display: none; }
+  :root[data-theme="dark"] .hero-logo .lg-light { display: none; }
+  :root[data-theme="dark"] .hero-logo .lg-dark { display: block; }
+  @media print { .hero-logo .lg-dark { display: none !important; } .hero-logo .lg-light { display: block !important; } }
+
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" style="width: 0%;"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark"><i data-lucide="sparkles"></i></span>
+    <span class="txt">세종연구원 AI아카데미 · 과정 1</span>
+  </div>
+  <nav class="tools" aria-label="보기 옵션">
+    <button class="tool tool-toc" id="btnToc" type="button" aria-label="목차 열기" data-tip="목차"><i data-lucide="list"></i></button>
+    <button class="tool" id="btnSmaller" type="button" aria-label="글자 작게" data-tip="글자 작게"><i data-lucide="a-arrow-down"></i></button>
+    <button class="tool" id="btnLarger" type="button" aria-label="글자 크게" data-tip="글자 크게"><i data-lucide="a-arrow-up"></i></button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="tool" id="btnTheme" type="button" aria-label="다크 모드 전환" data-tip="테마 전환"><i data-lucide="moon" class="i-moon"></i><i data-lucide="sun" class="i-sun"></i></button>
+    <button class="tool" id="btnPrint" type="button" aria-label="인쇄" data-tip="인쇄 / PDF"><i data-lucide="printer"></i></button>
+    <button class="tool" id="btnTop" type="button" aria-label="맨 위로" data-tip="맨 위로"><i data-lucide="arrow-up-to-line"></i></button>
+  </nav>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<nav class="mbar" id="mbar" aria-label="모바일 탐색">
+  <button class="mb" id="mbToc" type="button" aria-label="목차"><i data-lucide="list"></i><span>목차</span></button>
+  <button class="mb" id="mbPrev" type="button" aria-label="이전 장" disabled=""><i data-lucide="chevron-left"></i><span>이전</span></button>
+  <button class="mcur" id="mbCur" type="button" aria-label="현재 위치 · 목차 열기"><span class="mcur-n" id="mbN">미리 보기</span><span class="mcur-t" id="mbT">완성본 먼저 보기</span><span class="mcur-bar"><i id="mbBar" style="width: 0%;"></i></span></button>
+  <button class="mb" id="mbNext" type="button" aria-label="다음 장"><i data-lucide="chevron-right"></i><span>다음</span></button>
+  <button class="mb" id="mbMore" type="button" aria-label="보기 설정"><i data-lucide="settings-2"></i><span>설정</span></button>
+</nav>
+<div class="msheet" id="msheet" role="dialog" aria-label="보기 설정">
+  <div class="mrow"><span>테마</span><button class="mbtn" id="msTheme" type="button"><i data-lucide="moon" class="i-moon"></i><i data-lucide="sun" class="i-sun"></i>전환</button></div>
+  <div class="mrow"><span>글자 크기</span><span class="grp"><button class="mbtn" id="msSmaller" type="button" aria-label="글자 작게"><i data-lucide="a-arrow-down"></i></button><button class="mbtn" id="msLarger" type="button" aria-label="글자 크게"><i data-lucide="a-arrow-up"></i></button></span></div>
+  <div class="mrow"><span>맨 위로</span><button class="mbtn" id="msTop" type="button"><i data-lucide="arrow-up-to-line"></i></button></div>
+  <div class="mrow"><span>인쇄 · PDF</span><button class="mbtn" id="msPrint" type="button"><i data-lucide="printer"></i></button></div>
+</div>
+<div class="zoom" id="zoom" role="dialog" aria-label="다이어그램 크게 보기">
+  <div class="zoom-h"><span id="zoomTitle">다이어그램</span><button class="mbtn" id="zoomClose" type="button" aria-label="닫기"><i data-lucide="x"></i></button></div>
+  <div class="zoom-b" id="zoomBody"></div>
+  <div class="zoom-hint"><i data-lucide="hand"></i>밀어서 이동, 두 손가락으로 확대할 수 있습니다.</div>
+</div>
+
+<div class="layout">
+  <aside class="toc" id="toc" aria-label="목차">
+    <div class="toc-grab" aria-hidden="true"></div>
+    <p class="toc-title"><i data-lucide="list-tree"></i>목차</p>
+    <ol>
+      <li><a href="#objectives" class=""><span class="n">▸</span>학습 목표</a></li>
+      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 1일차 · 데이터, 제대로 만들고 깔끔하게 다루기 ──</li>
+      <li class="toc-part">1일차 PART 1 · 엑셀도 AI도 좋아하는 데이터 모양</li>
+      <li><a href="#c00" class=""><span class="n">00</span>환경 세팅</a></li>
+      <li><a href="#c01" class=""><span class="n">01</span>사람이 보기 좋은 표 vs 엑셀이 처리하기 좋은 표</a></li>
+      <li><a href="#c02" class=""><span class="n">02</span>분석용 표 5규칙과 내 파일 진단표</a></li>
+      <li><a href="#c03" class=""><span class="n">03</span>보고서형 → 분석용 표, 파워쿼리로 직접 바꿔 보기</a></li>
+      <li><a href="#c04" class=""><span class="n">04</span>표 만들기, 다중 정렬, 자동 필터 (따라 하기)</a></li>
+      <li><a href="#c05" class=""><span class="n">05</span>조건부 서식, 그리고 내 표 진단시키기</a></li>
+      <li><a href="#c06" class=""><span class="n">06</span>1교시를 세 단계로 보면</a></li>
+      <li class="toc-part">1일차 PART 2 · 엉망진창인 데이터, AI로 깔끔하게 정리하기</li>
+      <li><a href="#c07" class=""><span class="n">01</span>고유값 먼저 3단계 (시연)</a></li>
+      <li><a href="#c08" class=""><span class="n">02</span>필수① 성별 표기 통일 (따라 하기)</a></li>
+      <li><a href="#c09" class=""><span class="n">03</span>필수② 날짜 형식 통일 + 필수③ 숨은 공백 (따라 하기)</a></li>
+      <li><a href="#c10" class=""><span class="n">04</span>전처리 질문 템플릿 카드 + 선택 7종</a></li>
+      <li><a href="#c11" class=""><span class="n">05</span>2교시를 세 단계로 보면</a></li>
+      <li class="toc-part">1일차 PART 3 · 함수 몰라도 되는 데이터 분석, 피벗테이블</li>
+      <li><a href="#c12" class=""><span class="n">01</span>피벗 4영역과 날짜 그룹화 (따라 하기)</a></li>
+      <li><a href="#c14" class=""><span class="n">02</span>머리글만 보여주고 분석 아이디어 받기 (따라 하기)</a></li>
+      <li><a href="#c15" class=""><span class="n">03</span>역방향 질문 — 없는 열은 만들면 된다</a></li>
+      <li><a href="#c16" class=""><span class="n">04</span>3교시를 세 단계로 보면</a></li>
+      <li class="toc-part">1일차 PART 4 · 물려받은 엑셀 파일, AI와 함께 뜯어보기</li>
+      <li><a href="#c17" class=""><span class="n">01</span>전임자가 남긴 수식 해독하기</a></li>
+      <li><a href="#c18" class=""><span class="n">02</span>좋은 질문 4요소로 수식 3가지 직접 쓰기</a></li>
+      <li><a href="#c19" class=""><span class="n">03</span>오류 코드 해독표와 검증 3단계</a></li>
+      <li><a href="#c20" class=""><span class="n">04</span>1일차 결과물 정리 — 엑셀 질문 프롬프트 카드</a></li>
+      <li><a href="#c21" class=""><span class="n">05</span>4교시를 세 단계로 보면</a></li>
+      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 2일차 · 분석해서 보고하고, 반복 업무는 넘기기 ──</li>
+      <li class="toc-part">2일차 PART 1 · 피벗 실전 복습 — 미션형</li>
+      <li><a href="#c22" class=""><span class="n">01</span>1일차 요약 + 고객불만 데이터 소개</a></li>
+      <li><a href="#c23" class=""><span class="n">02</span>미션 1~4 (따라 하기, 자가 채점)</a></li>
+      <li><a href="#c24" class=""><span class="n">03</span>미션 5 해설 — 이 차시의 하이라이트</a></li>
+      <li><a href="#c25" class=""><span class="n">04</span>1교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 2 · 한눈에 보이는 대시보드 만들기</li>
+      <li><a href="#c26" class=""><span class="n">01</span>목적별 차트 3종 + 슬라이서 연동 (따라 하기)</a></li>
+      <li><a href="#c27" class=""><span class="n">02</span>차트 다듬기 — 제목에 결론을 쓴다</a></li>
+      <li><a href="#c28" class=""><span class="n">03</span>대시보드 한 화면에 모으기 (따라 하기)</a></li>
+      <li><a href="#c29" class=""><span class="n">04</span>2교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 3 · 반복 작업은 AI에게 넘기기 ① 매크로 만들기</li>
+      <li><a href="#c30" class=""><span class="n">01</span>매크로란? — 기록기 먼저 체험 (시연)</a></li>
+      <li><a href="#c31" class=""><span class="n">02</span>AI에게 요청하고, 정확한 위치에 붙여넣기</a></li>
+      <li><a href="#c32" class=""><span class="n">03</span>서식 일괄 적용 매크로 실습 (따라 하기)</a></li>
+      <li><a href="#c33" class=""><span class="n">04</span>3교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 4 · 반복 작업은 AI에게 넘기기 ② 내 업무에 적용 + 마무리</li>
+      <li><a href="#c34" class=""><span class="n">01</span>시트 나누기 · 합치기 매크로 (따라 하기)</a></li>
+      <li><a href="#c35" class=""><span class="n">02</span>오류가 나면 되묻는 루프</a></li>
+      <li><a href="#c36" class=""><span class="n">03</span>내 반복 업무, 매크로로 만들기</a></li>
+      <li><a href="#c37" class=""><span class="n">04</span>결과물 정리·반출 + 다음 주 예고</a></li>
+      <li><a href="#kit" class=""><span class="n">▸</span>차시별 요청문 모음</a></li>
+      <li><a href="#summary" class=""><span class="n">+</span>한 장 요약</a></li>
+    </ol>
+  </aside>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow"><i data-lucide="graduation-cap"></i>실습형 교안 · 세종연구원 AI아카데미 · 과정 1</p>
+      <h1>엑셀도 AI도 좋아하는 표를 만들고,<br>막히면 AI에게 물어 해결합니다</h1>
+      <p class="sub">보고서형 표를 분석용 표로 바꾸는 법부터, 어질러진 데이터 정리, 피벗테이블, 수식 해독·작성, 매크로까지 이틀 동안 직접 만들고 확인합니다.</p>
+      <dl class="meta">
+        <div><span class="ic"><i data-lucide="hammer"></i></span><span><dt>무엇을</dt><dd>엑셀 데이터 정리·분석과, 막힐 때 AI에게 물어 해결하는 법</dd></span></div>
+        <div><span class="ic"><i data-lucide="database"></i></span><span><dt>어떤 자료로</dt><dd>㈜다온유통 가상 매출·회원·고객불만 데이터(실명·실거래처 없음)</dd></span></div>
+        <div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>무엇이 남는지</dt><dd>정리된 실습 파일, 엑셀 질문 프롬프트 카드</dd></span></div>
+        <div><span class="ic"><i data-lucide="clock"></i></span><span><dt>얼마나</dt><dd>2일 8차시(13:00~17:00) · 엑셀 + 대화형 AI</dd></span></div>
+      </dl>
+    </section>
+
+    <section class="chapter" id="objectives">
+      <div class="ch-head">
+        <span class="ch-num"><i data-lucide="target"></i></span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="graduation-cap"></i>학습 목표</p>
+          <h2>이틀이 끝나면 할 수 있는 것</h2>
+        </div>
+      </div>
+      <div class="statement"><small>전체 학습목표</small>엑셀 데이터를 AI와 분석 도구가 이해할 수 있는 형태로 정리하고, 대화형 AI를 활용해 막히는 부분을 스스로 해결할 수 있다.</div>
+      <div class="grid-2">
+        <div class="card">
+          <h4><i data-lucide="calendar"></i>1일차 — 데이터, 제대로 만들고 깔끔하게 다루기</h4>
+          <ul>
+            <li>보고서형 표와 분석용 표를 구별하고, 분석용 표 5규칙에 맞춰 데이터를 정리할 수 있다</li>
+            <li>AI를 활용해 뒤섞인 표기를 통일하고, 숨은 오류를 찾아 전처리할 수 있다</li>
+            <li>피벗테이블로 데이터를 집계·분석하고, AI에게 분석 아이디어를 제안받을 수 있다</li>
+            <li>중첩 수식을 AI에게 설명받아 이해하고, 좋은 질문 4요소로 수식을 직접 작성할 수 있다</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4><i data-lucide="calendar"></i>2일차 — 분석해서 보고하고, 반복 업무는 넘기기</h4>
+          <ul>
+            <li>피벗테이블로 데이터에서 원인을 찾아내는 미션을 자가 채점으로 수행할 수 있다</li>
+            <li>차트 3종과 슬라이서를 연동해 한눈에 보이는 대시보드를 만들 수 있다</li>
+            <li>매크로 기록기와 AI 요청으로 반복 작업을 자동화하는 매크로를 만들 수 있다</li>
+            <li>내 업무에 맞는 매크로를 기획하고, 오류가 나면 AI에게 되물어 해결할 수 있다</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">오늘의 약속</p><p>고객 실명·연락처처럼 개인정보가 들어간 원본은 AI에 붙여넣지 않습니다. 고유값이나 머리글만으로 충분합니다. 모든 실습 데이터는 가상 회사 ㈜다온유통을 배경으로 만든 연습용입니다.</p></div></div>
+    </section>
+
+    <div class="part" id="day1-start" style="margin-top:72px; background:var(--accent-soft); border-color:var(--accent);">
+      <span class="part-label" style="font-size:.875rem; letter-spacing:.04em;">📅 1일차 · 11. 2.(월) 13:00~17:00</span>
+      <p class="part-title">데이터, 제대로 만들고 깔끔하게 다루기</p>
+      <p>1일차 실습에 필요한 파일을 한꺼번에 내려받으세요.</p>
+      <div class="datafile" style="margin-top:12px;">
+        <span class="df-ic"><i data-lucide="archive"></i></span>
+        <div class="df-b"><b>실습파일_1일차.zip</b><span>매출 보고서형·분석용 표, 회원명단, 통합매출, 실적관리 등 11개 파일</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/실습파일_1일차.zip" download="실습파일_1일차.zip"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+    </div>
+
+    <div class="part" id="part1">
+      <span class="part-label">1일차 PART 1 · 13:00~13:50</span>
+      <p class="part-title">엑셀도 AI도 좋아하는 데이터 모양</p>
+      <p>오늘 첫 시간은 분석이 아니라 <strong>표의 모양</strong>을 봅니다.<br>같은 숫자라도 표가 어떻게 생겼는지에 따라 AI도, 피벗도, 함수도 알아듣거나 못 알아듣습니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>보고서형 표와 분석용 표를 구별하고, 왜 AI·피벗이 보고서형에서 틀리는지 설명할 수 있다</li><li>분석용 표 5규칙으로 내 표를 스스로 진단할 수 있다</li><li>정렬·자동 필터·조건부 서식으로 원하는 데이터만 골라 볼 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>환경 세팅 → 표 모양 비교 시연 → 5규칙 → 변환 시연 → 정렬·필터 → 조건부 서식</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>분석용 표로 정리된 매출표, 내 파일 진단표</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c00">
+      <div class="ch-head">
+        <span class="ch-num">00</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="plug"></i>환경 세팅</p>
+          <h2>환경 세팅</h2>
+        </div>
+      </div>
+      <h4 class="step"><span class="stepno">Step 1</span>내 엑셀 버전을 확인합니다.</h4>
+      <p>메뉴에서 <strong>파일 → 계정 → Excel 정보</strong> 순서로 들어가면 버전이 보입니다.<br>2016/2019면 이 과정의 몇몇 최신 함수(UNIQUE 등)가 없습니다 — 괜찮습니다, 대안을 함께 안내합니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>대화형 AI 서비스에 로그인합니다.</h4>
+      <p>ChatGPT, Claude, Gemini 중 쓰기 편한 것 하나면 충분합니다. 무료 버전으로도 오늘 실습은 모두 가능합니다.</p>
+    </section>
+
+    <section class="chapter" id="c01">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="sparkles"></i>표 구조 파악하기</p>
+          <h2>사람이 보기 좋은 표 vs 엑셀이 처리하기 좋은 표</h2>
+        </div>
+      </div>
+      <p class="lead">같은 데이터라도 표의 모양에 따라 엑셀·AI·피벗이 알아듣기도 하고, 못 알아듣기도 합니다.<br>두 가지 표를 나란히 놓고 차이를 직접 확인합니다.</p>
+
+      <figure class="illus">
+        <img src="images/표구조비교.jpg" alt="보고서용 표(A)와 분석용 표(B) 비교 — 보고서용은 2줄 머리글·병합셀·소계가 있고, 분석용은 한 행에 한 건, 한 열에 한 속성으로 정리되어 있다">
+        <figcaption>보고서용 표(A)를 분석용 표(B)로 바꾸면 피벗·함수·AI 모두 바로 알아듣습니다</figcaption>
+      </figure>
+
+      <h3><span class="sn">1.1</span>보고서용 표 — 사람 눈에는 편하지만</h3>
+      <p>왼쪽 <strong>A 보고서용 표</strong>는 회의나 이메일에 넣으면 읽기 편합니다. 하지만 엑셀의 분석 기능에는 걸림돌이 됩니다.</p>
+      <ul class="chips">
+        <li class="chip">2줄 계층 머리글</li>
+        <li class="chip">병합 셀</li>
+        <li class="chip on">중간 소계·합계</li>
+        <li class="chip">가로로 펼친 채널</li>
+      </ul>
+      <p>이런 특징이 하나라도 있으면 피벗테이블이 범위를 제대로 잡지 못하고, AI에게 붙여넣어도 머리글을 엉뚱하게 해석할 수 있습니다.</p>
+
+      <h3><span class="sn">1.2</span>분석용 표 — 엑셀·AI·피벗이 좋아하는 모양</h3>
+      <p>오른쪽 <strong>B 분석용 표</strong>는 단순하지만, 이 모양이어야 정렬·필터·피벗·함수·AI 질문이 모두 한 번에 동작합니다.</p>
+      <ul class="chips">
+        <li class="chip on">한 행 = 하나의 기록</li>
+        <li class="chip on">한 열 = 하나의 속성</li>
+        <li class="chip on">빈 셀 없음</li>
+        <li class="chip on">소계·합계 분리</li>
+        <li class="chip on">중복과 공백 없는 헤더</li>
+      </ul>
+
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>원본 데이터와 분석 결과는 <strong>분리해서 관리</strong>합니다. 보고서용 표는 최종 산출물이고, 분석용 표가 원본입니다.</p></div></div>
+
+      <h3><span class="sn">1.3</span>내 파일은 어느 쪽인지 확인하기</h3>
+      <p><strong>01_매출_보고서형.xlsx</strong>와 <strong>02_매출_분석용.xlsx</strong>를 각각 열어, 위 그림의 A·B 특징이 맞는지 직접 비교해 봅니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>01_매출_보고서형.xlsx</b><span>지점×월 교차표, 병합셀과 합계 행 포함</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/01_매출_보고서형.xlsx" download="01_매출_보고서형.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>02_매출_분석용.xlsx</b><span>1행 1건, 5열(월·상품군·판매구분·유통채널·매출액)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/02_매출_분석용.xlsx" download="02_매출_분석용.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+    </section>
+
+    <section class="chapter" id="c02">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="list-checks"></i>할 일 2</p>
+          <h2>분석용 표 5규칙과 내 파일 진단표</h2>
+        </div>
+      </div>
+      <p><strong>AI와 피벗이 알아듣는 표의 조건 5가지를 외우지 말고 체크리스트로 씁니다.</strong><br>보고서형 표가 왜 안 되는지, 5규칙에 하나씩 대조해 보면 바로 보입니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>규칙</th><th>01_매출_보고서형.xlsx는?</th></tr></thead><tbody><tr><td>1</td><td>머리글은 한 줄, 맨 위 한 번만</td><td>상반기/하반기 + 월, 2단 머리글 — 위반</td></tr><tr><td>2</td><td>1행 = 1건, 1열 = 1속성</td><td>1행 = 지점 하나의 1년치 — 위반</td></tr><tr><td>3</td><td>병합셀 없음(빈칸도 위 값을 채워 넣기)</td><td>지점·상반기·하반기·합계 칸이 병합 — 위반</td></tr><tr><td>4</td><td>소계·합계행 없음(집계는 피벗이 함)</td><td>맨 아래 '합계' 행 존재 — 위반</td></tr><tr><td>5</td><td>표 안에 빈 행·빈 열 없음, 제목·메모는 표 밖으로</td><td>맨 위 제목 행이 표와 한 덩어리 — 위반</td></tr></tbody></table></div>
+      <p>5규칙에 다 걸리는 표를 일부러 보여드렸습니다. 실제로는 1~2개만 어긋나도 AI와 피벗 모두 헤매기 시작합니다.</p>
+      <h3>내 파일 진단표</h3>
+      <div class="table-wrap"><table><thead><tr><th>규칙</th><th>내 표는 O / X</th><th>걸리면 고치는 기능</th></tr></thead><tbody><tr><td>머리글 한 줄</td><td></td><td>2단 머리글 → 아래 단만 남기고 위 단은 지우거나 셀에 합쳐 적기</td></tr><tr><td>1행 = 1건</td><td></td><td>파워쿼리 '열 피벗 해제' 또는 AI에게 변환 방법 질문</td></tr><tr><td>병합셀 없음</td><td></td><td>셀 서식 → 병합하고 가운데 맞춤 해제 후 빈칸 채우기(Ctrl+G 이동 옵션)</td></tr><tr><td>소계·합계행 없음</td><td></td><td>합계 행 삭제 — 집계는 피벗테이블로 다시 만들기</td></tr><tr><td>빈 행·빈 열, 제목 없음</td><td></td><td>표 위·옆의 제목·메모를 표 밖 다른 셀로 이동</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c03">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="wand-2"></i>실습 2</p>
+          <h2>보고서형 → 분석용 표, 파워쿼리로 직접 바꿔 보기</h2>
+        </div>
+      </div>
+      <p><strong>보고서형 표를 분석용 표로 바꾸는 과정을 함께 따라 합니다.</strong><br><strong>01_매출_보고서형.xlsx</strong>를 열고 강사와 한 단계씩 같이 진행합니다.</p>
+
+      <h3><span class="sn">3.1</span>엑셀에서 표로 변환하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>변환하려는 범위를 선택합니다.</h4>
+      <p>보고서형 표 안의 아무 셀을 클릭한 뒤 <strong>Ctrl+T</strong>를 눌러 표(테이블)로 변환합니다.<br>"머리글이 있습니다" 체크를 확인하고 확인을 누릅니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>파워쿼리 편집기를 엽니다.</h4>
+      <p>상단 리본에서 <strong>데이터</strong> 탭 → <strong>테이블/범위에서</strong>를 클릭하면 파워쿼리 편집기 창이 열립니다.</p>
+      <figure class="illus"><img src="images/excel-data-tab-table-range-guide.png" alt="데이터 탭 → 테이블/범위에서 클릭 안내" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+
+      <h3><span class="sn">3.2</span>파워쿼리에서 원본 데이터 가공하기</h3>
+      <p>파워쿼리에서는 원본 데이터를 직접 삭제하지 않고, <strong>필터에서 제외하는 방식</strong>으로 가공합니다. 언제든 원래 상태로 돌아갈 수 있습니다.</p>
+      <figure class="illus"><img src="images/power-query-double-header-guide.png" alt="파워쿼리 원본 데이터 가공 안내" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h4 class="step"><span class="stepno">Step 3</span>첫 행이 머리글이 되도록 편집합니다.</h4>
+      <p>2줄 계층 머리글이라면 <strong>홈</strong> 탭 → <strong>첫 행을 머리글로 사용</strong>을 눌러, 변환하려는 내용이 머리글이 되도록 맞춥니다.</p>
+      <h4 class="step"><span class="stepno">Step 4</span>필요 없는 행을 자동 필터에서 해제합니다.</h4>
+      <p>소계·합계 행처럼 분석에 방해가 되는 행은 열 머리글의 <strong>▼ 필터 버튼</strong>을 눌러 해당 값의 체크를 해제합니다.<br>데이터가 삭제되는 것이 아니라 쿼리에서 제외되는 것이므로, 원본은 그대로 남아 있습니다.</p>
+
+      <h3><span class="sn">3.3</span>열 피벗 해제로 분석용 표 만들기</h3>
+      <h4 class="step"><span class="stepno">Step 5</span>기준이 되는 열을 선택하고, 다른 열을 피벗 해제합니다.</h4>
+      <p>바꾸지 않고 그대로 유지할 <strong>기준 열</strong>(예: 월, 지점명)을 선택한 뒤 <strong>마우스 우클릭 → 다른 열 피벗 해제</strong>를 클릭합니다.<br>가로로 펼쳐져 있던 채널·유통 열이 세로로 풀려 1행=1건인 분석용 표가 됩니다.</p>
+      <figure class="illus"><img src="images/power-query-unpivot-other-columns-guide-v4.png" alt="유지할 열 선택 → 우클릭 → 다른 열 피벗 해제" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h4 class="step"><span class="stepno">Step 6</span>닫기 및 로드로 결과를 엑셀에 내보냅니다.</h4>
+      <p><strong>홈</strong> 탭 → <strong>닫기 및 로드</strong>를 누르면 변환된 분석용 표가 새 시트에 나타납니다.<br>원본에 데이터를 추가하고 <strong>모두 새로 고침</strong>을 누르면 변환 결과도 자동으로 반영됩니다.</p>
+
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">파워쿼리의 핵심</p><p>원본은 건드리지 않고, 변환 규칙만 저장합니다. 데이터가 바뀌어도 새로 고침 한 번이면 같은 규칙이 다시 적용됩니다.</p></div></div>
+
+      <h3><span class="sn">3.4</span>"그럼 내 파일은 어떻게 바꾸나요?" — 3가지 답</h3>
+      <div class="table-wrap"><table><thead><tr><th>상황</th><th>답</th></tr></thead><tbody><tr><td>매달 반복되는 큰 파일</td><td>파워쿼리</td></tr><tr><td>한 번만 바꾸면 되는 작은 표</td><td>AI에게 물어 수작업으로</td></tr><tr><td>방법을 모를 때</td><td>"엑셀에서 이 표를 분석용 표로 바꾸는 파워쿼리 단계를 클릭 순서대로 알려줘. 내 엑셀은 2016이야." 라고 질문</td></tr></tbody></table></div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>02_매출_분석용.xlsx</b><span>변환 완료본 · 따라 하기가 잘 안 됐을 때 이 파일로 다음 실습 진행</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/02_매출_분석용.xlsx" download="02_매출_분석용.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+    </section>
+
+    <section class="chapter" id="c04">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="arrow-down-up"></i>할 일 4</p>
+          <h2>표 만들기, 다중 정렬, 자동 필터 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>여기서부터 직접 손을 움직입니다.</strong><br>방금 받은 02_매출_분석용.xlsx를 열면 50행, 머리글은 날짜 · 지점 · 지역 · 담당자 · 매출액 · 전년동월매출액 입니다.</p>
+      <h3><span class="sn">4.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>데이터 범위를 선택하고 Ctrl+T로 표를 만듭니다.</h4>
+      <p>표로 만들면 자동으로 필터 버튼이 생기고, 아래 행을 추가해도 서식이 이어집니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>지점 → 날짜 순서로 다중 정렬합니다.</h4>
+      <p>데이터 → 정렬에서 기준을 두 번 추가합니다. 1순위 지점(오름차순), 2순위 날짜(오름차순) 순서입니다.</p>
+      <h4 class="step"><span class="stepno">Step 3</span>자동 필터로 특정 지점만 골라 봅니다.</h4>
+      <p>지점 필터에서 '서울강남점'만 남겨 보면 12개월 치만 남는지 확인합니다.</p>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">02_매출_분석용.xlsx 머리글</span></div>
+<pre>날짜 / 지점 / 지역 / 담당자 / 매출액 / 전년동월매출액</pre>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>정렬</td><td>지점 → 날짜 순서로 줄이 섞이지 않고 깔끔하게 정렬됨</td></tr><tr><td>필터</td><td>지점 필터로 '서울강남점'만 남기면 12행만 보임</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c05">
+      <div class="ch-head">
+        <span class="ch-num">05</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="paintbrush"></i>할 일 5</p>
+          <h2>조건부 서식, 그리고 내 표 진단시키기</h2>
+        </div>
+      </div>
+      <p><strong>조건부 서식으로 숫자를 색으로 보여주고, 마지막으로 AI에게 내 표를 진단시키는 질문을 익힙니다.</strong></p>
+      <h3><span class="sn">5.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>매출액 열에 데이터 막대를 넣습니다.</h4>
+      <p>홈 → 조건부 서식 → 데이터 막대. 숫자가 막대 길이로 한눈에 비교됩니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>중복 값을 강조합니다.</h4>
+      <p>홈 → 조건부 서식 → 셀 강조 규칙 → 중복 값. 서울강남점의 2026-04-01 행이 똑같은 값으로 2줄 들어 있어 빨갛게 강조되는 것을 확인합니다.</p>
+      <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><p class="ct">수식 기반 행 강조는 시연만</p><p>수식으로 행 전체를 조건부 서식 주는 방법은 오늘 따라 하지 않고 시연만 봅니다. 필요하면 AI에게 "이 조건으로 행 전체에 조건부 서식을 주는 수식을 알려줘"라고 물어보면 됩니다.</p></div></div>
+      <h3><span class="sn">5.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>데이터 막대</td><td>매출액 열 전체에 막대가 표시됨</td></tr><tr><td>중복 값 강조</td><td>서울강남점 2026-04-01 행 2줄이 강조색으로 표시됨</td></tr></tbody></table></div>
+      <h3>"내 표 진단시키기" 프롬프트</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 2</span><span class="pt">내 표가 피벗·함수에 바로 쓸 수 있는 모양인지 AI에게 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래는 내 엑셀 표의 머리글과 앞 5행이야.
+[붙여넣기]
+이 표가 피벗테이블·함수에 바로 쓸 수 있는 형태인지 진단해줘.
+문제가 있으면 ① 무엇이 문제인지 ② 엑셀에서 어떤 기능으로 고치는지
+③ 고친 뒤의 머리글이 어떻게 되어야 하는지 표로 알려줘.</pre>
+      </div>
+    </section>
+
+    <section class="chapter" id="c06">
+      <div class="ch-head">
+        <span class="ch-num">06</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>1교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>1교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>보고서형·분석용 표 비교 시연, 파워쿼리 변환 시연</td><td>내가 매달 받는 보고서가 어느 쪽 모양인지 살펴봤는가?</td></tr><tr><td>따라 하기</td><td>표 만들기, 다중 정렬, 자동 필터, 조건부 서식</td><td>같은 손놀림을 내 파일에도 그대로 적용할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>내 표 진단시키기 프롬프트</td><td>내 표의 머리글·앞 5행을 AI에게 보여줄 준비가 되었는가?</td></tr></tbody></table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>AI도 피벗도 함수도, 같은 모양의 데이터를 좋아한다.</p></div></div>
+    </section>
+
+    <div class="part" id="part2">
+      <span class="part-label">1일차 PART 2 · 14:00~14:50</span>
+      <p class="part-title">엉망진창인 데이터, AI로 깔끔하게 정리하기</p>
+      <p>표 모양을 갖췄다고 끝이 아닙니다.<br>같은 칸 안에서도 '여자·여·F·여성'처럼 표기가 뒤섞여 있으면 피벗도 함수도 이들을 서로 다른 값으로 셉니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>'고유값 먼저 3단계'로 뒤섞인 표기를 몇 개 안 되는 경우의 수로 줄여 AI에게 넘길 수 있다</li><li>성별·날짜처럼 자주 뒤섞이는 표기를 수식으로 통일하고, 결과를 다시 세어 검산할 수 있다</li><li>눈에 보이지 않는 공백 때문에 생기는 '#N/A'의 원인을 LEN()으로 찾아낼 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>고유값 먼저 3단계 시연 → 성별 통일 → 날짜 통일 → 숨은 공백 → 전처리 템플릿</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>깔끔하게 정리된 회원명단, 전처리 질문 템플릿 카드</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c07">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="sparkles"></i>할 일 1</p>
+          <h2>고유값 먼저 3단계 (시연)</h2>
+        </div>
+      </div>
+      <p><strong>데이터를 통째로 AI에게 주지 말고, 경우의 수만 줍니다.</strong><br>오늘 열 회원명단(03_회원명단_지저분.xlsx)은 76행이지만, 성별 칸의 실제 표기는 8가지뿐입니다: F / M / f / 남 / 남자 / 여 / 여성 / 여자</p>
+      <h3><span class="sn">1.1</span>함께 보기 — 뽑기 · 주기 · 검산</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>뽑기 — 성별 열의 고유값만 뽑습니다.</h4>
+      <p>신버전: <code>=UNIQUE(C2:C77)</code><br>구버전(2016 이하): 복사본에서 데이터 → 중복된 항목 제거.<br>76행이 8개 값으로 줄어드는 것을 함께 봅니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>주기 — 그 값들만 AI에게 전달합니다.</h4>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">성별 칸의 고유값만</span></div>
+<pre>F / M / f / 남 / 남자 / 여 / 여성 / 여자</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 3</span>검산 — 결과 열에 다시 UNIQUE를 걸어, '남/여/확인필요' 3개만 남는지 확인합니다.</h4>
+      <div class="callout key"><span class="ci"><i data-lucide="refresh-cw"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>AI가 준 수식을 바로 믿지 않고, 결과를 다시 세어 보는 되돌아보기 습관이 이 차시의 핵심입니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c08">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="users"></i>할 일 2</p>
+          <h2>필수① 성별 표기 통일 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>03_회원명단_지저분.xlsx의 C열(성별)에 8가지 표기가 섞여 있습니다.</strong><br>앞서 뽑은 고유값을 그대로 붙여 수식을 받습니다.</p>
+      <h3><span class="sn">2.1</span>따라 하기</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 3</span><span class="pt">성별 8종을 '남'/'여' 두 가지로 통일하는 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>엑셀 C열에 성별이 아래처럼 뒤섞여 들어있어.
+F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
+이걸 '남'/'여' 두 가지로 통일하는 수식을 D2에 넣고 싶어.
+엑셀 2021이고, 원본 C열은 지우지 말고 새 열에 결과가 나오게 해줘.
+목록에 없는 값이 들어오면 "확인필요"가 뜨게 해줘.</pre>
+      </div>
+      <p>받은 수식을 D열에 넣고 전체에 복사합니다. 빈칸이었던 칸은 "확인필요"로 뜨는지도 함께 봅니다.</p>
+      <h3><span class="sn">2.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>D열 결과의 고유값</td><td>'남' / '여' / '확인필요' — 정확히 3가지만 남음(=UNIQUE(D2:D77) 또는 중복 제거로 검산)</td></tr></tbody></table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">원본은 그대로</p><p>원본 C열은 절대 지우지 않고 새 열(D열)에 결과를 받습니다. 되돌릴 수 없는 수정이 가장 위험합니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c09">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="calendar"></i>할 일 3</p>
+          <h2>필수② 날짜 형식 통일 + 필수③ 숨은 공백 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>이번에는 두 가지를 한 번에 봅니다 — 날짜가 진짜 날짜값이 아닌 문제와, 눈에 안 보이는 공백 문제입니다.</strong></p>
+      <h3><span class="sn">3.1</span>필수② 날짜 4종 혼재</h3>
+      <p>D열(가입일)에는 2026-10-01 같은 진짜 날짜값과, 26.10.1 / 10/1/2026 / 20261001처럼 <strong>겉보기엔 날짜 같지만 실제로는 글자(텍스트)인 값</strong>이 섞여 있습니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 4</span><span class="pt">날짜 4종 혼재를 진짜 날짜값으로 통일하는 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>엑셀 D열에 가입일이 2026-10-01, 26.10.1, 10/1/2026, 20261001 네 가지 형식으로 섞여 있어.
+이걸 전부 진짜 날짜값으로 바꾸는 방법을 알려줘.
+엑셀 2021이고, 원본 D열은 지우지 말고 새 열에 결과가 나오게 해줘.
+형식을 알 수 없는 값은 "확인필요"로 표시해줘.</pre>
+      </div>
+      <p>결과 열을 오른쪽 정렬해 보면 진짜 날짜값인지 바로 구분됩니다 — 날짜값은 자동으로 오른쪽 정렬됩니다.</p>
+      <h3><span class="sn">3.2</span>필수③ 안 보이는 공백</h3>
+      <p>같은 이름처럼 보이는데 고유값이 따로 잡히거나, 필터·정렬 결과가 이상하다면 <strong>눈에 안 보이는 공백</strong>이 원인인 경우가 많습니다.</p>
+
+      <h4 class="step"><span class="stepno">Step 1</span>먼저 TRIM으로 정리합니다.</h4>
+      <p>새 열에 <code>=TRIM(F2)</code>를 넣고 아래로 채웁니다.<br>TRIM은 앞뒤 공백과 중간의 연속 공백을 하나로 줄여 줍니다. 대부분의 공백 문제는 이것만으로 해결됩니다.</p>
+
+      <h4 class="step"><span class="stepno">Step 2</span>TRIM 후에도 고유값이 두 개 이상이면, 직접 비교합니다.</h4>
+      <p>원래 값과 TRIM 결과를 <code>=F2=G2</code>로 비교해서 <strong>TRUE / FALSE</strong>를 확인합니다.<br>FALSE가 나온 행에 보이지 않는 공백이 끼어 있었다는 뜻입니다.</p>
+
+      <h4 class="step"><span class="stepno">Step 3</span>그래도 원인을 모르겠으면 LEN으로 길이를 비교합니다.</h4>
+      <p><code>=LEN(F2)</code>와 <code>=LEN(G2)</code>를 나란히 찍어 봅니다. 길이가 다르면 눈에 보이지 않는 글자가 끼어 있다는 뜻입니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>회원번호</th><th>값</th><th>LEN() 결과</th><th>정체</th></tr></thead><tbody><tr><td>M0015 / M0016</td><td>지점 칸이 육안상 동일</td><td>5 / 6</td><td>끝에 보이지 않는 스페이스(trailing space)</td></tr><tr><td>M0052 / M0053</td><td>지점 칸이 육안상 동일</td><td>5 / 6</td><td>비중단 공백 CHAR(160)</td></tr></tbody></table></div>
+
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 5</span><span class="pt">TRIM 후에도 남는 공백의 정체를 AI에게 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>지점 열에 TRIM을 했는데도 고유값이 2개로 나와.
+=F16=G16 결과가 FALSE이고, LEN은 5와 6이야.
+눈에 안 보이는 글자가 뭔지, 어떻게 제거하는지 알려줘.</pre>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>이름을 통일해야 할 때는 TRIM부터. TRIM으로 안 되면 두 값을 =으로 직접 비교해서 어디가 다른지 찾습니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c10">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="clipboard-list"></i>할 일 4</p>
+          <h2>전처리 질문 템플릿 카드 + 선택 7종</h2>
+        </div>
+      </div>
+      <p><strong>오늘 쓴 질문들의 공통 구조를 카드 한 장으로 남깁니다.</strong><br>다음에 어떤 지저분한 데이터를 만나도 이 빈칸만 채우면 됩니다.</p>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">전처리 질문 템플릿 카드 (빈칸 채우기)</span></div>
+<pre>① 상황: 엑셀 [ ]열에 [무엇]이 이렇게 들어있어 → (고유값 붙여넣기)
+② 원하는 결과: [입력 → 출력] 예시 2~3개
+③ 조건: 엑셀 [버전] / 원본 열은 두고 새 열에 / 예외값은 "확인필요"
+④ 요청: 수식으로 / 파워쿼리 단계로 / 둘 다 비교해서</pre>
+      </div>
+      <p>오늘 다루지 않은 아래 7가지는 03_정답_전처리.xlsx에 정답과 수식 안내만 담아 드립니다 — 직접 실습은 생략합니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>문제</th><th>데이터 예시</th></tr></thead><tbody><tr><td>④</td><td>지점명 흔들림</td><td>서울강남점 / 강남점 / 서울 강남 / 강남</td></tr><tr><td>⑤</td><td>숫자인 척하는 텍스트</td><td>1,250,000원 / 1 250 000</td></tr><tr><td>⑥</td><td>전화번호 3종</td><td>01012345678 / 010 1234 5678 / +82-10-…</td></tr><tr><td>⑦</td><td>한 칸에 두 정보</td><td>김민수 과장</td></tr><tr><td>⑧</td><td>주소 통째로</td><td>시도/시군구 미분리</td></tr><tr><td>⑨</td><td>상품명 오탈자</td><td>참기름 선물세트 / 참기름선물셋트</td></tr><tr><td>⑩</td><td>중복 판정</td><td>완전중복 M0009, M0034 / 유사중복(이름·가입일·지점 동일) M0082, M0083</td></tr></tbody></table></div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>03_정답_전처리.xlsx</b><span>필수 3종 정리 결과 + 선택 7종 수식 안내(구버전/신버전)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/03_정답_전처리.xlsx" download="03_정답_전처리.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+    </section>
+
+    <section class="chapter" id="c11">
+      <div class="ch-head">
+        <span class="ch-num">05</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>2교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>2교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>고유값 먼저 3단계 시연(뽑기·주기·검산)</td><td>내 데이터의 뒤섞인 열도 고유값부터 뽑아 봤는가?</td></tr><tr><td>따라 하기</td><td>성별·날짜 통일, 숨은 공백 LEN() 확인</td><td>결과를 다시 세어 검산하는 습관이 붙었는가?</td></tr><tr><td>내 업무에 적용</td><td>전처리 질문 템플릿 카드</td><td>내 업무 데이터로 템플릿 빈칸을 채울 수 있는가?</td></tr></tbody></table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">꼭 기억할 것</p><p>고객 실명·연락처는 AI에 붙여넣지 않습니다. 고유값이면 충분합니다.</p></div></div>
+    </section>
+
+    <div class="part" id="part3">
+      <span class="part-label">1일차 PART 3 · 15:00~15:50</span>
+      <p class="part-title">함수 몰라도 되는 데이터 분석, 피벗테이블</p>
+      <p>정리된 매출 데이터로 집계표를 만듭니다.<br>함수를 몰라도 클릭 몇 번으로 집계가 되고, 무엇을 분석하면 좋을지도 AI에게 물어볼 수 있습니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>피벗테이블의 필터·행·열·값 4영역에 원하는 항목을 배치해 집계표를 만들 수 있다</li><li>값 요약 방식과 표시 형식(%)을 바꿔 숫자를 보고서용 숫자로 바꿀 수 있다</li><li>머리글과 샘플 몇 행만으로 AI에게 분석 아이디어를 제안받고 그중 하나를 실제로 만들 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>피벗 4영역 → 분석 아이디어 제안받기 → 역방향 질문</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>매출 집계표, 머리글만으로 분석을 설계하는 질문법</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c12">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="table-2"></i>할 일 1</p>
+          <h2>피벗 4영역과 날짜 그룹화 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>04_통합매출_2026.xlsx(1,200행)로 피벗테이블을 만듭니다.</strong><br>머리글은 날짜 · 지점 · 지역 · 담당자 · 상품명 · 카테고리 · 채널 · 수량 · 단가 · 매출액 · 할인율 · 반품여부 입니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>04_통합매출_2026.xlsx</b><span>1,200행 · 2026-01-01 ~ 2026-10-25</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/04_통합매출_2026.xlsx" download="04_통합매출_2026.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <h3><span class="sn">1.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>데이터 안에 셀 하나를 두고 삽입 → 피벗테이블을 누릅니다.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>필터·행·열·값 4영역에 필드를 끌어다 놓습니다.</h4>
+      <figure class="illus"><img src="images/excel-pivot-field-drag-guide.png" alt="필드를 원하는 영역으로 드래그 — 필드 선택 → 원하는 위치에 놓기" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+
+      <h4 class="step"><span class="stepno">Step 3</span>값 요약 방식을 평균으로 바꿔 봅니다.</h4>
+      <p>값 영역의 '합계 : 매출액'을 클릭 → 값 요약 기준 → 평균. 합계와 평균이 어떻게 달라지는지 비교합니다.</p>
+      <h4 class="step"><span class="stepno">Step 4</span>날짜를 월·분기로 그룹화합니다.</h4>
+      <p>행이나 열에 날짜를 놓고 마우스 오른쪽 → 그룹. 월 단위, 분기 단위로 묶입니다.</p>
+      <h3><span class="sn">1.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>피벗 총합계</td><td><strong>403,935,395원</strong> (전체 데이터 합계와 반드시 같아야 함)</td></tr><tr><td>월 그룹화</td><td>행 또는 열에 '1월~10월'로 10개 그룹이 생김</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c14">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="lightbulb"></i>할 일 2</p>
+          <h2>머리글만 보여주고 분석 아이디어 받기 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>무엇을 분석할지 모를 때는 데이터를 통째로 주지 말고, 머리글과 앞 두 행만 보여줍니다.</strong></p>
+      <h3><span class="sn">3.1</span>따라 하기</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 6</span><span class="pt">머리글과 샘플 2행으로 분석 아이디어 8가지를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래는 우리 회사 매출 데이터의 머리글과 첫 두 행이야.
+날짜 | 지점 | 지역 | 담당자 | 상품명 | 카테고리 | 채널 | 수량 | 단가 | 매출액 | 할인율 | 반품여부
+2026-01-01 | 대전둔산점 | 충청권 | 이정화 | 참기름 선물세트 | 선물세트 | 온라인 | 39 | 32000 | 1248000 | 0 | N
+2026-01-01 | 서울강남점 | 수도권 | 김민수 | 냉동만두 1.2kg | 냉동식품 | 온라인 | 10 | 8900 | 80100 | 0.1 | N
+
+이 데이터로 만들 수 있는 피벗테이블 분석을 목적별로 8가지 제안해줘.
+각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 필터 / 알 수 있는 것</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 7</span><span class="pt">8가지 중 보고서에 넣을 3개만 골라 이유를 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 중 월간 보고서에 넣을 3개만 골라주고, 왜 그 3개인지 한 줄씩 설명해줘.</pre>
+      </div>
+      <p>받은 제안 중 하나를 실제로 피벗으로 만들어 봅니다. 예를 들어 '지점×카테고리 매출 비중'이라면 행=지점, 열=카테고리, 값=매출액(비율)로 그대로 옮기면 됩니다.</p>
+      <h3><span class="sn">3.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>제안받은 분석 중 1개 제작</td><td>행/열/값 배치가 AI 제안표와 일치하는 피벗이 화면에 보임</td></tr></tbody></table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="graduation-cap"></i></span><div class="cb"><p class="ct">오늘의 가장 좋은 학습 장면</p><p>AI가 원본에 없는 열을 요구하는 순간이 있습니다 — "분석을 하려면 데이터를 먼저 만들어야 한다"는 걸 몸으로 배우는 순간입니다. AI는 데이터 없이 표 구조만 보고 답하므로, 제안이 실제로 쓸모 있는지는 사람이 마지막으로 판단해야 합니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c15">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="corner-up-right"></i>할 일 3</p>
+          <h2>역방향 질문 — 없는 열은 만들면 된다</h2>
+        </div>
+      </div>
+      <p><strong>"이 열이 있으면 좋겠는데 없다"는 상황에서, 되묻는 법을 봅니다 (시연).</strong></p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 8</span><span class="pt">원하는 분석에 필요한 열이 있는지 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>'지점별 주말/평일 매출 차이'를 보고 싶은데 지금 열로 가능해?
+안 되면 어떤 열을 추가해야 하는지, 만드는 수식도 알려줘.</pre>
+      </div>
+      <p>AI가 알려주는 파생 열 수식 예시입니다. 직접 쓰지 않아도 되니, 어떤 수식인지 눈으로만 확인합니다.</p>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">AI가 제안하는 파생 열 수식 예시</span></div>
+<pre>요일: =TEXT([@날짜],"aaa")
+주차: =WEEKNUM([@날짜])
+주말여부: =IF(OR(TEXT([@날짜],"aaa")="토",TEXT([@날짜],"aaa")="일"),"주말","평일")</pre>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>데이터를 통째로 주지 말고, 경우의 수와 머리글만 줘라 — 분석이 막히면 없는 열을 만들면 된다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c16">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>3교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>3교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>따라 하기</td><td>피벗 4영역 배치, 월 그룹화</td><td>내 데이터로 같은 손놀림을 반복할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>머리글+2행으로 분석 8가지 제안받기</td><td>내 업무 데이터의 머리글만으로 질문할 준비가 되었는가?</td></tr></tbody></table></div>
+    </section>
+
+    <div class="part" id="part4">
+      <span class="part-label">1일차 PART 4 · 16:00~17:00</span>
+      <p class="part-title">물려받은 엑셀 파일, AI와 함께 뜯어보기</p>
+      <p>전임자가 남긴 알 수 없는 수식을 해독하고, 내 손으로 수식 3가지를 직접 만듭니다.<br>오늘의 마지막 차시이자, 1일차 전체를 관통하는 프롬프트 카드를 완성하는 시간입니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>중첩된 수식을 AI에게 단계별로 설명받고, 수식 계산 기능·F9로 직접 검증할 수 있다</li><li>좋은 질문 4요소(표 구조·칸 위치·결과 예시·제약)를 적용해 수식 3가지를 직접 만들 수 있다</li><li>오류 코드가 뜨면 무슨 뜻인지, 검증 3단계로 결과를 믿을 수 있는지 확인할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>수식 해독 → 좋은 질문 4요소로 수식 작성 → 오류 코드 해독표 → 결과물 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>복잡한 수식 해석 경험, 자주 쓰는 수식 3가지, 엑셀 질문 프롬프트 카드</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c17">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="search-code"></i>할 일 1</p>
+          <h2>전임자가 남긴 수식 해독하기</h2>
+        </div>
+      </div>
+      <p><strong>05_실적관리_인수인계.xlsx를 열면 전임자가 남긴 수식 3개가 심어져 있습니다.</strong><br>외우는 대신 AI에게 설명을 받고, 수식 계산 기능과 F9로 직접 검증합니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>05_실적관리_인수인계.xlsx</b><span>해독1_단가조회 · 해독2_지점매출 · 해독3_달성판정 · 과제 시트 포함</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/05_실적관리_인수인계.xlsx" download="05_실적관리_인수인계.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <h3><span class="sn">1.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>[해독1_단가조회] 시트의 D5 수식을 AI에게 설명받습니다.</h4>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">해독1_단가조회!D5</span></div>
+<pre>=IFERROR(VLOOKUP($B5,단가표!$A:$D,MATCH($C$3,단가표!$A$1:$D$1,0),FALSE),"")</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 9</span><span class="pt">처음 보는 수식을 AI에게 설명받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 엑셀 수식을 처음 보는 사람도 알 수 있게 설명해줘.
+① 한 문장 요약 ② 안쪽부터 바깥으로 단계별 설명
+③ 이 수식이 오류가 날 수 있는 상황 ④ 요즘 함수로 더 간단히 쓰는 방법
+
+=IFERROR(VLOOKUP($B5,단가표!$A:$D,MATCH($C$3,단가표!$A$1:$D$1,0),FALSE),"")</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 2</span>[해독2_지점매출] 시트에서 같은 질문으로 두 번째 수식을 해독합니다.</h4>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">해독2_지점매출!D5</span></div>
+<pre>=SUMPRODUCT((월!$A$2:$A$500&gt;=DATE($D$1,$D$2,1))*(월!$C$2:$C$500=$B5)*월!$E$2:$E$500)</pre>
+      </div>
+      <p>D2(연도)=2026, D2(월)=10으로 두면 서울강남점 1,287,500원, 대전둔산점 1,305,900원, 세종보람점 532,500원, 청주가경점 2,018,400원이 나와야 정상입니다(4개 지점 합계 5,144,300원).</p>
+      <div class="callout warn"><span class="ci"><i data-lucide="alert-triangle"></i></span><div class="cb"><p class="ct">이 수식의 함정</p><p>D2(월)을 10이 아닌 더 이른 달로 바꾸면 합계가 이상하게 커집니다 — '그 달 1일 이후 전체'를 더하는 함정이 있기 때문입니다. AI에게 ③ 질문(오류가 날 수 있는 상황)을 던지면 바로 이 지점을 짚어 줍니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 3</span>[해독3_달성판정] 시트에서 수식 계산 기능으로 안쪽부터 단계별로 실행해 봅니다.</h4>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">해독3_달성판정!H5</span></div>
+<pre>=IF(AND(E5&gt;=F5,G5="N"),"달성",IF(E5&gt;=F5*0.9,"근접","미달"))</pre>
+      </div>
+      
+      <h3><span class="sn">1.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>3개 수식 모두</td><td>AI 설명의 ①~④ 중 최소 ③(오류 상황)까지는 내 말로 한 줄 요약할 수 있음</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c18">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="square-pen"></i>할 일 2</p>
+          <h2>좋은 질문 4요소로 수식 3가지 직접 쓰기</h2>
+        </div>
+      </div>
+      <p><strong>해독했으니 이번엔 직접 만듭니다.</strong><br>질문이 나쁘면 수식도 나쁩니다. 아래 4요소를 다 채우면 AI가 바로 쓸 수 있는 수식을 줍니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>항목</th><th>나쁜 예</th><th>좋은 예</th></tr></thead><tbody><tr><td>①</td><td>표 구조</td><td>엑셀에서</td><td>과제 시트 B열 지점, C열 목표, D열 실적, 2~5행</td></tr><tr><td>②</td><td>지금 칸 위치</td><td>수식 알려줘</td><td>E2에 넣을 거고 아래로 복사할 거야</td></tr><tr><td>③</td><td>원하는 결과 예시</td><td>계산하고 싶어</td><td>서울강남점이 실적≥목표면 '달성'이 나와야 해</td></tr><tr><td>④</td><td>제약</td><td>없음</td><td><strong>엑셀 2016이라 XLOOKUP·UNIQUE 없어</strong></td></tr></tbody></table></div>
+      <h3><span class="sn">2.1</span>따라 하기 — [과제] 시트 3가지</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>과제① 목표 대비 달성률 — 실적이 목표 이상이면 '달성', 아니면 '미달'</h4>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 10</span><span class="pt">4요소를 채워 달성률 판정 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 과제 시트 B열 지점, C열 목표, D열 실적, 2~5행
+[칸 위치] E2에 넣고 아래로 복사할 거야
+[결과 예시] 실적이 목표 이상이면 '달성', 아니면 '미달'
+[제약] IF 함수 하나로, 엑셀 2016에서도 되게</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 2</span>과제② 단가표에서 단가 찾기 — 없으면 '단가없음'</h4>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 11</span><span class="pt">VLOOKUP+IFERROR 조합을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 과제 시트 B열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
+[칸 위치] C열에 넣고 아래로 복사
+[결과 예시] '참기름 선물세트'면 32000, 단가표에 없는 이름이면 '단가없음'
+[제약] VLOOKUP과 IFERROR를 같이 써줘</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 3</span>과제③ "10월 + 온라인 + 서울강남점 매출 합계" 합계 — SUMIFS</h4>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 12</span><span class="pt">3가지 조건을 동시에 만족하는 합계를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 월 시트 A열 날짜, B열 채널, C열 지점, E열 매출액
+[칸 위치] 과제 시트의 정답 칸에 넣을 거야
+[결과 예시] 10월 + 온라인 + 서울강남점 매출 합계 매출의 합계
+[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개</pre>
+      </div>
+      <h3><span class="sn">2.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>과제</th><th>통과 기준</th></tr></thead><tbody><tr><td>①</td><td>실적<목표인 행에서만 '미달'이 뜸(반품여부는 고려하지 않는 단순 버전)</td></tr><tr><td>②</td><td>단가표에 없는 상품명 1건(수제 전통한과 세트)에서 '단가없음'이 뜸</td></tr><tr><td>③</td><td>정답 <strong>751,300원</strong>(월 시트에서 직접 세어도 5건 일치)</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c19">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="octagon-alert"></i>할 일 3</p>
+          <h2>오류 코드 해독표와 검증 3단계</h2>
+        </div>
+      </div>
+      <p><strong>수식이 틀렸을 때 화면에 뜨는 암호 같은 오류 코드, 뜻만 알면 AI에게 바로 물어볼 수 있습니다.</strong></p>
+      <div class="table-wrap"><table><thead><tr><th>오류</th><th>뜻</th><th>AI에게 물을 때 같이 줘야 할 정보</th></tr></thead><tbody><tr><td>#N/A</td><td>찾는 값을 못 찾음</td><td>찾는 값 하나와, 찾는 범위의 실제 값 몇 개를 같이 보여주기</td></tr><tr><td>#REF!</td><td>참조하던 셀/범위가 사라짐</td><td>수식 전체와, 어느 셀을 지우거나 옮겼는지</td></tr><tr><td>#VALUE!</td><td>자료형이 안 맞음(글자를 숫자로 계산 등)</td><td>문제 셀의 실제 값과 서식(텍스트/숫자/날짜)</td></tr><tr><td>#DIV/0!</td><td>0으로 나눔</td><td>나누는 값(분모) 열에 0이나 빈칸이 있는지</td></tr><tr><td>#NAME?</td><td>함수 이름 오타·지원 안 함</td><td>정확한 수식 전체 텍스트와 엑셀 버전</td></tr></tbody></table></div>
+      <h3>검증 3단계 — AI가 준 수식을 그대로 믿지 않는 습관</h3>
+      <ol><li>내가 답을 아는 행 하나로 검산한다</li><li>극단값을 넣어본다 — 빈칸, 0, 목록에 없는 값</li><li>피벗 합계와 수식 합계를 대조한다</li></ol>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>수식을 외우지 말고, 설명받고 검증하라.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c20">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="award"></i>할 일 4</p>
+          <h2>1일차 결과물 정리 — 엑셀 질문 프롬프트 카드</h2>
+        </div>
+      </div>
+      <p><strong>오늘 하루 동안 쓴 질문 패턴 4가지를 카드 한 장에 모읍니다.</strong><br>이 카드가 오늘 커리큘럼이 약속한 1일차 결과물 "엑셀 질문 프롬프트"입니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>언제 쓰나</th><th>핵심 틀</th></tr></thead><tbody><tr><td>1</td><td>내 표가 쓸만한 모양인지 모를 때 (1교시)</td><td>머리글+앞 5행 → 문제·고치는 기능·고친 뒤 머리글을 표로 요청</td></tr><tr><td>2</td><td>뒤섞인 표기를 통일할 때 (2교시)</td><td>① 상황(고유값) ② 원하는 결과 예시 ③ 버전·제약 ④ 수식/파워쿼리 요청</td></tr><tr><td>3</td><td>무엇을 분석할지 모를 때 (3교시)</td><td>머리글+2행만 주고 분석 아이디어 8가지 → 3개로 압축 요청</td></tr><tr><td>4</td><td>수식이 막힐 때 (4교시)</td><td>표 구조 · 칸 위치 · 결과 예시 · 제약(버전) 4요소로 요청</td></tr></tbody></table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">모든 질문에 공통으로 붙이는 한 줄</p><p>"엑셀 [버전]이야" — 버전을 먼저 말하면 AI가 그 버전에서 되는 함수로만 답을 줍니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c21">
+      <div class="ch-head">
+        <span class="ch-num">05</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>4교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>4교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>수식 계산 기능으로 중첩 수식 단계별 실행</td><td>내 업무 파일의 복잡한 수식도 같은 방법으로 열어볼 수 있는가?</td></tr><tr><td>따라 하기</td><td>좋은 질문 4요소로 수식 3가지 작성</td><td>4요소를 빈칸 없이 채우는 습관이 붙었는가?</td></tr><tr><td>내 업무에 적용</td><td>엑셀 질문 프롬프트 카드 완성</td><td>내 업무에서 막히면 이 카드의 어느 칸을 쓸지 떠오르는가?</td></tr></tbody></table></div>
+      <p><strong>1일차 결과물: 깔끔하게 정리된 실습 파일, 나만의 "엑셀 질문 프롬프트 카드"</strong> — 두 가지 모두 오늘 완성했습니다.</p>
+    </section>
+
+    <div class="part" id="day2-start" style="margin-top:72px; background:var(--accent-soft); border-color:var(--accent);">
+      <span class="part-label" style="font-size:.875rem; letter-spacing:.04em;">📅 2일차 · 11. 3.(화) 13:00~17:00</span>
+      <p class="part-title">분석해서 보고하고, 반복 업무는 넘기기</p>
+      <p>2일차 실습에 필요한 파일을 한꺼번에 내려받으세요.</p>
+      <div class="datafile" style="margin-top:12px;">
+        <span class="df-ic"><i data-lucide="archive"></i></span>
+        <div class="df-b"><b>실습파일_2일차.zip</b><span>고객불만접수대장, 서식매크로 실습, 지점별 매출 등 7개 파일</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/실습파일_2일차.zip" download="실습파일_2일차.zip"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+    </div>
+    <div class="part" id="part5">
+      <span class="part-label">2일차 PART 1 · 13:00~13:50</span>
+      <p class="part-title">피벗 실전 복습 — 미션형</p>
+      <p>어제 배운 피벗을 <strong>다시 시연하지 않습니다.</strong><br>오늘은 실제 상황처럼 미션 6장을 자가 채점하며, 피벗이 '집계 도구'가 아니라 '원인을 찾는 도구'임을 직접 발견합니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>피벗테이블만으로 '무엇이 왜 늘었는가'라는 원인을 스스로 찾아낼 수 있다</li><li>최근 2주 고객불만 데이터를 유형별·지점별·담당자별·주차별로 집계할 수 있다</li><li>데이터로 발견한 원인을 실제 회의 결정사항과 연결해 설명할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>데이터 소개 → 미션 1~4(자가채점) → 미션 5 해설 → 미션 6(심화)</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>미션 자가채점 결과, 피벗으로 찾아낸 '아이스팩 감축 → 신선도 불만' 인과관계</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c22">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="rotate-ccw"></i>할 일 1</p>
+          <h2>1일차 요약 + 고객불만 데이터 소개</h2>
+        </div>
+      </div>
+      <p><strong>어제 1일차에서 배운 피벗 4영역·값 요약·그룹화는 오늘도 그대로 씁니다. 다시 시연하지 않습니다.</strong><br>오늘 데이터는 ㈜다온유통 온라인몰의 고객불만 접수대장입니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>06_고객불만접수대장.xlsx</b><span>449행 · 접수일~처리담당자</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/2일차/06_고객불만접수대장.xlsx" download="06_고객불만접수대장.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">06_고객불만접수대장.xlsx 머리글</span></div>
+<pre>접수일 / 채널 / 지점 / 주문번호 / 불만유형 / 상품카테고리 / 소요시간(시간) / 보상지급액 / 재구매여부 / 처리담당자</pre>
+      </div>
+      <p>전체 449행 중에서, 특히 <strong>최근 2주(2026-10-03 ~ 2026-10-16)</strong> 구간을 집중적으로 봅니다. 최근 접수가 갑자기 늘어난 시기입니다.</p>
+    </section>
+
+    <section class="chapter" id="c23">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="list-checks"></i>할 일 2</p>
+          <h2>미션 1~4 (따라 하기, 자가 채점)</h2>
+        </div>
+      </div>
+      <p><strong>정답 숫자가 정해져 있어 스스로 채점할 수 있습니다.</strong> 피벗테이블로 하나씩 해결합니다.</p>
+      <h3><span class="sn">2.1</span>미션 1 — 8월 불만 유형별 건수는?</h3>
+      <p>행=불만유형, 값=개수(COUNT)로 피벗을 만듭니다. 접수일의 날짜 필터에서 개월 단위로 8월만 남깁니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>불만유형</th><th>건수</th></tr></thead><tbody><tr><td>기타</td><td>25건</td></tr><tr><td>배송지연</td><td>41건</td></tr><tr><td>신선도</td><td>14건</td></tr><tr><td>오배송</td><td>22건</td></tr><tr><td><strong>총합계</strong></td><td><strong>102건</strong></td></tr></tbody></table></div>
+      <h3><span class="sn">2.2</span>미션 2 — 지점 × 불만유형 교차표, 가장 문제가 많은 지점은?</h3>
+      <p>행=지점, 열=불만유형, 값=개수. 가장 큰 칸을 찾습니다(지점은 매번 무작위라 교안에 정답을 박아 두지 않습니다 — 직접 집계한 숫자가 정답입니다).</p>
+      <h3><span class="sn">2.3</span>미션 3 — 평균 응대시간이 목표 4시간을 넘는 담당자는?</h3>
+      <p>값 요약을 '평균'으로 바꾸고, 행에 처리담당자를 놓습니다. 평균이 4시간을 넘는 담당자가 누구인지 눈으로 확인합니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>처리담당자</th><th>평균 소요시간(시간)</th></tr></thead><tbody><tr><td>윤도윤</td><td>4.77</td></tr><tr><td>임소율</td><td>4.40</td></tr><tr><td>정하늘</td><td>4.60</td></tr><tr><td><strong>총합계</strong></td><td><strong>4.58</strong></td></tr></tbody></table></div>
+      <p>3명 모두 목표 4시간을 넘겼고, <strong>윤도윤</strong>의 평균 응대시간이 가장 깁니다.</p>
+      <h3><span class="sn">2.4</span>미션 4 — 주차별 추이, 늘고 있나 줄고 있나?</h3>
+      <p>접수일을 그룹화(주 단위)하고 행에 놓습니다. 6월 주당 20여 건이던 접수가 8월에는 주당 40건을 넘는지 확인합니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>미션1 합계</td><td>102건</td></tr><tr><td>미션3</td><td>3명 모두 4시간 초과, 윤도윤이 최장(4.77)</td></tr><tr><td>미션4 추이</td><td>뚜렷한 증가 추세(완만한 상승 → 8월 급증)</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c24">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="lightbulb"></i>할 일 3</p>
+          <h2>미션 5 해설 — 이 차시의 하이라이트</h2>
+        </div>
+      </div>
+      <p><strong>냉장 카테고리 신선도 불만이 9월부터 늘었나?</strong> 필터(신선도)+그룹화(월)로 확인합니다.</p>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>결과</th></tr></thead><tbody><tr><td>최근 2주 신선도 불만</td><td>15건</td></tr><tr><td>그 중 냉장 카테고리</td><td><strong>11건</strong></td></tr></tbody></table></div>
+      <p>신선도 불만 15건 중 11건이 냉장 제품입니다. 피벗만으로는 '왜'까지는 안 나옵니다 — 여기서 질문이 생겨야 합니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 13</span><span class="pt">피벗에서 발견한 숫자를 가지고 원인을 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>최근 2주 신선도 불만 15건 중 11건이 냉장 제품에서 나왔어.
+이 비중이 정상 범위인지 판단하기 어려운데, 어떤 추가 데이터나 현장 정보를 확인해야
+원인을 좁힐 수 있을지 질문 목록을 만들어줘.</pre>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="sparkles"></i></span><div class="cb"><p class="ct">이 차시의 하이라이트</p><p>원가 절감으로 아이스팩을 2개→1개로 줄인 시점(9월)과 냉장 신선도 불만 급증 시점이 겹칩니다. 피벗으로 숫자를 직접 발견한 다음, 현장(회의·현업)에 "혹시 9월에 포장 방식이 바뀌었나요?"라고 물어보는 것이 데이터 분석의 다음 걸음입니다.</p></div></div>
+      <h3>미션 6 (심화) — AI에게 분석 설계받고 1개 제작</h3>
+      <p>1일차 3교시 핵심 프롬프트(머리글+2행으로 분석 8가지 제안받기)를 이 데이터에 그대로 재사용합니다.</p>
+    </section>
+
+    <section class="chapter" id="c25">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>1교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>1교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>(다시 시연하지 않음 — 어제 배운 것을 바로 적용)</td><td>어제 배운 조작을 설명 없이도 떠올릴 수 있는가?</td></tr><tr><td>따라 하기</td><td>미션 1~4 자가 채점</td><td>통과 숫자가 안 나오면 어느 영역을 의심해야 할지 아는가?</td></tr><tr><td>내 업무에 적용</td><td>미션 5에서 숫자로 원인을 좁히고 현장에 되묻기</td><td>내 업무 데이터에서도 '숫자가 이상한 지점'을 현장에 되물을 수 있는가?</td></tr></tbody></table></div>
+    </section>
+
+    <div class="part" id="part6">
+      <span class="part-label">2일차 PART 2 · 14:00~14:50</span>
+      <p class="part-title">한눈에 보이는 대시보드 만들기</p>
+      <p>어제 만든 집계표를 <strong>보고서용 그림</strong>으로 바꿉니다.<br>목적에 맞는 차트를 고르고, 슬라이서 하나로 여러 피벗이 동시에 바뀌는 대시보드를 완성합니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>비교·추이·구성이라는 세 가지 목적에 맞춰 막대·선·누적 차트를 고를 수 있다</li><li>슬라이서 하나로 여러 피벗차트를 동시에 연동시킬 수 있다</li><li>차트 제목을 사실 나열이 아니라 결론형 문장으로 바꿀 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>차트 3종 고르기 → 슬라이서 연동 → 제목 다듬기 → 한 화면에 모으기</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>대시보드 한 장</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c26">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="bar-chart-3"></i>할 일 1</p>
+          <h2>목적별 차트 3종 + 슬라이서 연동 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>실무에서 쓰는 차트는 사실 3가지 목적으로 거의 다 해결됩니다.</strong></p>
+      <div class="table-wrap"><table><thead><tr><th>목적</th><th>차트</th><th>이 데이터의 예</th></tr></thead><tbody><tr><td>비교</td><td>막대 차트</td><td>지점별 불만 건수 비교</td></tr><tr><td>추이</td><td>선 차트</td><td>주차별 불만 건수 추이</td></tr><tr><td>구성</td><td>누적 막대/원형</td><td>불만유형별 비중</td></tr></tbody></table></div>
+      <h3><span class="sn">1.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>06_고객불만접수대장.xlsx로 피벗테이블을 2~3개 만듭니다.</h4>
+      <p>1교시 미션에서 만든 피벗(유형별 건수, 지점별, 주차별 추이)을 그대로 재사용해도 됩니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>피벗테이블 분석 → 피벗차트로 각각 차트를 만듭니다.</h4>
+      <h4 class="step"><span class="stepno">Step 3</span>슬라이서를 삽입하고 여러 피벗에 동시에 연결합니다.</h4>
+      <figure class="illus"><img src="images/excel-pivot-slicer-insert-guide.png" alt="슬라이서로 원하는 항목 필터링 — 슬라이서 삽입 → 원하는 항목 체크 → 확인" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h3><span class="sn">1.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>슬라이서 연동</td><td>슬라이서에서 지점 하나를 누르면 연결된 차트 2개 이상이 동시에 바뀜</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c27">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="type"></i>할 일 2</p>
+          <h2>차트 다듬기 — 제목에 결론을 쓴다</h2>
+        </div>
+      </div>
+      <p><strong>같은 차트라도 제목 한 줄로 설득력이 달라집니다.</strong></p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 14</span><span class="pt">사실 나열형 제목을 결론형으로 바꿔 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 차트 제목을 사실 나열 말고 결론형 한 문장으로 3개 제안해줘.
+지금 제목: '지점별 불만 건수'
+데이터: 최근 2주 지점별 고객불만 건수 막대 차트</pre>
+      </div>
+      <p>예시: "지점별 불만 건수" → "OO점, 다른 지점보다 불만이 2배 많습니다" 처럼 결론이 드러나는 제목으로 바뀝니다.</p>
+      <h3>다듬기 체크리스트</h3>
+      <ul><li>제목은 결론형 한 문장</li><li>불필요한 눈금선 정리</li><li>핵심 막대/선에만 데이터 레이블 표시</li><li>범례는 헷갈리지 않을 때만 생략</li></ul>
+    </section>
+
+    <section class="chapter" id="c28">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="layout-dashboard"></i>할 일 3</p>
+          <h2>대시보드 한 화면에 모으기 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>차트와 표, 슬라이서를 새 시트 한 장에 모으면 대시보드가 됩니다.</strong></p>
+      <h3><span class="sn">3.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>새 시트를 만들고 '대시보드'로 이름을 바꿉니다.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>차트 3개 + 핵심 집계표 1개 + 슬라이서를 이 시트로 옮기거나 복사합니다.</h4>
+      <h4 class="step"><span class="stepno">Step 3</span>슬라이서를 눌러 전체가 함께 바뀌는지 확인합니다.</h4>
+      <h3><span class="sn">3.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>대시보드 한 장</td><td>차트 3개+표 1개가 한 화면에 보이고, 슬라이서 클릭 한 번으로 전체가 바뀜</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c29">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>2교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>2교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>목적별 차트 3종 고르는 법</td><td>내가 매번 쓰는 보고서 차트는 비교·추이·구성 중 무엇인가?</td></tr><tr><td>따라 하기</td><td>슬라이서 연동, 대시보드 조립</td><td>슬라이서 하나로 묶을 수 있는 내 피벗들이 있는가?</td></tr><tr><td>내 업무에 적용</td><td>차트 제목을 결론형으로 바꾸는 프롬프트</td><td>내 보고서 차트 제목도 결론형으로 바꿀 수 있는가?</td></tr></tbody></table></div>
+    </section>
+
+    <div class="part" id="part7">
+      <span class="part-label">2일차 PART 3 · 15:00~15:50</span>
+      <p class="part-title">반복 작업은 AI에게 넘기기 ① 매크로 만들기</p>
+      <p>매크로가 무엇인지 코딩 없이 체험하고, AI에게 어떻게 부탁하고 어디에 붙여넣는지 배웁니다.<br>오늘의 난관은 코드 자체가 아니라 '어디에 붙여넣나' 입니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>매크로 기록기로 반복 작업을 코딩 없이 녹화·재생할 수 있다</li><li>AI에게 매크로 코드를 요청하고, Alt+F11로 VBA 편집기를 열어 정확한 위치에 붙여넣을 수 있다</li><li>매크로 보안 경고가 떴을 때 당황하지 않고 '콘텐츠 사용'을 눌러 실행할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>매크로 기록기 체험 → AI 요청·붙여넣기 → 서식 매크로 실습</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>서식을 한 번에 입히는 매크로 1개</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c30">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="circle-dot"></i>할 일 1</p>
+          <h2>매크로란? — 기록기 먼저 체험 (시연)</h2>
+        </div>
+      </div>
+      <p><strong>매크로는 '내가 한 조작을 그대로 녹화했다가 다시 재생하는 것'입니다.</strong><br>코드를 먼저 배우지 않고, 기록기로 원리부터 체험합니다.</p>
+      <h3>알아 둘 것</h3>
+      <ul><li>매크로를 저장하려면 파일 형식을 <strong>.xlsm</strong>(매크로 사용 통합 문서)으로 바꿔야 합니다</li><li>개발 도구 탭이 안 보이면: 파일 → 옵션 → 리본 사용자 지정 → '개발 도구' 체크</li><li>매크로가 포함된 파일을 열면 보안 경고가 뜨는 것이 정상입니다(다음 챕터에서 다룸)</li></ul>
+      <h3><span class="sn">1.1</span>함께 보기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>개발 도구 → 매크로 기록을 누릅니다.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>머리글 굵게+배경색, 테두리 같은 서식을 손으로 입힙니다.</h4>
+      <h4 class="step"><span class="stepno">Step 3</span>기록 중지를 누르고, 다른 시트에서 매크로 실행으로 똑같이 재생합니다.</h4>
+      <p>방금 한 손동작이 그대로 재생되는 장면이 매크로의 전부입니다 — 코드는 그 손동작을 '받아 적은 메모'일 뿐입니다.</p>
+    </section>
+
+    <section class="chapter" id="c31">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="clipboard-paste"></i>할 일 2</p>
+          <h2>AI에게 요청하고, 정확한 위치에 붙여넣기</h2>
+        </div>
+      </div>
+      <p><strong>이 차시의 진짜 난관은 코드가 아니라 '어디에 붙여넣나'입니다.</strong> 단계를 정확히 따라갑니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">하고 싶은 서식 작업을 매크로 코드로 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 서식 적용 과정을 엑셀 VBA 매크로로 만들어줘.
+1행(머리글) 굵게+배경색, 수량·단가·매출액 열은 천 단위 콤마,
+표 전체에 테두리, 열 너비는 자동 맞춤.
+엑셀 2016 이상에서 되는 코드로, 각 줄에 무엇을 하는지 주석도 달아줘.</pre>
+      </div>
+      <h3><span class="sn">2.1</span>따라 하기 — Alt+F11부터 실행까지</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>Alt+F11을 눌러 VBA 편집기를 엽니다.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>왼쪽 트리에서 모듈을 삽입하고(삽입 → 모듈), 더블클릭해서 코드 창을 엽니다.</h4>
+      <figure class="illus"><img src="images/vba-module-code-paste-guide.png" alt="VBA 모듈 삽입 → Module1 더블클릭 → 코드 붙여넣기" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h4 class="step"><span class="stepno">Step 3</span>F5 또는 실행 버튼으로 매크로를 실행합니다.</h4>
+    </section>
+
+    <section class="chapter" id="c32">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="paintbrush-2"></i>할 일 3</p>
+          <h2>서식 일괄 적용 매크로 실습 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>07_서식매크로_실습.xlsx에는 서식이 전혀 없는 일일 매출표 3장이 들어 있습니다.</strong><br>시트: 10월20일, 10월21일, 10월22일. 머리글은 지점 / 상품명 / 수량 / 단가 / 매출액 입니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>07_서식매크로_실습.xlsx</b><span>서식 없는 일일 매출표 3장 + 실습안내 시트</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/2일차/07_서식매크로_실습.xlsx" download="07_서식매크로_실습.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <h3><span class="sn">3.1</span>따라 하기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>첫 번째 시트(10월20일)에서 매크로를 기록하며 서식을 입힙니다.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>기록 중지 후 이름을 '서식적용'으로 저장합니다.</h4>
+      <h4 class="step"><span class="stepno">Step 3</span>나머지 시트(10월21일, 10월22일)로 이동해 매크로를 실행합니다.</h4>
+      <p>매크로 보안 경고가 뜨면 아래처럼 "콘텐츠 사용"을 눌러야 실행됩니다.</p>
+      <figure class="illus"><img src="images/excel-xlam-enable-content-guide.png" alt="XLAM 파일의 매크로 사용 — 보안 경고 배너에서 콘텐츠 사용 클릭" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h3><span class="sn">3.2</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>10월20일 (원본)</td><td>머리글 굵게+배경색, 수량·단가·매출액 천단위 콤마, 전체 테두리</td></tr><tr><td>10월21일, 10월22일 (매크로 실행)</td><td>매크로 실행 한 번으로 원본과 동일한 서식이 적용됨</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c33">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>3교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>3교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>매크로 기록기 체험</td><td>내 업무에서 매번 반복하는 손동작이 떠오르는가?</td></tr><tr><td>따라 하기</td><td>서식 매크로 작성·Alt+F11 붙여넣기</td><td>모듈 삽입부터 실행까지 순서를 기억하는가?</td></tr><tr><td>내 업무에 적용</td><td>보안 경고 대응</td><td>매크로 파일을 열 때 당황하지 않을 수 있는가?</td></tr></tbody></table></div>
+    </section>
+
+    <div class="part" id="part8">
+      <span class="part-label">2일차 PART 4 · 16:00~17:00</span>
+      <p class="part-title">반복 작업은 AI에게 넘기기 ② 내 업무에 적용 + 마무리</p>
+      <p>시트를 나누고 합치는 매크로까지 다루면, 이틀 동안 배운 것으로 내 업무 매크로 1~2개를 직접 완성합니다.<br>오류가 나도 당황하지 않고 AI에게 되묻는 법으로 마무리합니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>여러 파일을 시트로 합치고, 하나의 표를 지점별 시트로 나누는 매크로를 쓸 수 있다</li><li>매크로 실행 중 오류 메시지가 뜨면 그대로 복사해 AI에게 되물어 해결할 수 있다</li><li>이틀간 배운 내용을 내 업무 매크로 1~2개로 연결할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>시트 합치기·나누기 → 오류 되묻기 → 내 업무 매크로 → 결과물 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>내 업무용 매크로 1~2개, 이틀 전체 결과물 정리</dd></span></div></dl>
+    </div>
+
+    <section class="chapter" id="c34">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="split"></i>할 일 1</p>
+          <h2>시트 나누기 · 합치기 매크로 (따라 하기)</h2>
+        </div>
+      </div>
+      <p><strong>따로 떨어진 파일을 하나로 합치거나, 큰 표를 지점별로 쪼개는 일도 매크로로 한 번에 끝낼 수 있습니다.</strong></p>
+      <h3><span class="sn">1.1</span>합치기 — 공통자료의 지점별 매출 4개 → 시트 1장</h3>
+      <p>지점 4곳(서울강남점, 대전둔산점, 세종보람점, 청주가경점)의 매출보고 파일을 한 통합 문서의 시트 4개로 모읍니다.</p>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>매출보고_서울강남점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_서울강남점_10월.xlsx" download="매출보고_서울강남점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>매출보고_대전둔산점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_대전둔산점_10월.xlsx" download="매출보고_대전둔산점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>매출보고_세종보람점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_세종보람점_10월.xlsx" download="매출보고_세종보람점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>매출보고_청주가경점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_청주가경점_10월.xlsx" download="매출보고_청주가경점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 16</span><span class="pt">여러 파일을 시트로 합치는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>폴더 안의 엑셀 파일 여러 개를, 각 파일을 시트 하나씩으로 해서
+새 통합 문서 하나로 모으는 매크로를 만들어줘.
+시트 이름은 원본 파일 이름으로 해줘. 엑셀 2016 이상에서 되게 해줘.</pre>
+      </div>
+      <h3><span class="sn">1.2</span>나누기 — 04_통합매출_2026.xlsx → 지점별 시트 4장</h3>
+      <div class="datafile">
+        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
+        <div class="df-b"><b>04_통합매출_2026.xlsx</b><span>1,200행 — 지점 열 기준으로 나누기 연습</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/04_통합매출_2026.xlsx" download="04_통합매출_2026.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 17</span><span class="pt">한 표를 기준 열 값대로 여러 시트로 나누는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>B열(지점) 값이 다른 행들을 각각 지점 이름의 새 시트로 나눠주는
+엑셀 VBA 매크로를 만들어줘. 머리글 행은 각 시트에 똑같이 복사해줘.</pre>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>합치기</td><td>4개 지점 파일이 시트 4장으로 모인 통합 문서가 생성됨</td></tr><tr><td>나누기</td><td>04_통합매출_2026.xlsx가 서울강남점, 대전둔산점, 세종보람점, 청주가경점 4개 시트로 나뉨, 각 시트 행 수의 합이 1,200행(+머리글)과 일치</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c35">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="repeat"></i>할 일 2</p>
+          <h2>오류가 나면 되묻는 루프</h2>
+        </div>
+      </div>
+      <p><strong>매크로가 빨간 오류 창과 함께 멈추는 건 실패가 아니라 정상적인 중간 과정입니다.</strong></p>
+      <h3>오류 대응 3단계</h3>
+      <ol><li>당황하지 않고 오류 메시지 창의 내용을 그대로 복사한다(디버그 버튼을 누르면 노란 줄로 어느 코드인지 보임)</li><li>AI에게 '이 매크로를 실행했더니 이 오류가 났어' + 오류 메시지 전체 + 코드 전체를 그대로 붙여넣는다</li><li>고쳐준 코드로 다시 실행 — 안 되면 1번부터 반복</li></ol>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 18</span><span class="pt">오류 메시지를 그대로 복사해 되묻습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래 매크로를 실행했더니 오류가 났어.
+[오류 메시지 전체를 그대로 붙여넣기]
+
+[매크로 코드 전체]
+
+어느 줄이 문제인지, 어떻게 고치면 되는지 알려줘.</pre>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>오류가 나면 되묻는다 — 이 루프 하나만 있으면 코드를 몰라도 완성할 수 있습니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c36">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="wrench"></i>할 일 3</p>
+          <h2>내 반복 업무, 매크로로 만들기</h2>
+        </div>
+      </div>
+      <p><strong>개인 파일을 가져오셨다면 오늘은 그 파일로, 아니라면 오늘 실습 파일로 내 업무용 매크로 1~2개를 완성합니다.</strong></p>
+      <div class="table-wrap"><table><thead><tr><th>자주 매크로로 만드는 업무</th><th>프롬프트 힌트</th></tr></thead><tbody><tr><td>매달 같은 서식 입히기</td><td>오늘 만든 '서식적용' 매크로를 내 파일 열 구성에 맞게 고쳐 달라고 요청</td></tr><tr><td>여러 시트/파일 합치기</td><td>34번 프롬프트의 폴더 경로·파일 조건만 내 상황으로 바꿔 요청</td></tr><tr><td>조건별로 시트 나누기</td><td>34번 나누기 프롬프트의 기준 열만 내 표에 맞게 바꿔 요청</td></tr></tbody></table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">개인 파일 주의</p><p>개인 파일을 쓰실 경우, 고객 실명·연락처 등 개인정보가 담긴 열은 AI에게 보여주지 않습니다. 열 이름과 몇 개의 가상 값만으로 충분합니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c37">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="party-popper"></i>마무리</p>
+          <h2>결과물 정리·반출 + 다음 주 예고</h2>
+        </div>
+      </div>
+      <h3>이틀의 최종 결과물</h3>
+      <div class="table-wrap"><table><thead><tr><th>구분</th><th>결과물</th></tr></thead><tbody><tr><td>1일차</td><td>정리된 실습 파일, 엑셀 질문 프롬프트 카드</td></tr><tr><td>2일차</td><td>분석 보고서(미션)와 대시보드 한 장, 내 업무용 매크로 1~2개</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>4교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>오류 되묻는 루프 시연</td><td>오류가 나도 멈추지 않고 되물을 수 있는가?</td></tr><tr><td>따라 하기</td><td>시트 합치기·나누기 매크로</td><td>내 업무의 '모으기/나누기' 패턴에 바로 적용할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>내 반복 업무 매크로 1~2개 완성</td><td>이 매크로를 다음 주에도 계속 쓸 수 있는가?</td></tr></tbody></table></div>
+      <p>결과물은 USB·메일 등 기관에서 안내한 방법으로 반출합니다. 다음 주차 과정(업무자동화·AI 비서 활용)에서 더 다양한 자동화를 이어서 다룹니다.</p>
+    </section>
+
+    <section class="chapter" id="kit">
+      <div class="ch-head">
+        <span class="ch-num"><i data-lucide="library"></i></span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="clipboard-list"></i>실습 키트</p>
+          <h2>차시별 요청문 모음</h2>
+        </div>
+      </div>
+      <p class="lead">번호는 본문의 프롬프트 번호와 같습니다. 대괄호 자리는 내 업무 재료로 바꿔 씁니다.</p>
+      <h3><span class="sn">1</span>1일차 데이터 모양</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 1</span><span class="pt">같은 질문을 두 표 각각에 던져 비교합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래는 내 엑셀 표의 머리글과 앞 5행이야.
+[표1 또는 표2의 머리글과 앞 5행 붙여넣기]
+이 표에서 지점별 월평균 매출을 구하는 피벗테이블을 만들 수 있어? 안 되면 왜 안 되는지 알려줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 2</span><span class="pt">내 표가 피벗·함수에 바로 쓸 수 있는 모양인지 AI에게 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래는 내 엑셀 표의 머리글과 앞 5행이야.
+[붙여넣기]
+이 표가 피벗테이블·함수에 바로 쓸 수 있는 형태인지 진단해줘.
+문제가 있으면 ① 무엇이 문제인지 ② 엑셀에서 어떤 기능으로 고치는지
+③ 고친 뒤의 머리글이 어떻게 되어야 하는지 표로 알려줘.</pre>
+      </div>
+      <h3><span class="sn">2</span>1일차 전처리</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 3</span><span class="pt">성별 8종을 '남'/'여' 두 가지로 통일하는 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>엑셀 C열에 성별이 아래처럼 뒤섞여 들어있어.
+F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
+이걸 '남'/'여' 두 가지로 통일하는 수식을 D2에 넣고 싶어.
+엑셀 2021이고, 원본 C열은 지우지 말고 새 열에 결과가 나오게 해줘.
+목록에 없는 값이 들어오면 "확인필요"가 뜨게 해줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 4</span><span class="pt">날짜 4종 혼재를 진짜 날짜값으로 통일하는 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>엑셀 D열에 가입일이 2026-10-01, 26.10.1, 10/1/2026, 20261001 네 가지 형식으로 섞여 있어.
+이걸 전부 진짜 날짜값으로 바꾸는 방법을 알려줘.
+엑셀 2021이고, 원본 D열은 지우지 말고 새 열에 결과가 나오게 해줘.
+형식을 알 수 없는 값은 "확인필요"로 표시해줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 5</span><span class="pt">글자 수가 다른 이유를 LEN()으로 확인합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>=LEN(F16)   → 5  (M0015, '청주가경점')
+=LEN(F17)   → 6  (M0016, 끝에 스페이스 하나가 더 있음)
+두 셀을 나란히 놓고 LEN() 결과를 비교해 봅니다. 길이가 다르면 눈에 안 보이는 글자가 끼어 있다는 뜻입니다.</pre>
+      </div>
+      <h3><span class="sn">3</span>1일차 피벗테이블</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 6</span><span class="pt">머리글과 샘플 2행으로 분석 아이디어 8가지를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래는 우리 회사 매출 데이터의 머리글과 첫 두 행이야.
+날짜 | 지점 | 지역 | 담당자 | 상품명 | 카테고리 | 채널 | 수량 | 단가 | 매출액 | 할인율 | 반품여부
+2026-01-01 | 대전둔산점 | 충청권 | 이정화 | 참기름 선물세트 | 선물세트 | 온라인 | 39 | 32000 | 1248000 | 0 | N
+2026-01-01 | 서울강남점 | 수도권 | 김민수 | 냉동만두 1.2kg | 냉동식품 | 온라인 | 10 | 8900 | 80100 | 0.1 | N
+
+이 데이터로 만들 수 있는 피벗테이블 분석을 목적별로 8가지 제안해줘.
+각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 필터 / 알 수 있는 것</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 7</span><span class="pt">8가지 중 보고서에 넣을 3개만 골라 이유를 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 중 월간 보고서에 넣을 3개만 골라주고, 왜 그 3개인지 한 줄씩 설명해줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 8</span><span class="pt">원하는 분석에 필요한 열이 있는지 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>'지점별 주말/평일 매출 차이'를 보고 싶은데 지금 열로 가능해?
+안 되면 어떤 열을 추가해야 하는지, 만드는 수식도 알려줘.</pre>
+      </div>
+      <h3><span class="sn">4</span>1일차 수식</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 9</span><span class="pt">처음 보는 수식을 AI에게 설명받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 엑셀 수식을 처음 보는 사람도 알 수 있게 설명해줘.
+① 한 문장 요약 ② 안쪽부터 바깥으로 단계별 설명
+③ 이 수식이 오류가 날 수 있는 상황 ④ 요즘 함수로 더 간단히 쓰는 방법
+
+=IFERROR(VLOOKUP($B5,단가표!$A:$D,MATCH($C$3,단가표!$A$1:$D$1,0),FALSE),"")</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 10</span><span class="pt">4요소를 채워 달성률 판정 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 과제 시트 B열 지점, C열 목표, D열 실적, 2~5행
+[칸 위치] E2에 넣고 아래로 복사할 거야
+[결과 예시] 실적이 목표 이상이면 '달성', 아니면 '미달'
+[제약] IF 함수 하나로, 엑셀 2016에서도 되게</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 11</span><span class="pt">VLOOKUP+IFERROR 조합을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 과제 시트 B열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
+[칸 위치] C열에 넣고 아래로 복사
+[결과 예시] '참기름 선물세트'면 32000, 단가표에 없는 이름이면 '단가없음'
+[제약] VLOOKUP과 IFERROR를 같이 써줘</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 12</span><span class="pt">3가지 조건을 동시에 만족하는 합계를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[표 구조] 월 시트 A열 날짜, B열 채널, C열 지점, E열 매출액
+[칸 위치] 과제 시트의 정답 칸에 넣을 거야
+[결과 예시] 10월 + 온라인 + 서울강남점 매출 합계 매출의 합계
+[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개</pre>
+      </div>
+      <h3><span class="sn">5</span>2일차 피벗 복습</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 13</span><span class="pt">피벗에서 발견한 숫자를 가지고 원인을 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>최근 2주 신선도 불만 15건 중 11건이 냉장 제품에서 나왔어.
+이 비중이 정상 범위인지 판단하기 어려운데, 어떤 추가 데이터나 현장 정보를 확인해야
+원인을 좁힐 수 있을지 질문 목록을 만들어줘.</pre>
+      </div>
+      <h3><span class="sn">6</span>2일차 대시보드</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 14</span><span class="pt">사실 나열형 제목을 결론형으로 바꿔 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 차트 제목을 사실 나열 말고 결론형 한 문장으로 3개 제안해줘.
+지금 제목: '지점별 불만 건수'
+데이터: 최근 2주 지점별 고객불만 건수 막대 차트</pre>
+      </div>
+      <h3><span class="sn">7</span>2일차 매크로①</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">하고 싶은 서식 작업을 매크로 코드로 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이 서식 적용 과정을 엑셀 VBA 매크로로 만들어줘.
+1행(머리글) 굵게+배경색, 수량·단가·매출액 열은 천 단위 콤마,
+표 전체에 테두리, 열 너비는 자동 맞춤.
+엑셀 2016 이상에서 되는 코드로, 각 줄에 무엇을 하는지 주석도 달아줘.</pre>
+      </div>
+      <h3><span class="sn">8</span>2일차 매크로②</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 16</span><span class="pt">여러 파일을 시트로 합치는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>폴더 안의 엑셀 파일 여러 개를, 각 파일을 시트 하나씩으로 해서
+새 통합 문서 하나로 모으는 매크로를 만들어줘.
+시트 이름은 원본 파일 이름으로 해줘. 엑셀 2016 이상에서 되게 해줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 17</span><span class="pt">한 표를 기준 열 값대로 여러 시트로 나누는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>B열(지점) 값이 다른 행들을 각각 지점 이름의 새 시트로 나눠주는
+엑셀 VBA 매크로를 만들어줘. 머리글 행은 각 시트에 똑같이 복사해줘.</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 18</span><span class="pt">오류 메시지를 그대로 복사해 되묻습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>아래 매크로를 실행했더니 오류가 났어.
+[오류 메시지 전체를 그대로 붙여넣기]
+
+[매크로 코드 전체]
+
+어느 줄이 문제인지, 어떻게 고치면 되는지 알려줘.</pre>
+      </div>
+    </section>
+
+    <section class="chapter" id="summary">
+      <div class="ch-head">
+        <span class="ch-num">+</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="file-text"></i>한 장 요약</p>
+          <h2>이틀 동안 가져가는 세 단계와 여덟 문장</h2>
+        </div>
+      </div>
+      <div class="summary">
+        <div class="summary-h"><i data-lucide="footprints"></i>업무 도구를 만드는 세 단계</div>
+        <ol><li>함께 보기: 강사 시연을 보며 무엇이 문제이고 무엇이 달라지는지 확인한다</li><li>따라 하기: 같은 실습 파일로 손을 움직여 같은 결과를 만들고 통과 기준으로 확인한다</li><li>내 업무에 적용: AI에게 내 표의 버전·구조·상황을 설명해 내 업무로 바꿔 질문한다</li></ol>
+      </div>
+      <div class="summary">
+        <div class="summary-h"><i data-lucide="quote"></i>차시별로 기억할 한 문장</div>
+        <ol><li><strong>1일차 1교시</strong> AI도 피벗도 함수도, 같은 모양의 데이터를 좋아한다.</li><li><strong>1일차 2교시</strong> 데이터를 통째로 주지 말고, 경우의 수만 줘라.</li><li><strong>1일차 3교시</strong> 무엇을 볼지 모를 때, 머리글만 보여주고 물어봐라.</li><li><strong>1일차 4교시</strong> 수식을 외우지 말고, 설명받고 검증하라.</li><li><strong>2일차 1교시</strong> 피벗은 집계 도구가 아니라 원인을 찾는 도구다.</li><li><strong>2일차 2교시</strong> 차트 제목에 결론을 쓰면 보고서가 된다.</li><li><strong>2일차 3교시</strong> 매크로의 난관은 코드가 아니라 어디에 붙여넣는지다.</li><li><strong>2일차 4교시</strong> 오류가 나면 멈추지 말고 그대로 되물어라.</li></ol>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">세종연구원 AI아카데미 과정 1 · AI를 활용한 엑셀·데이터 활용 · 실습형 교안 · 강사 강혜진 · 모든 데이터는 교육용 예시입니다</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+
+(function () {
+  var root = document.documentElement;
+
+  /* ---------- Icons ---------- */
+  function drawIcons() { if (window.lucide) window.lucide.createIcons(); }
+  drawIcons();
+
+  /* ---------- Theme ---------- */
+  function setTheme(t) {
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('lesson-theme', t); } catch (e) {}
+    renderDiagrams();
+  }
+  document.getElementById('btnTheme').addEventListener('click', function () {
+    setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- Font size ---------- */
+  var sizes = [14, 15, 16, 17, 18, 19];
+  function curSize() { return parseInt(getComputedStyle(root).fontSize, 10) || 16; }
+  function setSize(px) {
+    root.style.fontSize = px + 'px';
+    try { localStorage.setItem('lesson-font', String(px)); } catch (e) {}
+  }
+  document.getElementById('btnSmaller').addEventListener('click', function () {
+    var i = sizes.indexOf(curSize()); if (i === -1) i = 2; if (i > 0) setSize(sizes[i - 1]);
+  });
+  document.getElementById('btnLarger').addEventListener('click', function () {
+    var i = sizes.indexOf(curSize()); if (i === -1) i = 2; if (i < sizes.length - 1) setSize(sizes[i + 1]);
+  });
+
+  /* ---------- Print / top ---------- */
+  document.getElementById('btnPrint').addEventListener('click', function () { (window.__renderAllDiagrams ? window.__renderAllDiagrams() : Promise.resolve()).then(function () { window.print(); }); });
+  document.getElementById('btnTop').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  /* ---------- TOC drawer ---------- */
+  var body = document.body;
+  document.getElementById('btnToc').addEventListener('click', function () {
+    body.classList.add('toc-anim');
+    body.classList.toggle('toc-open');
+  });
+  document.getElementById('scrim').addEventListener('click', function () { body.classList.remove('toc-open'); setDemo(false); });
+
+  /* ---------- Finished-product preview: expand overlay ---------- */
+  var demo = document.getElementById('demo');
+  var btnDemo = document.getElementById('btnDemoFull');
+  function setDemo(on) {
+    if (!demo || !btnDemo) return;
+    demo.classList.toggle('expanded', on);
+    body.classList.toggle('demo-open', on);
+    btnDemo.setAttribute('aria-label', on ? '원래 크기로' : '크게 보기');
+    btnDemo.setAttribute('data-tip', on ? '원래 크기로' : '크게 보기');
+    btnDemo.innerHTML = on ? (window.matchMedia('(max-width: 720px)').matches ? '<i data-lucide="x"></i>' : '<i data-lucide="minimize-2"></i>') : '<i data-lucide="maximize-2"></i>';
+    drawIcons();
+  }
+  if (btnDemo) btnDemo.addEventListener('click', function () { setDemo(!demo.classList.contains('expanded')); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { setDemo(false); body.classList.remove('toc-open'); } });
+  document.querySelectorAll('.toc a').forEach(function (a) {
+    a.addEventListener('click', function () { body.classList.remove('toc-open'); });
+  });
+
+  /* ---------- Finished-product tabs ---------- */
+  var demoTabs = Array.prototype.slice.call(document.querySelectorAll('.demo-tabs button'));
+  function showDemo(i) {
+    var b = demoTabs[i]; if (!b) return;
+    demoTabs.forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+    var src = b.getAttribute('data-src');
+    document.getElementById('demoFrame').setAttribute('src', src);
+    document.getElementById('demoOpen').setAttribute('href', src);
+    document.getElementById('demoName').textContent = b.getAttribute('data-label');
+  }
+  demoTabs.forEach(function (b, i) { b.addEventListener('click', function () { showDemo(i); }); });
+  document.querySelectorAll('[data-open-demo]').forEach(function (a) {
+    a.addEventListener('click', function () { showDemo(Number(a.getAttribute('data-open-demo')) - 1); });
+  });
+
+  /* ---------- Scroll spy + progress ---------- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var bar = document.getElementById('progress');
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    var y = window.scrollY + 120, idx = 0;
+    for (var i = 0; i < sections.length; i++) { if (sections[i] && sections[i].offsetTop <= y) idx = i; }
+    links.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+    if (window.__updateMobileBar) window.__updateMobileBar(idx);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  /* ---------- Checklist ---------- */
+  document.querySelectorAll('.checklist button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    });
+  });
+
+  /* ---------- Copy buttons (every code block) ---------- */
+  function copyFallback(text) {
+    return new Promise(function (resolve) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      resolve();
+    });
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () { return copyFallback(text); });
+    }
+    return copyFallback(text);
+  }
+  document.querySelectorAll('.codebox').forEach(function (box) {
+    var pre = box.querySelector('pre');
+    if (!pre) return;
+    var existing = box.querySelector('.ph > .copy-btn') || box.querySelector(':scope > .copy-btn');
+    var btn;
+    if (existing) {
+      btn = existing;
+    } else {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', '코드 복사');
+      btn.innerHTML = '<i data-lucide="copy"></i><span>복사</span>';
+      var head = box.querySelector('.ph');
+      (head || box).appendChild(btn);
+    }
+    btn.addEventListener('click', function () {
+      copyText(pre.textContent.replace(/^\n+|\s+$/g, '')).then(function () {
+        btn.classList.add('done');
+        btn.innerHTML = '<i data-lucide="check"></i><span>복사됨</span>';
+        drawIcons();
+        setTimeout(function () {
+          btn.classList.remove('done');
+          btn.innerHTML = '<i data-lucide="copy"></i><span>복사</span>';
+          drawIcons();
+        }, 1600);
+      });
+    });
+  });
+  drawIcons();
+
+
+  /* ---------- Mobile: 하단 바 · 목차 시트 · 설정 시트 · 접기 · 넘침 안내 · 다이어그램 확대 ---------- */
+  var mq = window.matchMedia('(max-width: 720px)');
+  var mbN = document.getElementById('mbN'), mbT = document.getElementById('mbT'), mbBar = document.getElementById('mbBar');
+  var mbPrev = document.getElementById('mbPrev'), mbNext = document.getElementById('mbNext');
+  var curIdx = 0;
+  function sectionLabel(i) {
+    var a = links[i]; if (!a) return ['', ''];
+    var n = a.querySelector('.n'); var num = n ? n.textContent.trim() : '';
+    var title = a.textContent.replace(num, '').trim();
+    return [num === '▸' ? '미리 보기' : (num === '+' ? '요약' : parseInt(num, 10) + '장'), title];
+  }
+  window.__updateMobileBar = function (idx) {
+    curIdx = idx;
+    var lab = sectionLabel(idx);
+    if (mbN) { mbN.textContent = lab[0]; mbT.textContent = lab[1]; }
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    if (mbBar) mbBar.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    if (mbPrev) mbPrev.disabled = idx <= 0;
+    if (mbNext) mbNext.disabled = idx >= sections.length - 1;
+  };
+  function goSection(i) {
+    var t = sections[Math.max(0, Math.min(sections.length - 1, i))];
+    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 56, behavior: 'smooth' });
+  }
+  if (mbPrev) mbPrev.addEventListener('click', function () { goSection(curIdx - 1); });
+  if (mbNext) mbNext.addEventListener('click', function () { goSection(curIdx + 1); });
+  function openToc() { body.classList.remove('msheet-open'); body.classList.add('toc-anim'); body.classList.toggle('toc-open'); }
+  ['mbToc', 'mbCur'].forEach(function (id) { var el = document.getElementById(id); if (el) el.addEventListener('click', openToc); });
+  var mbMore = document.getElementById('mbMore');
+  if (mbMore) mbMore.addEventListener('click', function () { body.classList.remove('toc-open'); body.classList.toggle('msheet-open'); });
+  [['msTheme', 'btnTheme'], ['msSmaller', 'btnSmaller'], ['msLarger', 'btnLarger'], ['msPrint', 'btnPrint']].forEach(function (p) {
+    var a = document.getElementById(p[0]), b = document.getElementById(p[1]);
+    if (a && b) a.addEventListener('click', function () { b.click(); if (p[0] === 'msPrint') body.classList.remove('msheet-open'); });
+  });
+  var msTop = document.getElementById('msTop');
+  if (msTop) msTop.addEventListener('click', function () { body.classList.remove('msheet-open'); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  document.getElementById('scrim').addEventListener('click', function () { body.classList.remove('msheet-open'); });
+
+  /* 긴 프롬프트 접기 (모바일에서만) */
+  var prompts = Array.prototype.slice.call(document.querySelectorAll('.codebox.prompt'));
+  prompts.forEach(function (box) {
+    var pre = box.querySelector('pre'); if (!pre || pre.textContent.split('\n').length < 12) return;
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'fold-btn';
+    btn.innerHTML = '<i data-lucide="chevrons-down"></i><span>프롬프트 전체 보기</span>';
+    box.appendChild(btn); box.setAttribute('data-foldable', '');
+    btn.addEventListener('click', function () {
+      var folded = box.classList.toggle('fold');
+      btn.innerHTML = folded ? '<i data-lucide="chevrons-down"></i><span>프롬프트 전체 보기</span>' : '<i data-lucide="chevrons-up"></i><span>접기</span>';
+      drawIcons();
+      if (folded) box.scrollIntoView({ block: 'nearest' });
+    });
+  });
+  drawIcons();
+  function applyFold() { prompts.forEach(function (b) { if (b.hasAttribute('data-foldable')) b.classList.toggle('fold', mq.matches); }); }
+
+  /* 옆으로 넘치는 표·다이어그램 안내 */
+  function markOverflow() {
+    document.querySelectorAll('.table-wrap, figure.diagram .scroll').forEach(function (w) {
+      var over = w.scrollWidth > w.clientWidth + 4;
+      var hint = w.nextElementSibling && w.nextElementSibling.classList.contains('scroll-hint') ? w.nextElementSibling : null;
+      if (over && !hint) {
+        hint = document.createElement('p'); hint.className = 'scroll-hint';
+        hint.innerHTML = '<i data-lucide="move-horizontal"></i>옆으로 밀어 보세요';
+        w.parentNode.insertBefore(hint, w.nextSibling); drawIcons();
+      } else if (!over && hint) { hint.remove(); }
+    });
+  }
+
+  /* 다이어그램 확대 보기 */
+  var zoom = document.getElementById('zoom'), zoomBody = document.getElementById('zoomBody'), zoomTitle = document.getElementById('zoomTitle');
+  document.querySelectorAll('figure.diagram').forEach(function (fig) {
+    fig.addEventListener('click', function (e) {
+      if (!mq.matches) return;
+      var svg = fig.querySelector('.mermaid svg'); if (!svg) return;
+      var cap = fig.querySelector('figcaption');
+      zoomTitle.textContent = cap ? cap.textContent.trim() : '다이어그램';
+      zoomBody.innerHTML = ''; zoomBody.appendChild(svg.cloneNode(true));
+      body.classList.add('zoom-open');
+    });
+  });
+  document.getElementById('zoomClose').addEventListener('click', function () { body.classList.remove('zoom-open'); zoomBody.innerHTML = ''; });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { body.classList.remove('zoom-open', 'msheet-open'); } });
+
+  /* 완성본 실행 카드 */
+  var launch = document.getElementById('demoLaunch');
+  if (launch) launch.addEventListener('click', function () { setDemo(true); });
+
+  function mobileRefresh() { applyFold(); markOverflow(); window.__updateMobileBar(curIdx); }
+  if (mq.addEventListener) mq.addEventListener('change', mobileRefresh); else if (mq.addListener) mq.addListener(mobileRefresh);
+  window.addEventListener('resize', markOverflow);
+  window.addEventListener('load', markOverflow);
+  mobileRefresh();
+  setTimeout(markOverflow, 1500);
+
+  /* ---------- Mermaid: 필요할 때 불러와서, 화면에 가까워진 것만 차례로 그린다 ---------- */
+  var MERMAID_SRC = 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js';
+  var diagrams = Array.prototype.slice.call(document.querySelectorAll('.mermaid'));
+  diagrams.forEach(function (d) { d.setAttribute('data-src', d.textContent.trim()); });
+  function v(name) { return getComputedStyle(root).getPropertyValue(name).trim(); }
+  var mermaidLoading = null, themeKey = null, defs = '', counter = 0, queue = Promise.resolve();
+  function loadMermaid() {
+    if (window.mermaid) return Promise.resolve();
+    if (!mermaidLoading) mermaidLoading = new Promise(function (res, rej) {
+      var sc = document.createElement('script'); sc.src = MERMAID_SRC; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc);
+    }).then(function () { return document.fonts && document.fonts.ready; });
+    return mermaidLoading;
+  }
+  function configure() {
+    var key = root.getAttribute('data-theme');
+    if (key === themeKey) return key;
+    themeKey = key;
+    var c = { bg: v('--bg'), fg: v('--fg'), muted: v('--muted'), line: v('--line-strong'), soft: v('--soft'), accent: v('--accent'), accentSoft: v('--accent-soft'), onAccent: v('--on-accent') };
+    window.mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      fontFamily: '"Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif',
+      flowchart: { curve: 'basis', htmlLabels: true, padding: 14, nodeSpacing: 30, rankSpacing: 40, useMaxWidth: true },
+      themeVariables: {
+        fontFamily: '"Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif',
+        fontSize: '15px', background: c.bg, primaryColor: c.soft, primaryTextColor: c.fg, primaryBorderColor: c.line,
+        secondaryColor: c.soft, tertiaryColor: c.bg, lineColor: c.muted, textColor: c.fg, nodeTextColor: c.fg,
+        clusterBkg: c.bg, clusterBorder: c.line, titleColor: c.muted, edgeLabelBackground: c.bg
+      }
+    });
+    defs = '\nclassDef accent fill:' + c.accentSoft + ',stroke:' + c.accent + ',stroke-width:1.5px,color:' + c.fg + ';' +
+           '\nclassDef strong fill:' + c.accent + ',stroke:' + c.accent + ',color:' + c.onAccent + ',font-weight:700;' +
+           '\nclassDef muted fill:' + c.bg + ',stroke:' + c.line + ',stroke-dasharray:4 3,color:' + c.muted + ';';
+    return key;
+  }
+  function renderOne(d) {
+    d.setAttribute('data-want', '');
+    queue = queue.then(loadMermaid).then(function () {
+      var key = configure();
+      if (d.getAttribute('data-theme-done') === key) return;
+      return window.mermaid.render('mmd-' + (++counter), d.getAttribute('data-src') + defs).then(function (res) {
+        d.innerHTML = res.svg; d.setAttribute('data-done', ''); d.setAttribute('data-theme-done', key);
+        if (typeof markOverflow === 'function') markOverflow();
+      });
+    }).catch(function (err) {
+      d.textContent = '다이어그램을 그리지 못했습니다.'; d.setAttribute('data-done', '');
+      if (window.console) console.error(err);
+    });
+    return queue;
+  }
+  /* 테마를 바꾸면 이미 그린 것만 새 색으로 다시 그린다 */
+  function renderDiagrams() { diagrams.forEach(function (d) { if (d.hasAttribute('data-want')) renderOne(d); }); }
+  function renderAll() { diagrams.forEach(renderOne); return queue; }
+  window.__renderAllDiagrams = renderAll;
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { io.unobserve(e.target); renderOne(e.target); } });
+    }, { rootMargin: '800px 0px' });
+    diagrams.forEach(function (d) { io.observe(d); });
+  } else { renderAll(); }
+  window.addEventListener('beforeprint', renderAll);
+})();
+
+</script>
+</body>
+</html>
