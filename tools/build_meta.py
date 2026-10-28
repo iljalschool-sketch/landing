@@ -23,9 +23,9 @@ from PIL import Image, ImageDraw, ImageFont
 HTML_경로 = Path("index.html")
 출력_이미지 = Path("images/brand")
 
-브랜드_딥 = (7, 48, 36)
+브랜드_딥 = (6, 40, 30)        # --brand-deep #06281E
 그로스_그린 = (22, 107, 82)
-포인트_옐로우 = (249, 248, 113)
+포인트_옐로우 = (231, 178, 76)   # --point-yellow #E7B24C (골드)
 
 
 def 한글_폰트(크기: int) -> ImageFont.FreeTypeFont:
@@ -99,23 +99,18 @@ def 히어로_블록(브랜드: dict) -> str:
         return 줄
 
     소개 = 브랜드["companyIntro"]
-    # 긴 문장은 데스크톱에서 두 줄로 끊어 읽기 쉽게 한다
-    자르는_곳 = 소개.find("통해 ")
-    if 자르는_곳 > 0:
-        앞, 뒤 = 소개[:자르는_곳 + 3], 소개[자르는_곳 + 3:]
-        소개_html = f'{앞}<br class="hidden md:block">\n                {뒤}'
-    else:
-        소개_html = 소개
 
+    # 에디토리얼 히어로: 슬로건(키커) → 디스플레이 제목 → 리드 문장.
+    # 스타일값은 assets/brand.css 의 .hero-* 클래스에 있다.
     return "\n".join([
-        # 슬로건은 확정된 브랜드 문구이므로 작게 흘리지 않고 또렷하게 보여준다
-        f'            <p class="text-point font-bold mb-5 tracking-wide text-xl md:text-2xl">{브랜드["slogan"]}</p>',
-        '            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">',
-        f'                {강조_적용(카피["line1"])} <br>',
+        # 슬로건은 확정된 브랜드 문구이므로 또렷한 키커로 보여준다
+        f'            <p class="hero-kicker">{브랜드["slogan"]}</p>',
+        '            <h1 class="hero-title">',
+        f'                {강조_적용(카피["line1"])}<br>',
         f'                {강조_적용(카피["line2"])}',
         '            </h1>',
-        '            <p class="text-lg text-mint mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed">',
-        f'                {소개_html}',
+        '            <p class="hero-lead">',
+        f'                {소개}',
         '            </p>',
     ])
 

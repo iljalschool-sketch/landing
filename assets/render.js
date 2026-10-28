@@ -318,11 +318,12 @@
         const 소개 = 자료.about;
 
         채우기('intro-video-body', `
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">${esc(영상.heading)}</h2>
-                <p class="text-slate-500 font-medium">${esc(영상.subheading)}</p>
+            <div class="section-head mb-10">
+                <p class="eyebrow">Watch</p>
+                <h2 class="section-title">${esc(영상.heading)}</h2>
+                <p class="section-lead">${esc(영상.subheading)}</p>
             </div>
-            <div class="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border-8 border-mint">
+            <div class="relative aspect-video rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5">
                 <iframe class="absolute top-0 left-0 w-full h-full"
                         src="https://www.youtube.com/embed/${esc(영상.youtubeId)}"
                         title="${esc(영상.title)}" frameborder="0" loading="lazy"
@@ -332,21 +333,21 @@
         `);
 
         채우기('about-body', `
-            <div class="w-56 h-56 rounded-3xl overflow-hidden flex-shrink-0 shadow-2xl rotate-3 bg-gradient-to-br from-growth to-deep flex items-center justify-center">
+            <div class="w-52 h-52 md:w-56 md:h-56 rounded-2xl overflow-hidden flex-shrink-0 shadow-xl ring-1 ring-white/10 bg-gradient-to-br from-growth to-deep flex items-center justify-center">
                 <img src="${esc(소개.photo)}" alt="${esc(소개.name)}" class="w-full h-full object-cover"
                      data-fallback="images/brand/symbol-white.png">
             </div>
             <div>
-                <h2 class="text-accent font-bold uppercase tracking-widest mb-2">${esc(소개.eyebrow)}</h2>
-                <h3 class="text-4xl font-extrabold mb-6">
+                <p class="eyebrow mb-3" style="color: var(--point-yellow)">${esc(소개.eyebrow)}</p>
+                <h3 class="text-3xl md:text-4xl font-extrabold mb-6 tracking-tight">
                     ${esc(소개.name)} <span class="text-xl font-normal text-slate-400">| ${esc(소개.alias)}</span>
                 </h3>
                 <p class="text-slate-300 leading-relaxed mb-8 text-lg">
                     "${소개.quote}"<br><br>${소개.body}
                 </p>
-                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-2.5">
                     ${소개.tags.map((태그) => `
-                        <span class="px-5 py-2 bg-white/10 rounded-full text-sm font-medium border border-white/10">${esc(태그)}</span>
+                        <span class="px-4 py-1.5 bg-white/10 rounded-lg text-sm font-medium border border-white/10">${esc(태그)}</span>
                     `).join('')}
                 </div>
             </div>
@@ -513,8 +514,9 @@
         return 조각들.join('');
     };
 
-    // 주의: lectures.json의 agency(경유 에이전시) 필드는 내부 기록용이므로
-    //       의도적으로 화면에 그리지 않는다. 노출 기준은 해당 파일의 _표기원칙 참고.
+    // 주의: 경유 에이전시명은 lectures.json에 아예 담지 않는다. data/*.json은
+    //       주소만 알면 누구나 내려받을 수 있어 '안 그리는 것'으로는 비공개가 되지
+    //       않는다. 기록은 저장소 밖 엑셀에만 있다. 표기 기준은 해당 파일의 _표기원칙 참고.
     const 강의_그리기 = (자료) => {
         if (!자료) return;
 

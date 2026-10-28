@@ -14,46 +14,162 @@
     /* ── 브랜드 코어 컬러 ── */
     --brand-green: #0B4D3B;   /* 메인   : 헤더, 짙은 배경, 주요 버튼 */
     --growth-green: #166B52;  /* 보조   : 그라데이션, 보조 버튼 */
-    --light-green: #3DA37A;   /* 포인트 : 강조 텍스트, 아이콘, 링크 */
+    --light-green: #3DA37A;   /* 포인트 : 어두운 배경 위 강조 텍스트·아이콘 */
+    --accent-ink: #15765A;    /* 포인트(밝은 배경용) : 흰 배경 위 링크·라벨 — 대비 확보 */
     --mint-green: #E8F4EE;    /* 배경   : 연한 섹션 배경, 카드 배경 */
-    --point-yellow: #F9F871;  /* 강조   : 어두운 배경 위 주목 문구, 주요 버튼 */
+
+    /* 포인트(강조)색: 형광 노랑 → 따뜻한 골드로 톤 정제. '친절함'은 유지하되 품위를 더한다 */
+    --point-yellow: #E7B24C;  /* 강조   : 어두운 배경 위 주목 문구, 주요 버튼 */
+    --point-soft:   #F4E6C4;  /* 골드의 연한 틴트 (밝은 배경 뱃지) */
 
     /* ── 파생 컬러 (코어에서 유도) ── */
-    --brand-deep: #073024;    /* 가장 어두운 톤 : 경력 섹션 배경 */
+    --brand-deep: #06281E;    /* 가장 어두운 톤 : 히어로·경력 섹션 배경 */
     --brand-gradient: linear-gradient(135deg, var(--brand-deep) 0%, var(--growth-green) 100%);
 
-    /* ── 중립 컬러 ── */
-    --ink: #0f172a;           /* 본문 제목 */
-    --ink-soft: #475569;      /* 본문 */
-    --ink-muted: #94a3b8;     /* 캡션, 부가 설명 */
-    --line: #e2e8f0;          /* 구분선, 테두리 */
+    /* ── 중립 컬러 (초록과 어울리는 따뜻한 회색 계열) ── */
+    --ink: #1A1D1B;           /* 본문 제목 */
+    --ink-soft: #4B524D;      /* 본문 */
+    --ink-muted: #8A8F89;     /* 캡션, 부가 설명 */
+    --line: #E6E7E2;          /* 구분선, 테두리 */
+    --paper: #FFFFFF;         /* 기본 배경 */
+    --paper-2: #FAFAF6;       /* 따뜻한 오프화이트 대체 배경 */
 
     /* ── 타이포그래피 ── */
     --font-sans: 'Pretendard Variable', Pretendard, -apple-system,
                  BlinkMacSystemFont, system-ui, 'Malgun Gothic', sans-serif;
 
+    /* 에디토리얼 타입 스케일 — 화면 폭에 따라 유연하게(clamp), 큰 글씨는 자간을 좁혀 또렷하게 */
+    --fs-display:  clamp(2.4rem, 1.4rem + 4vw, 3.9rem);   /* 히어로 대문자 */
+    --fs-h2:       clamp(1.75rem, 1.2rem + 1.8vw, 2.55rem);/* 섹션 제목 */
+    --fs-h3:       clamp(1.2rem, 1rem + 0.7vw, 1.55rem);  /* 카드 제목 */
+    --fs-lead:     clamp(1.05rem, 1rem + 0.35vw, 1.2rem); /* 리드 문장 */
+    --fs-eyebrow:  0.78rem;                                /* 섹션 라벨 */
+    --tracking-display: -0.03em;
+    --tracking-h2: -0.02em;
+    --tracking-eyebrow: 0.2em;
+
     /* ── 형태 ── */
-    --radius-sm: 0.75rem;
-    --radius-md: 1rem;
-    --radius-lg: 1.5rem;
+    --radius-sm: 0.625rem;
+    --radius-md: 0.875rem;
+    --radius-lg: 1.25rem;
     --radius-full: 9999px;
-    --shadow-card: 0 1px 3px rgba(11, 77, 59, 0.06);
-    --shadow-lift: 0 12px 32px rgba(11, 77, 59, 0.14);
+    --shadow-card: 0 1px 2px rgba(6, 40, 30, 0.05), 0 1px 3px rgba(6, 40, 30, 0.04);
+    --shadow-lift: 0 18px 40px -16px rgba(6, 40, 30, 0.22), 0 4px 10px -6px rgba(6, 40, 30, 0.10);
 }
 
 /* ── 기본 타이포 ── */
 body {
     font-family: var(--font-sans);
+    color: var(--ink-soft);
+    background: var(--paper-2);   /* 따뜻한 오프화이트 — 흰 섹션과 미세한 대비를 준다 */
     word-break: keep-all;        /* 한글 단어 단위 줄바꿈 */
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.003em;
 }
 
-/* ── 브랜드 그라데이션 (히어로 배경) ── */
-.logic-gradient { background: var(--brand-gradient); }
+/* 부드러운 섹션 간 이동 */
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
-/* ── 카드 호버 ── */
-.card-hover { transition: transform .3s ease, box-shadow .3s ease; }
-.card-hover:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+/* ── 브랜드 배경 (히어로) ── */
+/* 밝은 대각선 그라데이션 → 짙은 녹색 바탕에 은은한 방사형 글로우. 톤을 가라앉혀 품위를 준다 */
+.logic-gradient {
+    background:
+        radial-gradient(120% 90% at 82% 8%, rgba(61,163,122,.20) 0%, rgba(61,163,122,0) 55%),
+        radial-gradient(90% 80% at 0% 100%, rgba(231,178,76,.10) 0%, rgba(231,178,76,0) 50%),
+        var(--brand-deep);
+}
+
+/* ── 히어로 ── */
+.hero-section { padding-top: 9.5rem; padding-bottom: 7rem; }
+.hero-kicker {
+    font-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.1rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--point-yellow);
+    margin-bottom: 1.4rem;
+}
+.hero-title {
+    font-size: var(--fs-display);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: var(--tracking-display);
+    margin-bottom: 1.6rem;
+}
+.hero-lead {
+    font-size: var(--fs-lead);
+    line-height: 1.75;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 36rem;
+}
+
+/* ── 에디토리얼 섹션 헤더 (왼쪽 정렬: 라벨 → 제목 → 리드) ── */
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--accent-ink);
+}
+.eyebrow::before {
+    content: "";
+    width: 1.6rem;
+    height: 1px;
+    background: currentColor;
+    opacity: .5;
+}
+.section-head { max-width: 40rem; margin-bottom: 3rem; }
+.section-head .section-title {
+    font-size: var(--fs-h2);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: var(--tracking-h2);
+    color: var(--ink);
+    margin-top: .9rem;
+}
+.section-head .section-lead {
+    font-size: var(--fs-lead);
+    line-height: 1.7;
+    color: var(--ink-muted);
+    margin-top: .85rem;
+}
+/* 어두운 배경 섹션용 변형 */
+.section-head.on-dark .eyebrow { color: var(--point-yellow); }
+.section-head.on-dark .section-title { color: #fff; }
+.section-head.on-dark .section-lead { color: rgba(255,255,255,.62); }
+
+/* ── 버튼 ── */
+/* 알약 형광 버튼 → 절제된 형태. 라운드는 중간값, 그림자는 은은하게 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .85rem 1.6rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: .95rem;
+    letter-spacing: -0.01em;
+    transition: transform .18s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.btn-primary {
+    background: var(--point-yellow);
+    color: var(--brand-deep);
+    box-shadow: 0 10px 22px -12px rgba(231,178,76,.7);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 26px -12px rgba(231,178,76,.85); }
+.btn-ghost {
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.22);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.12); }
+
+/* ── 카드 호버 (들림 폭을 줄여 차분하게) ── */
+.card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.card-hover:hover { transform: translateY(-3px); box-shadow: var(--shadow-lift); }
 
 /* ── 경력 탭 버튼 ── */
 .tab-btn {
@@ -72,7 +188,7 @@ body {
     background: var(--growth-green);
     color: #fff;
     border-color: var(--growth-green);
-    box-shadow: 0 4px 15px rgba(22, 107, 82, .45);
+    box-shadow: 0 6px 16px -8px rgba(22, 107, 82, .6);
 }
 
 /* ── 탭 콘텐츠 전환 ── */

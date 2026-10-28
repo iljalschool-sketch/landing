@@ -45,8 +45,8 @@
                         growth: '#166B52',   // 그로스 그린 (보조)
                         accent: '#3DA37A',   // 라이트 그린 (포인트)
                         mint:   '#E8F4EE',   // 민트 그린 (배경)
-                        deep:   '#073024',   // 딥 그린 (가장 어두운 톤)
-                        point:  '#F9F871'    // 옐로우 (강조 — 친절함·주목)
+                        deep:   '#06281E',   // 딥 그린 (가장 어두운 톤)
+                        point:  '#E7B24C'    // 골드 (강조 — 친절함·주목, 형광 노랑에서 톤 정제)
                     }
                 }
             }
@@ -54,78 +54,84 @@
     </script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- brand:css:start -->
-    <link href="assets/brand.css?v=26c9782e" rel="stylesheet">
+    <link href="assets/brand.css?v=9030a761" rel="stylesheet">
     <!-- brand:css:end -->
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="text-slate-900">
 
     <!-- ───────── 헤더 ───────── -->
-    <header class="fixed w-full top-0 bg-white/90 backdrop-blur-md z-50 border-b border-slate-100">
+    <header class="fixed w-full top-0 bg-white/85 backdrop-blur-md z-50 border-b" style="border-color: var(--line)">
         <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center">
                 <img src="images/brand/logo-horizontal-green.png" alt="Logic Flow"
                      class="h-7 md:h-9 w-auto object-contain">
             </a>
 
-            <nav class="hidden md:flex space-x-6 text-sm font-semibold text-slate-600">
+            <nav class="hidden md:flex items-center gap-7 text-[0.9rem] font-semibold text-slate-600">
+                <a href="#about" class="hover:text-brand transition">강사 소개</a>
                 <a href="#problems" class="hover:text-brand transition">해결하는 문제</a>
                 <a href="#solutions" class="hover:text-brand transition">교육 · 솔루션</a>
-                <a href="#about" class="hover:text-brand transition">강사 소개</a>
                 <a href="#gallery" class="hover:text-brand transition">강의 현장</a>
                 <a href="#career" class="hover:text-brand transition">경력사항</a>
-                <a href="#contact" class="hover:text-brand transition">교육 문의</a>
+                <a href="#contact"
+                   class="ml-1 px-4 py-2 rounded-lg bg-brand text-white font-bold hover:bg-growth transition">교육 문의</a>
             </nav>
         </div>
     </header>
 
     <!-- ───────── 히어로 (SEO를 위해 정적 유지) ───────── -->
-    <section class="pt-32 pb-24 px-6 logic-gradient text-white">
-        <div class="max-w-4xl mx-auto text-center">
+    <section class="hero-section px-6 logic-gradient text-white">
+        <div class="max-w-5xl mx-auto">
             <!-- brand:hero:start -->
-            <p class="text-point font-bold mb-5 tracking-wide text-xl md:text-2xl">기술보다 문제에 집중합니다</p>
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-8 leading-tight">
-                배우는 데서 끝나지 않고, <br>
+            <p class="hero-kicker">기술보다 문제에 집중합니다</p>
+            <h1 class="hero-title">
+                배우는 데서 끝나지 않고,<br>
                 <span class="text-point">일하는 방식이 달라지도록</span>
             </h1>
-            <p class="text-lg text-mint mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed">
-                로직플로우는 AI와 자동화 기술을 활용한 교육, 컨설팅, 솔루션 개발을 통해 <br class="hidden md:block">
-                개인과 조직의 업무 혁신을 돕는 기업입니다.
+            <p class="hero-lead">
+                로직플로우는 AI와 자동화 기술을 활용한 교육, 컨설팅, 솔루션 개발을 통해 개인과 조직의 업무 혁신을 돕는 기업입니다.
             </p>
             <!-- brand:hero:end -->
-            <div class="flex flex-wrap justify-center gap-4">
+            <div class="flex flex-wrap gap-4 mt-10">
                 <a href="https://open.kakao.com/o/sEbFz6Se" target="_blank" rel="noopener"
-                   class="bg-point text-brand px-8 py-3 rounded-full font-bold hover:brightness-95 transition shadow-lg flex items-center">
-                    <i class="fas fa-comment mr-2"></i>교육 문의하기
+                   class="btn btn-primary">
+                    <i class="fas fa-comment"></i>교육 문의하기
                 </a>
                 <a href="https://www.youtube.com/@iljal-school" target="_blank" rel="noopener"
-                   class="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full font-bold hover:bg-white/20 transition">
-                    <i class="fab fa-youtube mr-2"></i>일잘러스쿨
+                   class="btn btn-ghost">
+                    <i class="fab fa-youtube"></i>일잘러스쿨
                 </a>
             </div>
         </div>
     </section>
 
     <!-- ───────── 누적 성과 지표 → data/stats.json ───────── -->
-    <section id="stats" class="py-16 px-6 bg-white border-b border-slate-100">
+    <section id="stats" class="py-20 px-6 bg-white border-b" style="border-color: var(--line)">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 id="stats-heading" class="text-2xl font-bold text-slate-900 mb-2"></h2>
-                <p id="stats-sub" class="text-slate-500 text-sm font-medium"></p>
+            <div class="section-head mb-12">
+                <p class="eyebrow">Track Record</p>
+                <h2 id="stats-heading" class="section-title"></h2>
+                <p id="stats-sub" class="section-lead"></p>
             </div>
-            <div id="stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+            <div id="stats-grid" class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10"></div>
         </div>
     </section>
 
+    <!-- ───────── 강사 소개 → data/site.json ───────── -->
+    <section id="about" class="bg-deep py-24 px-6 text-white">
+        <div id="about-body" class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-16"></div>
+    </section>
+
     <!-- ───────── 해결하는 문제 → data/problems.json ───────── -->
-    <section id="problems" class="py-24 px-6 bg-mint">
+    <section id="problems" class="py-28 px-6 bg-mint">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-14">
-                <h2 id="problems-heading" class="text-3xl font-bold text-slate-900 mb-4 tracking-tight"></h2>
-                <p id="problems-sub" class="text-slate-600 font-medium"></p>
-                <div class="w-16 h-1 bg-brand mx-auto mt-6"></div>
+            <div class="section-head">
+                <p class="eyebrow">The Problem</p>
+                <h2 id="problems-heading" class="section-title"></h2>
+                <p id="problems-sub" class="section-lead"></p>
             </div>
             <div id="problems-grid" class="grid md:grid-cols-2 gap-5"></div>
-            <p id="problems-note" class="text-center text-sm text-slate-500 mt-10"></p>
+            <p id="problems-note" class="text-sm text-slate-500 mt-10 max-w-3xl"></p>
         </div>
     </section>
 
@@ -135,40 +141,35 @@
     </section>
 
     <!-- ───────── 교육 · 솔루션 → data/courses.json ───────── -->
-    <section id="solutions" class="py-24 px-6 max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 id="solutions-heading" class="text-3xl font-bold text-slate-900 mb-4 tracking-tight"></h2>
-            <p id="solutions-sub" class="text-slate-500 font-medium"></p>
-            <div class="w-16 h-1 bg-brand mx-auto mt-6"></div>
+    <section id="solutions" class="py-28 px-6 max-w-6xl mx-auto">
+        <div class="section-head">
+            <p class="eyebrow">What We Do</p>
+            <h2 id="solutions-heading" class="section-title"></h2>
+            <p id="solutions-sub" class="section-lead"></p>
         </div>
         <div id="solutions-grid" class="grid md:grid-cols-2 gap-8"></div>
     </section>
 
     <!-- ───────── 개발 사례 → data/cases.json ───────── -->
-    <section id="cases" class="py-24 px-6 bg-deep text-white">
+    <section id="cases" class="py-28 px-6 bg-deep text-white">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-14">
-                <h2 id="cases-heading" class="text-3xl font-bold mb-4 tracking-tight"></h2>
-                <p id="cases-sub" class="text-slate-400 font-medium"></p>
-                <div class="w-16 h-1 bg-point mx-auto mt-6"></div>
+            <div class="section-head on-dark">
+                <p class="eyebrow">In Practice</p>
+                <h2 id="cases-heading" class="section-title"></h2>
+                <p id="cases-sub" class="section-lead"></p>
             </div>
             <div id="cases-list" class="space-y-4"></div>
             <div id="cases-note" class="mt-14 p-8 bg-white/5 rounded-2xl border border-white/10"></div>
         </div>
     </section>
 
-    <!-- ───────── 강사 소개 → data/site.json ───────── -->
-    <section id="about" class="bg-deep py-24 px-6 text-white">
-        <div id="about-body" class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-16"></div>
-    </section>
-
     <!-- ───────── 강의 현장 갤러리 → data/gallery.json ───────── -->
-    <section id="gallery" class="py-24 px-6 bg-mint">
+    <section id="gallery" class="py-28 px-6 bg-mint">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-14">
-                <h2 id="gallery-heading" class="text-3xl font-bold text-slate-900 mb-4 tracking-tight"></h2>
-                <p id="gallery-sub" class="text-slate-500 font-medium"></p>
-                <div class="w-16 h-1 bg-brand mx-auto mt-6"></div>
+            <div class="section-head">
+                <p class="eyebrow">On Site</p>
+                <h2 id="gallery-heading" class="section-title"></h2>
+                <p id="gallery-sub" class="section-lead"></p>
             </div>
             <!-- '이런 활동을 했다' 정도만 보여주면 되므로 작게 여러 장 늘어놓는다 -->
             <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
@@ -178,13 +179,13 @@
     <!-- ───────── 경력사항 → data/education·lectures·automation·videos.json ───────── -->
     <section id="career" class="bg-deep py-24 px-6 text-white">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4 tracking-tight">Career &amp; Portfolio</h2>
-                <p class="text-slate-400 font-medium">기능이 아닌, 시간과 성장을 제공합니다</p>
-                <div class="w-16 h-1 bg-accent mx-auto mt-6"></div>
+            <div class="section-head on-dark">
+                <p class="eyebrow">Career</p>
+                <h2 class="section-title">Career &amp; Portfolio</h2>
+                <p class="section-lead">기능이 아닌, 시간과 성장을 제공합니다</p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <div class="flex flex-wrap gap-3 mb-12">
                 <button class="tab-btn active" data-tab="education"><i class="fas fa-graduation-cap mr-2"></i>학력</button>
                 <button class="tab-btn" data-tab="lectures"><i class="fas fa-chalkboard-teacher mr-2"></i>강의</button>
                 <button class="tab-btn" data-tab="automation"><i class="fas fa-cogs mr-2"></i>자동화 개발</button>
@@ -199,9 +200,10 @@
     </section>
 
     <!-- ───────── 문의하기 → data/site.json ───────── -->
-    <footer id="contact" class="bg-white py-24 px-6 border-t border-slate-100 text-center">
+    <footer id="contact" class="bg-white py-28 px-6 border-t text-center" style="border-color: var(--line)">
         <div class="max-w-4xl mx-auto">
-            <h2 id="contact-heading" class="text-3xl font-bold mb-12 text-slate-900"></h2>
+            <p class="eyebrow mb-3" style="justify-content:center">Contact</p>
+            <h2 id="contact-heading" class="section-title mb-12"></h2>
             <div id="contact-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16"></div>
             <img src="images/brand/symbol-green.png" alt="" class="h-10 w-auto mx-auto mb-6 opacity-40">
             <p id="contact-copyright" class="text-slate-400 text-sm font-medium"></p>
@@ -227,7 +229,7 @@
     </div>
 
     <!-- brand:js:start -->
-    <script src="assets/render.js?v=8e32cc59"></script>
+    <script src="assets/render.js?v=422cd8fc"></script>
     <!-- brand:js:end -->
 </body>
 </html>
