@@ -14,6 +14,10 @@
 **`강의이력.xlsx` 한 파일만 관리하면 됩니다.**
 
 위치: `OneDrive\Files\10_LogicFlow\강의이력.xlsx`
+
+> 이 엑셀은 OneDrive에 그대로 둡니다 (백업되고, 어디서나 열 수 있으니까요).
+> 홈페이지 저장소만 `C:\Users\User\projects\landing` 으로 옮겼습니다.
+> 둘을 이어 주는 설정이 `landing\tools\엑셀경로.txt` 입니다.
 (`landing` 폴더 **바로 바깥**입니다. 홈페이지 저장소 안에 두면 에이전시명·교육대상 같은 내부 기록까지 인터넷에 공개되기 때문입니다.)
 
 강의를 할 때마다 `강의이력` 시트에 **한 줄씩** 추가하세요. 노란 칸이 필수입니다.
@@ -189,10 +193,13 @@ git add . && git commit -m "강의 이력 추가" && git push
 ## 4. 폴더 구조
 
 ```
-10_LogicFlow/
-├── 강의이력.xlsx               ★ 강의할 때마다 여기에 기록
-│                               (저장소 바깥 — 인터넷에 공개되지 않습니다)
+OneDrive/Files/10_LogicFlow/
+└── 강의이력.xlsx               ★ 강의할 때마다 여기에 기록
+                                (저장소 바깥 — 인터넷에 공개되지 않습니다)
+
+C:/Users/User/projects/
 └── landing/                    ← 여기부터 홈페이지 저장소. 전부 공개됩니다
+    │                             (OneDrive 밖 — 동기화가 .git을 깨뜨리기 때문)
     ├── index.html              레이아웃 껍데기 (내용 없음)
     ├── data/                   ← ★ 홈페이지 내용
     │   ├── site.json           소개 영상 · 아키텍트 소개 · 연락처

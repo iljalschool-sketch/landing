@@ -55,7 +55,8 @@ print("  og-image.png: tools/build_meta.py 에서 생성합니다")
 
 
 # ── 4. 프로필 사진 ────────────────────────────────────────────────
-# 원본은 세로 전신 사진이므로, 얼굴과 상반신이 들어가도록 정사각형으로 자른다.
+# 원본이 3:4 세로 사진이다. 정사각형으로 자르면 화면의 1/4이 날아가고
+# 인물이 답답해 보여서, 원본 비율을 그대로 살린다.
 # 더 고화질이 필요하면 같은 폴더의 PNG를 쓰면 된다 (현재 PNG 사용 중).
 프로필_원본 = Path(
     r"C:\Users\User\OneDrive\Files\10_LogicFlow\11_Assets\대표정보\강혜진_프로필사진_F.png"
@@ -64,12 +65,22 @@ print("  og-image.png: tools/build_meta.py 에서 생성합니다")
 if 프로필_원본.exists():
     with Image.open(프로필_원본) as 사진:
         사진 = 사진.convert("RGB")
-        자르기_크기 = 880
-        왼쪽 = (사진.width - 자르기_크기) // 2
-        위 = 60                        # 머리 위 여백을 조금만 남긴다
-        상반신 = 사진.crop((왼쪽, 위, 왼쪽 + 자르기_크기, 위 + 자르기_크기))
-        상반신 = 상반신.resize((560, 560), Image.LANCZOS)   # 표시 크기(224px)의 2배
-        상반신.save(출력 / "profile.jpg", "JPEG", quality=88, optimize=True, progressive=True)
-    print(f"  profile.jpg: 560x560 ({(출력 / 'profile.jpg').stat().st_size // 1024} KB)")
+        가로, 세로 = 600, 800                       # 3:4 — 표시 크기(300x400)의 2배
+        목표비 = 가로 / 세로
+
+        # 원본이 목표보다 넓으면 좌우를, 길면 위아래를 깎아 3:4를 맞춘다.
+        # 위아래를 깎을 때는 얼굴이 위쪽에 있으므로 아래에서 더 덜어낸다.
+        if 사진.width / 사진.height > 목표비:
+            새_폭 = round(사진.height * 목표비)
+            왼쪽 = (사진.width - 새_폭) // 2
+            자른_사진 = 사진.crop((왼쪽, 0, 왼쪽 + 새_폭, 사진.height))
+        else:
+            새_높이 = round(사진.width / 목표비)
+            위 = round((사진.height - 새_높이) * 0.3)
+            자른_사진 = 사진.crop((0, 위, 사진.width, 위 + 새_높이))
+
+        프로필 = 자른_사진.resize((가로, 세로), Image.LANCZOS)
+        프로필.save(출력 / "profile.jpg", "JPEG", quality=88, optimize=True, progressive=True)
+    print(f"  profile.jpg: {가로}x{세로} ({(출력 / 'profile.jpg').stat().st_size // 1024} KB)")
 else:
     print("  [건너뜀] 프로필 원본을 찾지 못했습니다")

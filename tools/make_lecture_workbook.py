@@ -14,7 +14,13 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-저장_경로 = Path("../강의이력.xlsx")
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from 엑셀경로 import 설정_파일
+
+# 이미 쓰고 있는 위치가 적혀 있으면 그 자리에, 없으면 저장소 바로 위에 만든다
+저장_경로 = (Path(설정_파일.read_text(encoding="utf-8").strip())
+             if 설정_파일.exists() else Path("../강의이력.xlsx"))
 마지막_행 = 500          # 수식이 내다보는 범위 (행을 더 쓰려면 이 값을 늘린다)
 
 # ── 서식 상수 ──────────────────────────────────────────────────────

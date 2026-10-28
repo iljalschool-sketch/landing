@@ -27,12 +27,18 @@
    `홍보/활동사진_모자이크`를 쓴다. EXIF는 스크립트가 제거한다.
 
 6. **`lectures.json`·`automation.json`의 `groups`, `stats.json`의 `source` 항목, `courses.json`의 `education.open`은 손으로 고치지 않는다.**
-   저장소 바깥의 `../강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
+   저장소 바깥의 `강의이력.xlsx`가 원본이고, `tools/build_lectures.py`가 생성한다.
+   위치는 `tools/엑셀경로.txt`에 적혀 있다 (git에 올리지 않는 로컬 설정).
    직접 고치면 다음 실행 때 덮어쓰기 된다. 사용자가 "강의이력 업데이트해줘"라고 하면
    이 스크립트를 실행한다.
 
 7. **에이전시명은 `data/*.json`에 절대 저장하지 않는다.** 화면에 안 그리는 것만으로는 비공개가 되지 않는다 — JSON 파일 자체가 주소로 내려받힌다. 기록은 저장소 밖 엑셀에만 남긴다.
    기관명 노출 기준은 `lectures.json`의 `_표기원칙`을 따른다.
+
+8. **저장소는 OneDrive 같은 동기화 폴더 안에 두지 않는다.**
+   동기화가 `.git/objects`를 건드리면 객체가 깨진다. 실제로 한 번 깨졌다.
+   엑셀 원본은 OneDrive에 남겨 두되(백업이 필요한 데이터 파일이므로),
+   저장소는 `C:\Users\User\projects\landing` 처럼 동기화 바깥에 둔다.
 
 ## 파일 구조
 
@@ -42,7 +48,8 @@
 | `assets/brand.css` | 브랜드 토큰(색·폰트·형태) 및 컴포넌트 스타일 |
 | `assets/render.js` | `data/*.json` → DOM 렌더링 |
 | `data/*.json` | 모든 콘텐츠 |
-| `../강의이력.xlsx` | 강의 회차 기록의 **원본**. 저장소 **바깥**에 둔다 — GitHub Pages가 저장소 전체를 공개하므로 에이전시명·교육대상이 노출되기 때문 |
+| `강의이력.xlsx` | 강의 회차 기록의 **원본**. 저장소 **바깥**에 둔다 — GitHub Pages가 저장소 전체를 공개하므로 에이전시명·교육대상이 노출되기 때문. 실제 위치는 `tools/엑셀경로.txt` 참고 |
+| `tools/엑셀경로.py` | 위 엑셀이 어디 있는지 찾아주는 공용 모듈. 환경변수 `LECTURE_XLSX` → `tools/엑셀경로.txt` → `../강의이력.xlsx` 순 |
 | `tools/build_lectures.py` | 엑셀 → `lectures.json` + `stats.json` + `courses.json` + `automation.json` |
 | `tools/build_meta.py` | `brand.json` → `index.html` 표식 구간 + OG 이미지 |
 | `tools/add_dev_sheet.py` | 엑셀에 '개발이력' 시트 추가 (최초 1회용) |
@@ -56,7 +63,7 @@
 ## 강의 이력 파이프라인
 
 ```
-../강의이력.xlsx
+강의이력.xlsx  (OneDrive — tools/엑셀경로.txt 에 위치 기록)
   ├─ '강의이력' 시트 ──(build_lectures.py)──┬──> data/lectures.json   (같은 강의명+기관은 1줄 + count)
   │    회차 단위로 기록                      ├──> data/stats.json      (전체 합산)
   │                                          └──> data/courses.json    (education.open = 모집 중인 과정)

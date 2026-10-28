@@ -15,7 +15,11 @@ from pathlib import Path
 from openpyxl import load_workbook
 
 # 저장소 밖에 둔다. 공개 사이트에 내부 기록(에이전시명 등)이 노출되지 않도록.
-엑셀_경로 = Path("../강의이력.xlsx")
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from 엑셀경로 import 엑셀_찾기
+
+엑셀_경로 = 엑셀_찾기()
 강의_경로 = Path("data/lectures.json")
 지표_경로 = Path("data/stats.json")
 과정_경로 = Path("data/courses.json")       # '교육·솔루션'의 수강 가능 교육

@@ -333,7 +333,7 @@
         `);
 
         채우기('about-body', `
-            <div class="w-52 h-52 md:w-56 md:h-56 rounded-2xl overflow-hidden flex-shrink-0 shadow-xl ring-1 ring-white/10 bg-gradient-to-br from-growth to-deep flex items-center justify-center">
+            <div class="about-photo rounded-2xl overflow-hidden flex-shrink-0 shadow-xl ring-1 ring-white/10 bg-gradient-to-br from-growth to-deep">
                 <img src="${esc(소개.photo)}" alt="${esc(소개.name)}" class="w-full h-full object-cover"
                      data-fallback="images/brand/symbol-white.png">
             </div>

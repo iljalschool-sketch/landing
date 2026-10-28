@@ -75,7 +75,9 @@ def 재계산(파일_경로: Path) -> int:
 
 
 if __name__ == "__main__":
-    경로 = Path(sys.argv[1] if len(sys.argv) > 1 else "../강의이력.xlsx")
+    sys.path.insert(0, str(Path(__file__).parent))
+    from 엑셀경로 import 엑셀_찾기
+    경로 = Path(sys.argv[1]) if len(sys.argv) > 1 else 엑셀_찾기()
     if not 경로.exists():
         sys.exit(f"파일을 찾을 수 없습니다: {경로}")
     sys.exit(1 if 재계산(경로) else 0)

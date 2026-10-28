@@ -13,7 +13,11 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-엑셀_경로 = Path("../강의이력.xlsx")
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from 엑셀경로 import 엑셀_찾기
+
+엑셀_경로 = 엑셀_찾기()
 마지막_행 = 300
 
 글꼴 = "맑은 고딕"

@@ -11,7 +11,11 @@ from pathlib import Path
 from openpyxl import load_workbook
 from openpyxl.worksheet.datavalidation import DataValidation
 
-엑셀_경로 = Path("../강의이력.xlsx")
+import sys
+sys.path.insert(0, str(Path(__file__).parent))
+from 엑셀경로 import 엑셀_찾기
+
+엑셀_경로 = 엑셀_찾기()
 마지막_행 = 300
 
 # 결과물이 '문서·보고서'인 건들. 나머지는 모두 자동화 개발로 본다.
