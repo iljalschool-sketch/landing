@@ -975,11 +975,23 @@
       <h3><span class="sn">5.1</span>따라 하기</h3>
       <h4 class="step"><span class="stepno">Step 1</span>매출액 열에 데이터 막대를 넣습니다.</h4>
       <p>홈 → 조건부 서식 → 데이터 막대. 숫자가 막대 길이로 한눈에 비교됩니다.</p>
-      <h4 class="step"><span class="stepno">Step 2</span>중복 값을 강조합니다.</h4>
-      <p>홈 → 조건부 서식 → 셀 강조 규칙 → 중복 값. 서울강남점의 2026-04-01 행이 똑같은 값으로 2줄 들어 있어 빨갛게 강조되는 것을 확인합니다.</p>
-      <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><p class="ct">수식 기반 행 강조는 시연만</p><p>수식으로 행 전체를 조건부 서식 주는 방법은 오늘 따라 하지 않고 시연만 봅니다. 필요하면 AI에게 "이 조건으로 행 전체에 조건부 서식을 주는 수식을 알려줘"라고 물어보면 됩니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 2</span>날짜+지점이 모두 같은 중복 행을 강조합니다.</h4>
+      <p>날짜와 지점이 동시에 같은 행이 2건 이상이면 중복 입력입니다. 엑셀의 기본 '중복 값' 기능은 한 열만 비교하므로, <strong>두 열을 함께 보려면 수식 기반 조건부 서식</strong>이 필요합니다. AI에게 수식을 요청해 봅니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 1</span><span class="pt">두 열 동시 중복을 강조하는 조건부 서식 수식을 AI에게 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>날짜(A열)와 지점(B열)이 둘 다 같은 행을 빨간색으로 강조하고 싶어.
+조건부 서식에 넣을 수식을 알려줘.</pre>
+      </div>
+      <p>AI가 알려주는 수식(예: <code>=COUNTIFS($A$2:$A$51,$A2,$B$2:$B$51,$B2)&gt;1</code>)을 다음과 같이 적용합니다.</p>
+      <ol>
+        <li>데이터 범위 <strong>A2:F51</strong>을 선택합니다.</li>
+        <li>홈 → 조건부 서식 → <strong>새 규칙</strong> → "수식을 사용하여 서식을 지정할 셀 결정"을 선택합니다.</li>
+        <li>AI가 알려준 수식을 붙여넣고, 서식 → 채우기에서 빨간 배경을 지정합니다.</li>
+        <li>확인을 누르면 서울강남점 2026-04-01 행 2줄이 빨갛게 강조되는 것을 확인합니다.</li>
+      </ol>
+      <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><p class="ct">COUNTIFS 수식 읽는 법</p><p><code>COUNTIFS($A$2:$A$77,$A2,$B$2:$B$77,$B2)&gt;1</code>은 "A열과 B열 값이 둘 다 같은 행이 1개보다 많으면"이라는 뜻입니다. 수식을 외울 필요 없이, 조건을 말로 설명하면 AI가 만들어 줍니다.</p></div></div>
       <h3><span class="sn">5.2</span>확인</h3>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>데이터 막대</td><td>매출액 열 전체에 막대가 표시됨</td></tr><tr><td>중복 값 강조</td><td>서울강남점 2026-04-01 행 2줄이 강조색으로 표시됨</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>데이터 막대</td><td>매출액 열 전체에 막대가 표시됨</td></tr><tr><td>중복 행 강조</td><td>서울강남점 2026-04-01 행 2줄이 행 전체가 빨간 배경으로 표시됨</td></tr></tbody></table></div>
       <h3>"내 표 진단시키기" 프롬프트</h3>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 2</span><span class="pt">내 표가 피벗·함수에 바로 쓸 수 있는 모양인지 AI에게 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -1163,8 +1175,17 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
       <p>값 영역의 '합계 : 매출액'을 클릭 → 값 요약 기준 → 평균. 합계와 평균이 어떻게 달라지는지 비교합니다.</p>
       <h4 class="step"><span class="stepno">Step 4</span>날짜를 월·분기로 그룹화합니다.</h4>
       <p>행이나 열에 날짜를 놓고 마우스 오른쪽 → 그룹. 월 단위, 분기 단위로 묶입니다.</p>
+      <h4 class="step"><span class="stepno">Step 5</span>데이터를 추가하고 피벗을 새로고침합니다.</h4>
+      <p>원본 시트 맨 아래에 <strong>신규매출</strong> 시트의 데이터를 복사해 붙여넣습니다. 기존 4개 지점과 신규 지점(제주서귀포점)의 11월 매출 50행이 추가됩니다.</p>
+      <ol>
+        <li><strong>신규매출</strong> 시트 → 데이터 전체(A2:L51)를 선택하고 복사합니다.</li>
+        <li>원본 시트의 마지막 행 아래에 붙여넣기합니다.</li>
+        <li>피벗테이블 아무 셀 클릭 → <strong>피벗테이블 분석 → 새로 고침</strong>(또는 마우스 오른쪽 → 새로 고침).</li>
+      </ol>
+      <p>총합계가 바뀌고, 월 그룹에 11월이 추가되고, 지점 목록에 '제주서귀포점'이 새로 나타나면 성공입니다.</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">피벗은 라이브가 아닙니다</p><p>피벗테이블은 원본이 바뀌어도 자동으로 갱신되지 않습니다. 데이터를 추가·수정한 뒤에는 반드시 <strong>새로 고침</strong>을 눌러야 결과에 반영됩니다.</p></div></div>
       <h3><span class="sn">1.2</span>확인</h3>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>피벗 총합계</td><td><strong>403,935,395원</strong> (전체 데이터 합계와 반드시 같아야 함)</td></tr><tr><td>월 그룹화</td><td>행 또는 열에 '1월~10월'로 10개 그룹이 생김</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>피벗 총합계 (추가 전)</td><td><strong>403,935,395원</strong> (전체 데이터 합계와 반드시 같아야 함)</td></tr><tr><td>월 그룹화</td><td>행 또는 열에 '1월~10월'로 10개 그룹이 생김</td></tr><tr><td>새로 고침 후 총합계</td><td>추가 전보다 늘어남 + 지점에 '제주서귀포점'이 나타남</td></tr></tbody></table></div>
     </section>
 
     <section class="chapter" id="c14">
@@ -1185,7 +1206,7 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
 2026-01-01 | 서울강남점 | 수도권 | 김민수 | 냉동만두 1.2kg | 냉동식품 | 온라인 | 10 | 8900 | 80100 | 0.1 | N
 
 이 데이터로 만들 수 있는 피벗테이블 분석을 목적별로 8가지 제안해줘.
-각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 필터 / 알 수 있는 것</pre>
+각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 알 수 있는 것</pre>
       </div>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 7</span><span class="pt">8가지 중 보고서에 넣을 3개만 골라 이유를 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -1274,12 +1295,19 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
       </div>
       <p>D2(연도)=2026, D2(월)=10으로 두면 서울강남점 1,287,500원, 대전둔산점 1,305,900원, 세종보람점 532,500원, 청주가경점 2,018,400원이 나와야 정상입니다(4개 지점 합계 5,144,300원).</p>
       <div class="callout warn"><span class="ci"><i data-lucide="alert-triangle"></i></span><div class="cb"><p class="ct">이 수식의 함정</p><p>D2(월)을 10이 아닌 더 이른 달로 바꾸면 합계가 이상하게 커집니다 — '그 달 1일 이후 전체'를 더하는 함정이 있기 때문입니다. AI에게 ③ 질문(오류가 날 수 있는 상황)을 던지면 바로 이 지점을 짚어 줍니다.</p></div></div>
-      <h4 class="step"><span class="stepno">Step 3</span>[해독3_달성판정] 시트에서 수식 계산 기능으로 안쪽부터 단계별로 실행해 봅니다.</h4>
+      <h4 class="step"><span class="stepno">Step 3</span>[해독3_달성판정] 시트의 세 번째 수식도 AI에게 설명받고, 값을 바꿔 검증합니다.</h4>
       <div class="codebox plain">
         <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">해독3_달성판정!H5</span></div>
 <pre>=IF(AND(E5&gt;=F5,G5="N"),"달성",IF(E5&gt;=F5*0.9,"근접","미달"))</pre>
       </div>
-      
+      <p>프롬프트 9를 그대로 재사용해서 AI에게 설명을 받습니다. 설명을 읽은 뒤 직접 검증해 봅니다.</p>
+      <ol>
+        <li>E5(실적)를 F5(목표)보다 크게 바꾸고 G5를 "N"으로 → "달성"이 나오는지 확인</li>
+        <li>E5를 F5의 90% 수준으로 바꾸기 → "근접"으로 바뀌는지 확인</li>
+        <li>E5를 F5의 80% 이하로 바꾸기 → "미달"로 바뀌는지 확인</li>
+      </ol>
+      <p>AI의 설명이 맞는지 셀 값을 직접 바꿔 보는 것이 가장 확실한 검증입니다.</p>
+
       <h3><span class="sn">1.2</span>확인</h3>
       <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>3개 수식 모두</td><td>AI 설명의 ①~④ 중 최소 ③(오류 상황)까지는 내 말로 한 줄 요약할 수 있음</td></tr></tbody></table></div>
     </section>
@@ -1293,31 +1321,34 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
         </div>
       </div>
       <p><strong>해독했으니 이번엔 직접 만듭니다.</strong><br>질문이 나쁘면 수식도 나쁩니다. 아래 4요소를 다 채우면 AI가 바로 쓸 수 있는 수식을 줍니다.</p>
-      <div class="table-wrap"><table><thead><tr><th>#</th><th>항목</th><th>나쁜 예</th><th>좋은 예</th></tr></thead><tbody><tr><td>①</td><td>표 구조</td><td>엑셀에서</td><td>과제 시트 B열 지점, C열 목표, D열 실적, 2~5행</td></tr><tr><td>②</td><td>지금 칸 위치</td><td>수식 알려줘</td><td>E2에 넣을 거고 아래로 복사할 거야</td></tr><tr><td>③</td><td>원하는 결과 예시</td><td>계산하고 싶어</td><td>서울강남점이 실적≥목표면 '달성'이 나와야 해</td></tr><tr><td>④</td><td>제약</td><td>없음</td><td><strong>엑셀 2016이라 XLOOKUP·UNIQUE 없어</strong></td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>#</th><th>항목</th><th>나쁜 예</th><th>좋은 예</th></tr></thead><tbody><tr><td>①</td><td>표 구조</td><td>엑셀에서</td><td>과제 시트 A열 지점, B열 목표, C열 실적, 5~8행</td></tr><tr><td>②</td><td>지금 칸 위치</td><td>수식 알려줘</td><td>D5에 넣을 거고 아래로 복사할 거야</td></tr><tr><td>③</td><td>원하는 결과 예시</td><td>계산하고 싶어</td><td>서울강남점이 실적≥목표면 '달성'이 나와야 해</td></tr><tr><td>④</td><td>제약</td><td>없음</td><td><strong>엑셀 2016이라 XLOOKUP·UNIQUE 없어</strong></td></tr></tbody></table></div>
       <h3><span class="sn">2.1</span>따라 하기 — [과제] 시트 3가지</h3>
       <h4 class="step"><span class="stepno">Step 1</span>과제① 목표 대비 달성률 — 실적이 목표 이상이면 '달성', 아니면 '미달'</h4>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 10</span><span class="pt">4요소를 채워 달성률 판정 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>[표 구조] 과제 시트 B열 지점, C열 목표, D열 실적, 2~5행
-[칸 위치] E2에 넣고 아래로 복사할 거야
+<pre>[표 구조] 과제 시트 A열 지점, B열 목표, C열 실적, 5~8행
+[칸 위치] D5에 넣고 아래로 복사할 거야
 [결과 예시] 실적이 목표 이상이면 '달성', 아니면 '미달'
-[제약] IF 함수 하나로, 엑셀 2016에서도 되게</pre>
+[제약] IF 함수 하나로, 엑셀 2016에서도 되게
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <h4 class="step"><span class="stepno">Step 2</span>과제② 단가표에서 단가 찾기 — 없으면 '단가없음'</h4>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 11</span><span class="pt">VLOOKUP+IFERROR 조합을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>[표 구조] 과제 시트 B열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
-[칸 위치] C열에 넣고 아래로 복사
+<pre>[표 구조] 과제 시트 A열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
+[칸 위치] B13에 넣고 아래로 복사
 [결과 예시] '참기름 선물세트'면 32000, 단가표에 없는 이름이면 '단가없음'
-[제약] VLOOKUP과 IFERROR를 같이 써줘</pre>
+[제약] VLOOKUP과 IFERROR를 같이 써줘
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <h4 class="step"><span class="stepno">Step 3</span>과제③ "10월 + 온라인 + 서울강남점 매출 합계" 합계 — SUMIFS</h4>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 12</span><span class="pt">3가지 조건을 동시에 만족하는 합계를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>[표 구조] 월 시트 A열 날짜, B열 채널, C열 지점, E열 매출액
-[칸 위치] 과제 시트의 정답 칸에 넣을 거야
-[결과 예시] 10월 + 온라인 + 서울강남점 매출 합계 매출의 합계
-[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개</pre>
+[칸 위치] 과제 시트 B23에 넣을 거야
+[결과 예시] 10월 + 온라인 + 서울강남점 매출의 합계
+[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <h3><span class="sn">2.2</span>확인</h3>
       <div class="table-wrap"><table><thead><tr><th>과제</th><th>통과 기준</th></tr></thead><tbody><tr><td>①</td><td>실적<목표인 행에서만 '미달'이 뜸(반품여부는 고려하지 않는 단순 버전)</td></tr><tr><td>②</td><td>단가표에 없는 상품명 1건(수제 전통한과 세트)에서 '단가없음'이 뜸</td></tr><tr><td>③</td><td>정답 <strong>751,300원</strong>(월 시트에서 직접 세어도 5건 일치)</td></tr></tbody></table></div>
@@ -1778,7 +1809,7 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
 2026-01-01 | 서울강남점 | 수도권 | 김민수 | 냉동만두 1.2kg | 냉동식품 | 온라인 | 10 | 8900 | 80100 | 0.1 | N
 
 이 데이터로 만들 수 있는 피벗테이블 분석을 목적별로 8가지 제안해줘.
-각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 필터 / 알 수 있는 것</pre>
+각각 표로 정리해줘 — 분석 질문 / 행 / 열 / 값(요약 방식) / 알 수 있는 것</pre>
       </div>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 7</span><span class="pt">8가지 중 보고서에 넣을 3개만 골라 이유를 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -1800,24 +1831,27 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
       </div>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 10</span><span class="pt">4요소를 채워 달성률 판정 수식을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>[표 구조] 과제 시트 B열 지점, C열 목표, D열 실적, 2~5행
-[칸 위치] E2에 넣고 아래로 복사할 거야
+<pre>[표 구조] 과제 시트 A열 지점, B열 목표, C열 실적, 5~8행
+[칸 위치] D5에 넣고 아래로 복사할 거야
 [결과 예시] 실적이 목표 이상이면 '달성', 아니면 '미달'
-[제약] IF 함수 하나로, 엑셀 2016에서도 되게</pre>
+[제약] IF 함수 하나로, 엑셀 2016에서도 되게
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 11</span><span class="pt">VLOOKUP+IFERROR 조합을 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>[표 구조] 과제 시트 B열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
-[칸 위치] C열에 넣고 아래로 복사
+<pre>[표 구조] 과제 시트 A열에 상품명, 단가표 시트 A열 상품명·B열 정상단가
+[칸 위치] B13에 넣고 아래로 복사
 [결과 예시] '참기름 선물세트'면 32000, 단가표에 없는 이름이면 '단가없음'
-[제약] VLOOKUP과 IFERROR를 같이 써줘</pre>
+[제약] VLOOKUP과 IFERROR를 같이 써줘
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <div class="codebox prompt">
         <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 12</span><span class="pt">3가지 조건을 동시에 만족하는 합계를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>[표 구조] 월 시트 A열 날짜, B열 채널, C열 지점, E열 매출액
-[칸 위치] 과제 시트의 정답 칸에 넣을 거야
-[결과 예시] 10월 + 온라인 + 서울강남점 매출 합계 매출의 합계
-[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개</pre>
+[칸 위치] 과제 시트 B23에 넣을 거야
+[결과 예시] 10월 + 온라인 + 서울강남점 매출의 합계
+[제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개
+바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
       <h3><span class="sn">5</span>2일차 피벗 복습</h3>
       <div class="codebox prompt">
