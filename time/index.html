@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>카운트다운 시계</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: #061c18; color: #f4fffc; font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif; display: grid; place-items: center; overflow: hidden; }
+    .app { width: min(1100px, 92vw); text-align: center; }
+    h1 { font-size: clamp(1rem, 2vw, 1.35rem); font-weight: 500; letter-spacing: .16em; color: #86b7aa; margin: 0 0 2.25rem; }
+    .clock { font-family: "SFMono-Regular", Consolas, monospace; font-variant-numeric: tabular-nums; font-size: clamp(5rem, 20vw, 16rem); line-height: 1; letter-spacing: -.09em; text-indent: -.09em; font-weight: 700; text-shadow: 0 0 40px rgba(48, 209, 157, .18); }
+    .controls { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: .8rem; margin-top: 3.5rem; }
+    .input-group { display: flex; align-items: center; gap: .45rem; background: #103b33; border: 1px solid #2a6758; border-radius: .75rem; padding: .35rem .65rem .35rem 1rem; }
+    label { color: #b9d3cb; font-size: .95rem; }
+    input { width: 5rem; border: 0; border-radius: .45rem; background: #eafff8; color: #062119; padding: .55rem .4rem; text-align: center; font: 700 1.05rem "SFMono-Regular", Consolas, monospace; }
+    button { cursor: pointer; border: 1px solid #44b89b; border-radius: .75rem; padding: .78rem 1.25rem; background: transparent; color: #eafff8; font: 700 1rem inherit; transition: .15s ease; }
+    button:hover { background: #17745f; transform: translateY(-1px); }
+    button.primary { background: #35b88f; border-color: #35b88f; color: #042219; }
+    button.primary:hover { background: #57d6ad; }
+    .hint { color: #86b7aa; font-size: .82rem; margin: 1.4rem 0 0; }
+    .finished { background: #3b1116; }
+    .finished .clock { color: #ff8794; text-shadow: 0 0 45px rgba(255, 91, 108, .35); animation: pulse .85s ease-in-out infinite alternate; }
+    @keyframes pulse { to { transform: scale(1.025); } }
+    @media (max-width: 500px) { .controls { margin-top: 2.5rem; } .input-group { width: 100%; justify-content: center; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>COUNTDOWN</h1>
+    <div class="clock" id="clock" aria-live="polite">05:00</div>
+    <div class="controls">
+      <div class="input-group">
+        <label for="minutes">설정 시간</label>
+        <input id="minutes" type="number" min="0" max="999" value="5" inputmode="numeric" aria-label="분">
+        <span>분</span>
+      </div>
+      <button class="primary" id="start">시작</button>
+      <button id="pause">일시정지</button>
+      <button id="reset">초기화</button>
+    </div>
+    <p class="hint">스페이스바: 시작·일시정지 · R: 초기화 · F: 전체 화면</p>
+  </main>
+  <script>
+    const clock = document.querySelector('#clock');
+    const minutes = document.querySelector('#minutes');
+    const start = document.querySelector('#start');
+    const pause = document.querySelector('#pause');
+    const reset = document.querySelector('#reset');
+    let initialSeconds = 300, remaining = 300, timer = null, endAt = null, audioContext = null;
+
+    function unlockSound() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      audioContext ||= new AudioContext();
+      if (audioContext.state === 'suspended') audioContext.resume();
+    }
+    function beep(delay, duration = .18, frequency = 880) {
+      if (!audioContext) return;
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = 'sine'; oscillator.frequency.value = frequency;
+      gain.gain.setValueAtTime(.0001, audioContext.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(.22, audioContext.currentTime + delay + .015);
+      gain.gain.exponentialRampToValueAtTime(.0001, audioContext.currentTime + delay + duration);
+      oscillator.connect(gain).connect(audioContext.destination);
+      oscillator.start(audioContext.currentTime + delay);
+      oscillator.stop(audioContext.currentTime + delay + duration + .02);
+    }
+    function playAlarm() { [0, .32, .64, 1.2, 1.52, 1.84].forEach((delay, i) => beep(delay, .2, i < 3 ? 880 : 1175)); }
+
+    function format(seconds) {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    }
+    function render() { clock.textContent = format(remaining); document.title = `${format(remaining)} | 카운트다운`; }
+    function configuredSeconds() { return Math.max(0, Math.min(999, Number(minutes.value) || 0)) * 60; }
+    function stop() { clearInterval(timer); timer = null; endAt = null; }
+    function finish() {
+      stop(); remaining = 0; render(); document.body.classList.add('finished'); playAlarm();
+      if (navigator.vibrate) navigator.vibrate([250, 100, 250, 100, 500]);
+    }
+    function tick() {
+      remaining = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
+      render();
+      if (remaining === 0) finish();
+    }
+    function begin() {
+      if (timer || remaining === 0) return;
+      unlockSound();
+      document.body.classList.remove('finished');
+      endAt = Date.now() + remaining * 1000;
+      tick(); timer = setInterval(tick, 200);
+    }
+    function pauseTimer() { if (!timer) return; tick(); stop(); }
+    function resetTimer() { stop(); initialSeconds = configuredSeconds(); remaining = initialSeconds; document.body.classList.remove('finished'); render(); }
+    start.addEventListener('click', begin);
+    pause.addEventListener('click', pauseTimer);
+    reset.addEventListener('click', resetTimer);
+    minutes.addEventListener('change', resetTimer);
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') return;
+      if (e.code === 'Space') { e.preventDefault(); timer ? pauseTimer() : begin(); }
+      if (e.key.toLowerCase() === 'r') resetTimer();
+      if (e.key.toLowerCase() === 'f') document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+    });
+    render();
+  </script>
+</body>
+</html>
