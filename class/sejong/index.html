@@ -147,6 +147,8 @@
   .toc a:hover { background: var(--soft); }
   .toc a.active { background: var(--accent-soft); color: var(--accent-ink); font-weight: 600; border-left-color: var(--accent); border-radius: 0 7px 7px 0; }
   .toc a.active .n { color: var(--accent-ink); }
+  .toc a.toc-day { display: inline; padding: 0; border: 0; color: inherit; font-weight: inherit; }
+  .toc a.toc-day:hover { background: none; text-decoration: underline; }
   .scrim { display: none; }
 
   main { min-width: 0; width: 100%; max-width: 800px; padding: 8px 0 120px; }
@@ -374,6 +376,24 @@
   figure.diagram.wide .mermaid svg { min-width: 640px; }
   figure.diagram figcaption { display: flex; align-items: center; gap: 6px; justify-content: center; margin-top: 10px; font-size: .8125rem; color: var(--muted); }
   .mermaid svg { max-width: 100%; height: auto; }
+
+  /* ---------- Dashboard mock ---------- */
+  .dash-mock { margin: 18px 0 24px; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+  .dm-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .dm-title { font-weight: 800; font-size: 1.0625rem; }
+  .dm-slicer { display: flex; gap: 6px; flex-wrap: wrap; }
+  .dm-slicer span { padding: 4px 10px; border: 1px solid var(--line-strong); border-radius: 6px; font-size: .8125rem; color: var(--fg2); }
+  .dm-slicer .on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .dm-kpis, .dm-charts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .dm-kpis { margin: 14px 0 10px; }
+  .dm-kpi { padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--soft); }
+  .dm-kpi small { display: block; font-size: .75rem; color: var(--muted); }
+  .dm-kpi b { font-size: 1.25rem; }
+  .dm-chart { padding: 10px; border: 1px solid var(--line); border-radius: 10px; }
+  .dm-chart p { margin: 0 0 6px; font-size: .8125rem; font-weight: 700; }
+  .dm-chart svg { display: block; width: 100%; height: auto; }
+  .dash-mock figcaption { margin-top: 10px; font-size: .8125rem; color: var(--muted); text-align: center; }
+  @media (max-width: 640px) { .dm-kpis, .dm-charts { grid-template-columns: minmax(0, 1fr); } .dm-chart svg { max-width: 300px; margin: 0 auto; } }
 
   /* ---------- Checklist ---------- */
   .checklist { list-style: none; padding: 0; margin: 14px 0 20px; display: grid; gap: 6px; }
@@ -702,7 +722,7 @@
     <p class="toc-title"><i data-lucide="list-tree"></i>목차</p>
     <ol>
       <li><a href="#objectives" class=""><span class="n">▸</span>학습 목표</a></li>
-      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 1일차 · 데이터, 제대로 만들고 깔끔하게 다루기 ──</li>
+      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);"><a class="toc-day" href="#day1-start">── 1일차 · 데이터, 제대로 만들고 깔끔하게 다루기 ──</a></li>
       <li class="toc-part">1일차 PART 1 · 엑셀도 AI도 좋아하는 데이터 모양</li>
       <li><a href="#c00" class=""><span class="n">00</span>환경 세팅</a></li>
       <li><a href="#c01" class=""><span class="n">01</span>사람이 보기 좋은 표 vs 엑셀이 처리하기 좋은 표</a></li>
@@ -728,27 +748,32 @@
       <li><a href="#c19" class=""><span class="n">03</span>오류 코드 해독표와 검증 3단계</a></li>
       <li><a href="#c20" class=""><span class="n">04</span>1일차 결과물 정리 — 엑셀 질문 프롬프트 카드</a></li>
       <li><a href="#c21" class=""><span class="n">05</span>4교시를 세 단계로 보면</a></li>
-      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 2일차 · 분석해서 보고하고, 반복 업무는 넘기기 ──</li>
-      <li class="toc-part">2일차 PART 1 · 피벗 실전 복습 — 미션형</li>
-      <li><a href="#c22" class=""><span class="n">01</span>1일차 요약 + 고객불만 데이터 소개</a></li>
-      <li><a href="#c23" class=""><span class="n">02</span>미션 1~4 (따라 하기, 자가 채점)</a></li>
-      <li><a href="#c24" class=""><span class="n">03</span>미션 5 해설 — 이 차시의 하이라이트</a></li>
-      <li><a href="#c25" class=""><span class="n">04</span>1교시를 세 단계로 보면</a></li>
-      <li class="toc-part">2일차 PART 2 · 한눈에 보이는 대시보드 만들기</li>
-      <li><a href="#c26" class=""><span class="n">01</span>목적별 차트 3종 + 슬라이서 연동 (따라 하기)</a></li>
-      <li><a href="#c27" class=""><span class="n">02</span>차트 다듬기 — 제목에 결론을 쓴다</a></li>
-      <li><a href="#c28" class=""><span class="n">03</span>대시보드 한 화면에 모으기 (따라 하기)</a></li>
-      <li><a href="#c29" class=""><span class="n">04</span>2교시를 세 단계로 보면</a></li>
-      <li class="toc-part">2일차 PART 3 · 반복 작업은 AI에게 넘기기 ① 매크로 만들기</li>
-      <li><a href="#c30" class=""><span class="n">01</span>매크로란? — 기록기 먼저 체험 (시연)</a></li>
-      <li><a href="#c31" class=""><span class="n">02</span>AI에게 요청하고, 정확한 위치에 붙여넣기</a></li>
-      <li><a href="#c32" class=""><span class="n">03</span>서식 일괄 적용 매크로 실습 (따라 하기)</a></li>
-      <li><a href="#c33" class=""><span class="n">04</span>3교시를 세 단계로 보면</a></li>
-      <li class="toc-part">2일차 PART 4 · 반복 작업은 AI에게 넘기기 ② 내 업무에 적용 + 마무리</li>
-      <li><a href="#c34" class=""><span class="n">01</span>시트 나누기 · 합치기 매크로 (따라 하기)</a></li>
-      <li><a href="#c35" class=""><span class="n">02</span>오류가 나면 되묻는 루프</a></li>
-      <li><a href="#c36" class=""><span class="n">03</span>내 반복 업무, 매크로로 만들기</a></li>
-      <li><a href="#c37" class=""><span class="n">04</span>결과물 정리·반출 + 다음 주 예고</a></li>
+      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);"><a class="toc-day" href="#day2-start">── 2일차 · 분석해서 보고하고, 반복 업무는 넘기기 ──</a></li>
+      <li class="toc-part">2일차 PART 1 · 피벗 차트와 슬라이서 대시보드</li>
+      <li><a href="#c50"><span class="n">01</span>대시보드 설계와 완성본</a></li>
+      <li><a href="#c51"><span class="n">02</span>AI로 HTML 대시보드 만들기</a></li>
+      <li><a href="#c52"><span class="n">03</span>표 변환과 피벗 4개</a></li>
+      <li><a href="#c53"><span class="n">04</span>피벗 차트 그리고 다듬기</a></li>
+      <li><a href="#c54"><span class="n">05</span>슬라이서 보고서 연결</a></li>
+      <li><a href="#c55"><span class="n">06</span>대시보드 시트와 KPI 연결</a></li>
+      <li><a href="#c56"><span class="n">07</span>9월 자료 붙이고 새로 고침</a></li>
+      <li><a href="#c58"><span class="n">08</span>1교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 2 · VBA란? — 매크로 기록기 체험</li>
+      <li><a href="#c67"><span class="n">01</span>VBA란? 개발 도구 준비</a></li>
+      <li><a href="#c30"><span class="n">02</span>매크로 기록기 체험</a></li>
+      <li><a href="#c32"><span class="n">03</span>서식 일괄 적용 매크로 실습</a></li>
+      <li><a href="#c31"><span class="n">04</span>녹화한 코드를 AI로 고치기</a></li>
+      <li><a href="#c33"><span class="n">05</span>2교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 3 · 업무 구조화력</li>
+      <li><a href="#c60"><span class="n">01</span>업무 구조화 5단계</a></li>
+      <li><a href="#c62"><span class="n">02</span>VBA 기본 템플릿</a></li>
+      <li><a href="#c68"><span class="n">03</span>내 업무 기획표 쓰기</a></li>
+      <li><a href="#c69"><span class="n">04</span>3교시를 세 단계로 보면</a></li>
+      <li class="toc-part">2일차 PART 4 · 파일 합치기</li>
+      <li><a href="#c63"><span class="n">01</span>지점 매출 파일 4개 합치기</a></li>
+      <li><a href="#c64"><span class="n">02</span>상품별 시트로 나누기</a></li>
+      <li><a href="#c65"><span class="n">03</span>오류가 나거나 다르게 될 때</a></li>
+      <li><a href="#c37"><span class="n">04</span>결과물 정리·반출</a></li>
       <li><a href="#kit" class=""><span class="n">▸</span>차시별 요청문 모음</a></li>
       <li><a href="#summary" class=""><span class="n">+</span>한 장 요약</a></li>
     </ol>
@@ -789,10 +814,10 @@
         <div class="card">
           <h4><i data-lucide="calendar"></i>2일차 — 분석해서 보고하고, 반복 업무는 넘기기</h4>
           <ul>
-            <li>피벗테이블로 데이터에서 원인을 찾아내는 미션을 자가 채점으로 수행할 수 있다</li>
-            <li>차트 3종과 슬라이서를 연동해 한눈에 보이는 대시보드를 만들 수 있다</li>
-            <li>매크로 기록기와 AI 요청으로 반복 작업을 자동화하는 매크로를 만들 수 있다</li>
-            <li>내 업무에 맞는 매크로를 기획하고, 오류가 나면 AI에게 되물어 해결할 수 있다</li>
+            <li>피벗 차트와 슬라이서 보고서 연결로 월별로 움직이는 대시보드를 만들 수 있다</li>
+            <li>매크로와 VBA의 관계를 이해하고, 매크로 기록기와 AI 코드로 반복 작업을 자동화할 수 있다</li>
+            <li>내 업무를 구조화 5단계로 나눠 VBA 템플릿에 옮겨 적을 수 있다</li>
+            <li>여러 파일을 하나로 합치는 매크로를 만들고, 오류가 나면 AI에게 되물어 해결할 수 있다</li>
           </ul>
         </div>
       </div>
@@ -1406,209 +1431,286 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
     </div>
     <div class="part" id="part5">
       <span class="part-label">2일차 PART 1 · 13:00~13:50</span>
-      <p class="part-title">피벗 실전 복습 — 미션형</p>
-      <p>어제 배운 피벗을 <strong>다시 시연하지 않습니다.</strong><br>오늘은 실제 상황처럼 미션 6장을 자가 채점하며, 피벗이 '집계 도구'가 아니라 '원인을 찾는 도구'임을 직접 발견합니다.</p>
-      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>피벗테이블만으로 '무엇이 왜 늘었는가'라는 원인을 스스로 찾아낼 수 있다</li><li>최근 2주 고객불만 데이터를 유형별·지점별·담당자별·주차별로 집계할 수 있다</li><li>데이터로 발견한 원인을 실제 회의 결정사항과 연결해 설명할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>데이터 소개 → 미션 1~4(자가채점) → 미션 5 해설 → 미션 6(심화)</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>미션 자가채점 결과, 피벗으로 찾아낸 '아이스팩 감축 → 신선도 불만' 인과관계</dd></span></div></dl>
-    </div>
-
-    <section class="chapter" id="c22">
-      <div class="ch-head">
-        <span class="ch-num">01</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="rotate-ccw"></i>할 일 1</p>
-          <h2>1일차 요약 + 고객불만 데이터 소개</h2>
-        </div>
-      </div>
-      <p><strong>어제 1일차에서 배운 피벗 4영역·값 요약·그룹화는 오늘도 그대로 씁니다. 다시 시연하지 않습니다.</strong><br>오늘 데이터는 ㈜다온유통 온라인몰의 고객불만 접수대장입니다.</p>
+      <p class="part-title">피벗 차트와 슬라이서로 대시보드 만들기</p>
+      <p>어제 만든 피벗 위에 <strong>차트</strong>를 올리고, <strong>슬라이서 하나로 여러 피벗을 함께 움직이는</strong> 대시보드를 만듭니다.<br>AI에 파일을 첨부해 빠르게 만드는 방법과 엑셀로 직접 만드는 방법을 모두 해 봅니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>피벗 테이블로 목적에 맞는 피벗 차트를 그리고 다듬을 수 있다</li><li>슬라이서의 보고서 연결로 여러 피벗을 한 번에 움직일 수 있다</li><li>AI에 파일을 첨부해 HTML 대시보드를 만들고, 엑셀 결과와 숫자를 맞춰 볼 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>설계 원칙과 완성본 → AI로 HTML 대시보드 → 표 변환·피벗 4개 → 피벗 차트 → 슬라이서 보고서 연결 → 대시보드 시트와 KPI → 9월 자료 새로 고침</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>HTML 대시보드 1개, 월 슬라이서로 움직이는 엑셀 대시보드 1개</dd></span></div></dl>
       <div class="datafile">
         <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>06_고객불만접수대장.xlsx</b><span>449행 · 접수일~처리담당자</span></div>
+        <div class="df-b"><b>06_고객불만접수대장.xlsx</b><span>6~8월 불만 접수 241건 · 9월 추가분 110건 · 자료 시트 · 대시보드양식 시트</span></div>
         <a class="copy-btn df-dl" href="실습파일_과정1/2일차/06_고객불만접수대장.xlsx" download="06_고객불만접수대장.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
       </div>
-      <div class="codebox plain">
-        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">06_고객불만접수대장.xlsx 머리글</span></div>
-<pre>접수일 / 채널 / 지점 / 주문번호 / 불만유형 / 상품카테고리 / 소요시간(시간) / 보상지급액 / 재구매여부 / 처리담당자</pre>
-      </div>
-      <p>전체 449행 중에서, 특히 <strong>최근 2주(2026-10-03 ~ 2026-10-16)</strong> 구간을 집중적으로 봅니다. 최근 접수가 갑자기 늘어난 시기입니다.</p>
+    </div>
+
+    <section class="chapter" id="c50">
+      <div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="layout-dashboard"></i>도입</p><h2>대시보드는 무엇을 위해 만드나 — 완성본 먼저 보기</h2></div></div>
+      <p class="lead">대시보드는 정보를 많이 보여주는 화면이 아니라, <strong>보는 사람이 바로 판단할 수 있게 돕는 화면</strong>입니다.<br>오늘은 고객지원파트장 강민지가 매주 회의에서 볼 "고객 불만 대시보드"를 만듭니다.</p>
+
+      <figure class="dash-mock" aria-label="완성할 대시보드 예시 — 8월 선택 상태">
+        <div class="dm-top"><span class="dm-title">고객 불만 대시보드</span><span class="dm-slicer"><span>6월</span><span>7월</span><span class="on">8월</span><span>9월</span></span></div>
+        <div class="dm-kpis">
+          <div class="dm-kpi"><small>총 불만 건수</small><b>102건</b></div>
+          <div class="dm-kpi"><small>평균 처리 시간</small><b>4.6시간</b></div>
+          <div class="dm-kpi"><small>총 보상 지급액</small><b>62,000원</b></div>
+        </div>
+        <div class="dm-charts">
+          <div class="dm-chart"><p>불만유형별 접수 건수</p>
+            <svg viewBox="0 0 200 120" role="img" aria-label="기타 25, 배송지연 41, 신선도 14, 오배송 22">
+              <g style="fill:var(--accent)"><rect x="18" y="46.2" width="30" height="48.8"/><rect x="64" y="15" width="30" height="80"/><rect x="110" y="67.7" width="30" height="27.3"/><rect x="156" y="52.1" width="30" height="42.9"/></g>
+              <g font-size="10" text-anchor="middle" style="fill:currentColor"><text x="33" y="42">25</text><text x="79" y="11">41</text><text x="125" y="63">14</text><text x="171" y="48">22</text><text x="33" y="110">기타</text><text x="79" y="110">배송지연</text><text x="125" y="110">신선도</text><text x="171" y="110">오배송</text></g>
+              <line x1="10" y1="95" x2="194" y2="95" style="stroke:var(--line-strong)"/>
+            </svg></div>
+          <div class="dm-chart"><p>지점별 평균 처리 시간</p>
+            <svg viewBox="0 0 200 120" role="img" aria-label="대전둔산점 4.8, 서울강남점 4.2, 세종보람점 4.9, 청주가경점 4.4시간">
+              <g style="fill:var(--accent)"><rect x="18" y="16.5" width="30" height="78.5"/><rect x="64" y="25.5" width="30" height="69.5"/><rect x="110" y="15" width="30" height="80"/><rect x="156" y="22.7" width="30" height="72.3"/></g>
+              <g font-size="10" text-anchor="middle" style="fill:currentColor"><text x="33" y="12">4.8</text><text x="79" y="21">4.2</text><text x="125" y="11">4.9</text><text x="171" y="18">4.4</text><text x="33" y="110">대전둔산</text><text x="79" y="110">서울강남</text><text x="125" y="110">세종보람</text><text x="171" y="110">청주가경</text></g>
+              <line x1="10" y1="95" x2="194" y2="95" style="stroke:var(--line-strong)"/>
+            </svg></div>
+          <div class="dm-chart"><p>채널별 불만 접수 비중</p>
+            <svg viewBox="0 0 200 120" role="img" aria-label="온라인 65건 64%, 오프라인 37건 36%">
+              <circle cx="58" cy="58" r="38" fill="none" stroke-width="18" style="stroke:var(--muted)"/>
+              <circle cx="58" cy="58" r="38" fill="none" stroke-width="18" stroke-dasharray="152.1 238.8" transform="rotate(-90 58 58)" style="stroke:var(--accent)"/>
+              <g font-size="10" style="fill:currentColor"><rect x="112" y="40" width="9" height="9" style="fill:var(--accent)"/><text x="126" y="48">온라인 64%</text><rect x="112" y="62" width="9" height="9" style="fill:var(--muted)"/><text x="126" y="70">오프라인 36%</text></g>
+            </svg></div>
+        </div>
+        <figcaption>완성 예시 — 슬라이서에서 8월을 누른 상태. 월을 바꾸면 KPI 3개와 차트 3개가 함께 바뀝니다.</figcaption>
+      </figure>
+
+      <h3><span class="sn">1.1</span>만들기 전에 정하는 다섯 가지</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>원칙</th><th>뜻</th><th>오늘 대시보드에서는</th></tr></thead>
+        <tbody>
+          <tr><td><strong>누가 보나</strong></td><td>보는 사람이 정해져야 넣을 숫자가 정해진다</td><td>고객지원파트장, 주간 회의</td></tr>
+          <tr><td><strong>핵심 숫자(KPI)</strong></td><td>한눈에 봐야 할 숫자 3개 이내</td><td>총 불만 건수 · 평균 처리 시간 · 총 보상 지급액</td></tr>
+          <tr><td><strong>배치</strong></td><td>중요한 것 위로, 요약 → 상세, 왼쪽 → 오른쪽</td><td>위: KPI 카드 / 아래: 차트 3개</td></tr>
+          <tr><td><strong>차트 고르기</strong></td><td>비교는 막대, 시간 흐름은 선, 비율은 도넛</td><td>유형별·지점별은 막대, 채널 비중은 도넛</td></tr>
+          <tr><td><strong>계속 쓰기</strong></td><td>원본 · 계산 · 화면을 다른 시트로 나눈다</td><td>원본 시트 → 자료 시트(피벗) → 대시보드 시트</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">오늘 새로 배우는 것은 두 가지</p><p>피벗 테이블은 이미 배웠습니다. 오늘은 그 위에 <strong>① 피벗 차트</strong>를 올리고, <strong>② 슬라이서 하나로 여러 피벗을 동시에 움직이는 "보고서 연결"</strong>을 배웁니다.</p></div></div>
     </section>
 
-    <section class="chapter" id="c23">
-      <div class="ch-head">
-        <span class="ch-num">02</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="list-checks"></i>할 일 2</p>
-          <h2>미션 1~4 (따라 하기, 자가 채점)</h2>
-        </div>
-      </div>
-      <p><strong>정답 숫자가 정해져 있어 스스로 채점할 수 있습니다.</strong> 피벗테이블로 하나씩 해결합니다.</p>
-      <h3><span class="sn">2.1</span>미션 1 — 8월 불만 유형별 건수는?</h3>
-      <p>행=불만유형, 값=개수(COUNT)로 피벗을 만듭니다. 접수일의 날짜 필터에서 개월 단위로 8월만 남깁니다.</p>
-      <div class="table-wrap"><table><thead><tr><th>불만유형</th><th>건수</th></tr></thead><tbody><tr><td>기타</td><td>25건</td></tr><tr><td>배송지연</td><td>41건</td></tr><tr><td>신선도</td><td>14건</td></tr><tr><td>오배송</td><td>22건</td></tr><tr><td><strong>총합계</strong></td><td><strong>102건</strong></td></tr></tbody></table></div>
-      <h3><span class="sn">2.2</span>미션 2 — 지점 × 불만유형 교차표, 가장 문제가 많은 지점은?</h3>
-      <p>행=지점, 열=불만유형, 값=개수. 가장 큰 칸을 찾습니다(지점은 매번 무작위라 교안에 정답을 박아 두지 않습니다 — 직접 집계한 숫자가 정답입니다).</p>
-      <h3><span class="sn">2.3</span>미션 3 — 평균 응대시간이 목표 4시간을 넘는 담당자는?</h3>
-      <p>값 요약을 '평균'으로 바꾸고, 행에 처리담당자를 놓습니다. 평균이 4시간을 넘는 담당자가 누구인지 눈으로 확인합니다.</p>
-      <div class="table-wrap"><table><thead><tr><th>처리담당자</th><th>평균 소요시간(시간)</th></tr></thead><tbody><tr><td>윤도윤</td><td>4.77</td></tr><tr><td>임소율</td><td>4.40</td></tr><tr><td>정하늘</td><td>4.60</td></tr><tr><td><strong>총합계</strong></td><td><strong>4.58</strong></td></tr></tbody></table></div>
-      <p>3명 모두 목표 4시간을 넘겼고, <strong>윤도윤</strong>의 평균 응대시간이 가장 깁니다.</p>
-      <h3><span class="sn">2.4</span>미션 4 — 주차별 추이, 늘고 있나 줄고 있나?</h3>
-      <p>접수일을 그룹화(주 단위)하고 행에 놓습니다. 6월 주당 20여 건이던 접수가 8월에는 주당 40건을 넘는지 확인합니다.</p>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>미션1 합계</td><td>102건</td></tr><tr><td>미션3</td><td>3명 모두 4시간 초과, 윤도윤이 최장(4.77)</td></tr><tr><td>미션4 추이</td><td>뚜렷한 증가 추세(완만한 상승 → 8월 급증)</td></tr></tbody></table></div>
+    <section class="chapter" id="c51">
+      <div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="sparkles"></i>실습 1</p><h2>파일만 첨부해서 AI로 대시보드 만들기</h2></div></div>
+      <p class="lead">먼저 AI에게 맡기면 어디까지 되는지 봅니다. 엑셀 파일을 첨부하고 두 번만 요청하면 웹 브라우저에서 열리는 대시보드가 나옵니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>ChatGPT에 파일을 첨부하고 KPI와 차트를 먼저 제안받습니다.</h4>
+      <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">대시보드 1</span><span class="pt">KPI·차트 제안받기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>너는 데이터 시각화 전문가야.
+첨부한 파일은 우리 회사 고객 불만 접수 대장이야. (첫 번째 시트, 2026년 6~8월)
+고객지원파트장이 매주 회의에서 볼 대시보드를 만들려고 해.
+
+어떤 KPI 3개와 차트 3개를 넣으면 좋을지 이유와 함께 제안해줘.
+아직 대시보드는 만들지 말고 제안만 해줘.</pre></div>
+      <p>바로 "만들어줘"라고 하지 않고 제안부터 받는 이유는 <strong>무엇을 넣을지 내가 고르기 위해서</strong>입니다. 제안이 마음에 들지 않으면 "KPI에 총 보상 지급액을 넣어줘"처럼 바꿔 달라고 합니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>제안 내용으로 HTML 대시보드를 요청합니다.</h4>
+      <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">대시보드 2</span><span class="pt">HTML 대시보드 만들기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>제안한 내용으로 HTML 대시보드를 만들어줘.
+
+- 위쪽에 KPI 카드 3개, 아래쪽에 차트 3개
+- 전체 / 6월 / 7월 / 8월 버튼을 넣고, 누르면 KPI와 차트가 함께 바뀌게 해줘
+- 색상은 3가지 이내로, 스크롤 없이 한 화면에 보이게 해줘
+- 파일 하나로 만들어서 바로 열어볼 수 있게 해줘</pre></div>
+      <h4 class="step"><span class="stepno">Step 3</span>결과를 열어 보고 숫자 하나를 적어 둡니다.</h4>
+      <p>코드 창의 <strong>미리 보기</strong>(또는 캔버스)로 열거나, 코드를 복사해 메모장에 붙여 넣고 <code>대시보드.html</code>로 저장한 뒤 더블클릭해 브라우저로 엽니다.<br><strong>8월 버튼을 눌렀을 때의 총 불만 건수</strong>를 적어 두세요. 마지막에 엑셀 결과와 맞춰 봅니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>AI로 만든 HTML 대시보드</th><th>엑셀로 만든 대시보드</th></tr></thead>
+        <tbody>
+          <tr><td>빠르고 보기 좋게 만들 수 있다</td><td>처음 만들 때 단계가 많고, 디자인을 세련되게 하기 어렵다</td></tr>
+          <tr><td>내 자료를 AI에 올려야 한다</td><td>내 파일 안에서 끝난다</td></tr>
+          <tr><td>다음 달 자료로 다시 만들면 모양이 조금씩 달라진다</td><td>자료를 붙이고 <strong>새로 고침</strong>만 하면 같은 양식이 유지된다</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">실제 업무 자료를 올릴 때</p><p>오늘 파일은 가상 자료입니다. 실제 업무에서는 고객명·연락처·담당자 이름 같은 열을 지우거나 ○○○으로 바꾼 뒤 올립니다. 매달 반복해서 보는 대시보드라면 다음 장부터 만드는 엑셀 방식이 더 적합합니다.</p></div></div>
     </section>
 
-    <section class="chapter" id="c24">
-      <div class="ch-head">
-        <span class="ch-num">03</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="lightbulb"></i>할 일 3</p>
-          <h2>미션 5 해설 — 이 차시의 하이라이트</h2>
-        </div>
-      </div>
-      <p><strong>냉장 카테고리 신선도 불만이 9월부터 늘었나?</strong> 필터(신선도)+그룹화(월)로 확인합니다.</p>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>결과</th></tr></thead><tbody><tr><td>최근 2주 신선도 불만</td><td>15건</td></tr><tr><td>그 중 냉장 카테고리</td><td><strong>11건</strong></td></tr></tbody></table></div>
-      <p>신선도 불만 15건 중 11건이 냉장 제품입니다. 피벗만으로는 '왜'까지는 안 나옵니다 — 여기서 질문이 생겨야 합니다.</p>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 13</span><span class="pt">피벗에서 발견한 숫자를 가지고 원인을 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>최근 2주 신선도 불만 15건 중 11건이 냉장 제품에서 나왔어.
-이 비중이 정상 범위인지 판단하기 어려운데, 어떤 추가 데이터나 현장 정보를 확인해야
-원인을 좁힐 수 있을지 질문 목록을 만들어줘.</pre>
-      </div>
-      <div class="callout key"><span class="ci"><i data-lucide="sparkles"></i></span><div class="cb"><p class="ct">이 차시의 하이라이트</p><p>원가 절감으로 아이스팩을 2개→1개로 줄인 시점(9월)과 냉장 신선도 불만 급증 시점이 겹칩니다. 피벗으로 숫자를 직접 발견한 다음, 현장(회의·현업)에 "혹시 9월에 포장 방식이 바뀌었나요?"라고 물어보는 것이 데이터 분석의 다음 걸음입니다.</p></div></div>
-      <h3>미션 6 (심화) — AI에게 분석 설계받고 1개 제작</h3>
-      <p>1일차 3교시 핵심 프롬프트(머리글+2행으로 분석 8가지 제안받기)를 이 데이터에 그대로 재사용합니다.</p>
+    <section class="chapter" id="c52">
+      <div class="ch-head"><span class="ch-num">03</span><div><p class="ch-kicker"><i data-lucide="table-2"></i>실습 2 · 준비</p><h2>원본을 표로 바꾸고 피벗 테이블 4개 만들기</h2></div></div>
+      <p class="lead">피벗 테이블은 배운 내용이라 빠르게 갑니다. 다만 <strong>원본을 표로 바꾸는 것</strong>과 <strong>평균으로 바꾸는 것</strong> 두 가지는 꼭 챙깁니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>원본을 표로 바꿉니다.</h4>
+      <p><strong>고객불만접수대장</strong> 시트의 아무 셀이나 클릭하고 <code>Ctrl + T</code> → "머리글 포함" 확인 → 확인.<br>표 디자인 탭 왼쪽 끝 <strong>표 이름</strong>을 <code>불만대장</code>으로 바꿉니다.</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">왜 표로 바꾸나</p><p>표는 아래에 자료를 붙이면 범위가 저절로 늘어납니다. 그래서 다음 달 자료를 붙이고 새로 고침만 하면 대시보드가 따라옵니다. (07장에서 직접 확인합니다.)</p></div></div>
+      <h4 class="step"><span class="stepno">Step 2</span>첫 번째 피벗 테이블을 <code>자료</code> 시트의 A2에 만듭니다.</h4>
+      <p>파일에 미리 만들어 둔 <strong>자료</strong> 시트가 있고, 1행에 피벗 제목이 적혀 있습니다.<br>표 안을 클릭 → <strong>삽입 → 피벗 테이블</strong> → 표/범위가 <code>불만대장</code>인지 확인 → <strong>기존 워크시트</strong> 선택 → 위치 칸을 클릭하고 자료 시트의 <strong>A2</strong> 셀 클릭 → 확인.</p>
+      <h4 class="step"><span class="stepno">Step 3</span>아래 표대로 피벗 4개를 한 시트에 나란히 만듭니다.</h4>
+      <p>두 번째부터는 첫 번째 피벗을 통째로 선택해 <code>Ctrl + C</code> → 각 제목 바로 아래 셀(D2, G2, J2)에 <code>Ctrl + V</code> 한 뒤 필드만 바꾸면 빠릅니다. J1에는 제목 <code>총 보상 지급액</code>을 직접 입력합니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>위치</th><th>1행 제목 (자료 시트)</th><th>행</th><th>값</th><th>확인할 숫자(6~8월 전체)</th></tr></thead>
+        <tbody>
+          <tr><td>A2</td><td>불만유형별 접수 건수</td><td>불만유형</td><td>주문번호 → <strong>개수</strong></td><td>총합계 241</td></tr>
+          <tr class="pick"><td>D2</td><td>지점별 평균 처리 시간</td><td>지점</td><td>소요시간(시간) → <strong>평균</strong></td><td>총합계 4.4</td></tr>
+          <tr><td>G2</td><td>채널별 불만 접수 비중</td><td>채널</td><td>주문번호 → <strong>개수</strong></td><td>온라인 141 · 오프라인 100</td></tr>
+          <tr><td>J2</td><td>총 보상 지급액 (직접 입력)</td><td>(없음)</td><td>보상지급액 → 합계</td><td>146,000</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="triangle-alert"></i></span><div class="cb"><p class="ct">숫자 필드는 처음에 "합계"로 들어갑니다.</p><p>소요시간을 값에 넣으면 <strong>합계</strong>가 나옵니다. 값 영역의 <strong>합계 : 소요시간(시간) ▾ → 값 필드 설정 → 평균</strong>으로 바꾸고, 같은 창의 <strong>표시 형식 → 숫자, 소수 자릿수 1</strong>로 맞춥니다. 주문번호처럼 글자인 필드는 처음부터 개수로 들어갑니다.</p></div></div>
     </section>
 
-    <section class="chapter" id="c25">
-      <div class="ch-head">
-        <span class="ch-num">04</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
-          <h2>1교시를 세 단계로 보면</h2>
-        </div>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th>단계</th><th>1교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>(다시 시연하지 않음 — 어제 배운 것을 바로 적용)</td><td>어제 배운 조작을 설명 없이도 떠올릴 수 있는가?</td></tr><tr><td>따라 하기</td><td>미션 1~4 자가 채점</td><td>통과 숫자가 안 나오면 어느 영역을 의심해야 할지 아는가?</td></tr><tr><td>내 업무에 적용</td><td>미션 5에서 숫자로 원인을 좁히고 현장에 되묻기</td><td>내 업무 데이터에서도 '숫자가 이상한 지점'을 현장에 되물을 수 있는가?</td></tr></tbody></table></div>
+    <section class="chapter" id="c53">
+      <div class="ch-head"><span class="ch-num">04</span><div><p class="ch-kicker"><i data-lucide="bar-chart-3"></i>실습 3 · 새로 배우기</p><h2>피벗 차트 그리고 다듬기</h2></div></div>
+      <p class="lead">피벗 차트는 피벗 테이블과 연결된 차트입니다. 피벗이 바뀌면 차트도 같이 바뀝니다 — 이것이 슬라이서로 차트를 움직일 수 있는 이유입니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>피벗 안을 클릭한 상태에서 차트를 넣습니다.</h4>
+      <p>A2 피벗 안의 아무 셀 클릭 → <strong>피벗 테이블 분석 → 피벗 차트</strong> (또는 삽입 → 피벗 차트) → 차트 종류 선택 → 확인. 나머지 두 피벗도 같은 방법으로 넣습니다. (J2 보상 피벗은 숫자 하나라 차트를 만들지 않습니다.)</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>피벗</th><th>차트 종류</th><th>고른 이유</th></tr></thead>
+        <tbody>
+          <tr><td>불만유형별 접수 건수</td><td>세로 막대형 → 묶은 세로 막대형</td><td>항목끼리 크기 비교</td></tr>
+          <tr><td>지점별 평균 처리 시간</td><td>세로 막대형 → 묶은 세로 막대형</td><td>지점끼리 크기 비교</td></tr>
+          <tr><td>채널별 불만 접수 비중</td><td>원형 → <strong>도넛형</strong></td><td>전체 중 비율</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="triangle-alert"></i></span><div class="cb"><p class="ct">피벗 밖을 클릭하고 차트를 넣으면</p><p>일반 차트가 만들어져 슬라이서에 반응하지 않습니다. 차트를 선택했을 때 리본에 <strong>피벗 차트 분석</strong> 탭이 보이면 제대로 만든 것입니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 2</span>대시보드에 맞게 차트를 덜어냅니다.</h4>
+      <p>차트를 클릭하면 오른쪽 위에 <strong>+ (차트 요소)</strong> 단추가 나옵니다. 대시보드 시트에 제목 셀이 따로 있으므로 차트 안의 글자는 줄입니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>다듬을 것</th><th>어디서</th><th>막대 차트</th><th>도넛 차트</th></tr></thead>
+        <tbody>
+          <tr><td>차트 제목</td><td>+ → 차트 제목</td><td>끄기</td><td>끄기</td></tr>
+          <tr><td>범례</td><td>+ → 범례</td><td>끄기 (계열이 하나라 필요 없음)</td><td>켜기 · 오른쪽</td></tr>
+          <tr><td>데이터 레이블</td><td>+ → 데이터 레이블</td><td>켜기</td><td>켜기 → 레이블 서식에서 <strong>백분율</strong>만 체크</td></tr>
+          <tr class="pick"><td><strong>필드 단추</strong><br>(차트 위 회색 네모)</td><td>피벗 차트 분석 → 필드 단추 → <strong>모두 숨기기</strong></td><td>숨기기</td><td>숨기기</td></tr>
+          <tr><td>도넛 구멍 크기</td><td>도넛 우클릭 → 데이터 계열 서식</td><td>—</td><td>45% 정도</td></tr>
+        </tbody>
+      </table></div>
+      <p>색은 <strong>3~4가지 이내</strong>로 맞추고, 강조할 것에만 진한 색을 씁니다. 막대 하나를 클릭하고 한 번 더 클릭하면 그 막대만 색을 바꿀 수 있습니다.</p>
+    </section>
+
+    <section class="chapter" id="c54">
+      <div class="ch-head"><span class="ch-num">05</span><div><p class="ch-kicker"><i data-lucide="sliders-horizontal"></i>실습 4 · 새로 배우기</p><h2>슬라이서 넣고 "보고서 연결"로 피벗 4개 묶기</h2></div></div>
+      <p class="lead">슬라이서는 누르는 필터 단추입니다. 그냥 넣으면 <strong>한 피벗에만</strong> 걸립니다. <strong>보고서 연결</strong>을 해야 단추 하나로 피벗 4개와 차트 3개가 함께 움직입니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>날짜를 "월"로 묶은 필드를 만듭니다.</h4>
+      <p>원본에는 접수일만 있고 "월" 열이 없습니다. J2 보상 피벗 안을 클릭 → 필드 목록에서 <strong>접수일</strong>을 <strong>행</strong>에 끌어 넣습니다. 엑셀이 자동으로 <code>개월(접수일)</code> 필드를 만들어 6월·7월·8월로 묶어 줍니다.<br>확인한 뒤 행 영역의 접수일·개월을 다시 밖으로 끌어내 J2 피벗을 원래대로 돌려놓습니다. 필드 목록에는 <code>개월(접수일)</code>이 남아 있습니다.</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">"개월"이 자동으로 안 생기면</p><p>행에 들어간 날짜 셀 하나를 우클릭 → <strong>그룹</strong> → <strong>월</strong>만 선택 → 확인. 같은 결과가 됩니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 2</span>슬라이서를 넣습니다.</h4>
+      <p>A2 피벗 안을 클릭 → <strong>피벗 테이블 분석 → 슬라이서 삽입</strong> → <code>개월(접수일)</code> 체크 → 확인.</p>
+      <h4 class="step"><span class="stepno">Step 3</span>보고서 연결로 나머지 피벗을 묶습니다.</h4>
+      <p>슬라이서 테두리를 우클릭 → <strong>보고서 연결</strong> → 목록의 <strong>피벗 테이블 4개를 모두 체크</strong> → 확인.</p>
+      <div class="codebox plain"><div class="ph"><i data-lucide="check-square"></i><span class="pl">보고서 연결 창</span><span class="pt">자료 시트의 피벗 4개 모두 체크</span></div><pre>☑ 피벗 테이블1   자료   ← 불만유형별
+☑ 피벗 테이블2   자료   ← 지점별 평균
+☑ 피벗 테이블3   자료   ← 채널별
+☑ 피벗 테이블4   자료   ← 총 보상 지급액</pre></div>
+      <p>번호는 만든 순서에 따라 다를 수 있습니다. 이름이 헷갈리면 피벗 안을 클릭하고 <strong>피벗 테이블 분석 → 피벗 테이블 이름</strong>에서 <code>유형별</code>, <code>지점별</code>처럼 바꿔 두면 이 창에서 알아보기 쉽습니다.</p>
+      <h4 class="step"><span class="stepno">Step 4</span>슬라이서를 다듬고 눌러 봅니다.</h4>
+      <ul>
+        <li>슬라이서 우클릭 → <strong>슬라이서 설정</strong> → <strong>데이터가 없는 항목 숨기기</strong> 체크 → <code>&lt;2026-06-15</code>, 1월 같은 빈 단추가 사라집니다.</li>
+        <li>슬라이서 탭 → <strong>단추 → 열</strong>을 <code>4</code>로 → 단추가 가로로 놓입니다.</li>
+        <li><strong>8월</strong>을 눌러 피벗 4개가 모두 바뀌는지 확인합니다. 여러 달은 <code>Ctrl</code>을 누른 채 클릭, 전체로 돌아갈 때는 오른쪽 위 <strong>필터 지우기</strong>(깔때기 ×) 단추.</li>
+      </ul>
+      <div class="callout warn"><span class="ci"><i data-lucide="triangle-alert"></i></span><div class="cb"><p class="ct">보고서 연결 목록에 피벗이 안 보이면</p><p>그 피벗은 다른 원본으로 만든 것입니다. 슬라이서는 <strong>같은 원본(불만대장 표)으로 만든 피벗끼리만</strong> 연결됩니다. 표/범위를 <code>불만대장</code>으로 다시 지정해 만듭니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c55">
+      <div class="ch-head"><span class="ch-num">06</span><div><p class="ch-kicker"><i data-lucide="monitor"></i>실습 5</p><h2>대시보드 시트로 옮기고 KPI 숫자 연결하기</h2></div></div>
+      <p class="lead">계산은 자료 시트에 두고, 보는 화면은 대시보드 시트에 따로 만듭니다. 파일에 있는 <strong>대시보드양식</strong> 시트가 미리 만들어 둔 화면입니다. 5행에 KPI 이름 3개, 8행에 차트 제목 3개가 적혀 있습니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>차트 3개와 슬라이서를 잘라서 옮깁니다.</h4>
+      <p>자료 시트에서 차트 클릭 → <code>Ctrl + X</code> → 대시보드양식 시트의 차트 제목 아래 셀(9행) 클릭 → <code>Ctrl + V</code>. 슬라이서도 같은 방법으로 제목 옆 1~3행 빈 곳에 옮깁니다.<br>옮긴 뒤에도 피벗과 연결은 그대로 유지됩니다. 크기를 조절할 때 <code>Alt</code>를 누른 채 끌면 셀 눈금에 딱 맞춰집니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>KPI 숫자를 피벗과 연결합니다.</h4>
+      <p>대시보드양식 시트의 <strong>총 불만 건수</strong> 아래 셀(A6)에 <code>=</code>만 입력 → 자료 시트로 가서 A2 피벗의 <strong>총합계 숫자 셀</strong>을 클릭 → <code>Enter</code>. 아래 같은 수식이 자동으로 들어갑니다.</p>
+      <div class="codebox plain"><div class="ph"><i data-lucide="sigma"></i><span class="pl">KPI 수식</span><span class="pt">=을 치고 총합계 셀을 클릭하면 자동 생성</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>총 불만 건수   =GETPIVOTDATA("주문번호",자료!$A$2)
+평균 처리 시간 =GETPIVOTDATA("소요시간(시간)",자료!$D$2)
+총 보상 지급액 =GETPIVOTDATA("보상지급액",자료!$J$2)</pre></div>
+      <p>셀 주소(<code>=자료!B8</code>) 대신 <strong>GETPIVOTDATA</strong>가 들어가는 덕분에, 9월이 추가돼 피벗의 행 위치가 바뀌어도 KPI가 항상 총합계를 따라갑니다.</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct"><code>=자료!B8</code>처럼 셀 주소로 들어가면</p><p>피벗 안 클릭 → <strong>피벗 테이블 분석 → 옵션 ▾ → GetPivotData 생성</strong>에 체크한 뒤 다시 연결합니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 3</span>숫자에 단위를 붙이고 화면을 정리합니다.</h4>
+      <p>KPI 셀 우클릭 → 셀 서식 → 사용자 지정에 아래처럼 입력합니다. 숫자는 그대로 두고 보이는 모양만 바뀝니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>KPI</th><th>사용자 지정 형식</th><th>보이는 모양</th></tr></thead>
+        <tbody>
+          <tr><td>총 불만 건수</td><td><code>#,##0"건"</code></td><td>241건</td></tr>
+          <tr><td>평균 처리 시간</td><td><code>0.0"시간"</code></td><td>4.4시간</td></tr>
+          <tr><td>총 보상 지급액</td><td><code>#,##0"원"</code></td><td>146,000원</td></tr>
+        </tbody>
+      </table></div>
+      <p>마지막으로 <strong>보기 → 눈금선</strong> 체크를 해제하면 화면이 대시보드처럼 깔끔해집니다.</p>
+    </section>
+
+    <section class="chapter" id="c56">
+      <div class="ch-head"><span class="ch-num">07</span><div><p class="ch-kicker"><i data-lucide="refresh-cw"></i>실습 6</p><h2>9월 자료를 붙이고 새로 고침 — 다음 달에도 쓰는 대시보드</h2></div></div>
+      <p class="lead">대시보드는 한 번 만들고 끝나는 문서가 아닙니다. 다음 달 자료가 들어왔을 때 손이 얼마나 덜 가는지가 엑셀 방식의 장점입니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>9월 자료를 표 바로 아래에 붙여 넣습니다.</h4>
+      <p><strong>고객불만접수대장_9월</strong> 시트에서 머리글을 뺀 자료(A2부터 마지막 행까지)를 복사 → 고객불만접수대장 시트의 <strong>표 바로 아래 첫 빈 행</strong> A열에 붙여 넣기. 표 테두리가 9월 자료까지 늘어났는지 확인합니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>모두 새로 고칩니다.</h4>
+      <p><strong>데이터 → 모두 새로 고침</strong> (<code>Ctrl + Alt + F5</code>). 슬라이서에 <strong>9월</strong> 단추가 생깁니다.</p>
+      <h4 class="step"><span class="stepno">Step 3</span>9월을 눌러 숫자를 확인합니다.</h4>
+      <div class="table-wrap"><table>
+        <thead><tr><th>슬라이서</th><th>총 불만 건수</th><th>평균 처리 시간</th><th>총 보상 지급액</th></tr></thead>
+        <tbody>
+          <tr><td>8월</td><td>102건</td><td>4.6시간</td><td>62,000원</td></tr>
+          <tr class="pick"><td>9월</td><td>110건</td><td>4.9시간</td><td>72,000원</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="check-check"></i></span><div class="cb"><p class="ct">완성 확인</p><p>9월을 눌렀을 때 KPI 3개와 차트 3개가 한꺼번에 바뀌면 완성입니다. 하나라도 그대로라면 05장 Step 3의 보고서 연결 체크를 다시 봅니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c58">
+      <div class="ch-head"><span class="ch-num">08</span><div><p class="ch-kicker"><i data-lucide="flag"></i>정리</p><h2>1교시를 세 단계로 보면</h2></div></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>단계</th><th>한 일</th><th>새로 배운 기능</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 계산</strong></td><td>원본을 표로 바꾸고 자료 시트에 피벗 4개</td><td>값 필드 설정 → 평균</td></tr>
+          <tr><td><strong>② 보이기</strong></td><td>피벗마다 차트를 올리고 대시보드 시트로 옮김</td><td><strong>피벗 차트</strong>, 필드 단추 숨기기, GETPIVOTDATA</td></tr>
+          <tr class="pick"><td><strong>③ 움직이기</strong></td><td>월 슬라이서 하나로 피벗 4개를 함께 조작</td><td><strong>슬라이서 보고서 연결</strong>, 모두 새로 고침</td></tr>
+        </tbody>
+      </table></div>
+      <h3><span class="sn">8.1</span>AI 결과와 맞춰 보기</h3>
+      <p>02장에서 적어 둔 AI 대시보드의 <strong>8월 총 불만 건수</strong>와 엑셀 슬라이서에서 8월을 눌렀을 때의 숫자(102건)를 비교합니다. 다르다면 AI가 날짜를 다르게 읽었거나 빈 행을 셌을 수 있습니다. AI가 만든 대시보드도 <strong>숫자 하나는 원본과 맞춰 보고</strong> 씁니다.</p>
+      <div class="statement"><small>기억할 한 줄</small>대시보드는 원본 · 계산 · 화면을 나누고, 슬라이서 하나로 모든 피벗을 묶을 때 다음 달에도 새로 고침만으로 쓸 수 있다.</div>
     </section>
 
     <div class="part" id="part6">
       <span class="part-label">2일차 PART 2 · 14:00~14:50</span>
-      <p class="part-title">한눈에 보이는 대시보드 만들기</p>
-      <p>어제 만든 집계표를 <strong>보고서용 그림</strong>으로 바꿉니다.<br>목적에 맞는 차트를 고르고, 슬라이서 하나로 여러 피벗이 동시에 바뀌는 대시보드를 완성합니다.</p>
-      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>비교·추이·구성이라는 세 가지 목적에 맞춰 막대·선·누적 차트를 고를 수 있다</li><li>슬라이서 하나로 여러 피벗차트를 동시에 연동시킬 수 있다</li><li>차트 제목을 사실 나열이 아니라 결론형 문장으로 바꿀 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>차트 3종 고르기 → 슬라이서 연동 → 제목 다듬기 → 한 화면에 모으기</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>대시보드 한 장</dd></span></div></dl>
+      <p class="part-title">VBA란? — 매크로 기록기로 먼저 체험하기</p>
+      <p>VBA가 무엇인지 알고, 코딩 없이 매크로 기록기로 자동화의 원리를 체험합니다.<br>마지막에는 같은 작업을 AI에게 코드로 받아 정확한 위치에 붙여넣고 실행합니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>매크로와 VBA의 관계를 설명하고, 개발 도구 탭과 VBA 편집기를 열 수 있다</li><li>매크로 기록기로 반복 작업을 코딩 없이 녹화·재생할 수 있다</li><li>AI가 준 VBA 코드를 모듈에 붙여넣고 실행할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>VBA 설명 → 매크로 기록기 체험 → 서식 매크로 실습 → AI에게 코드 받아 붙여넣기</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>서식을 한 번에 입히는 매크로 1개, VBA 편집기 사용법</dd></span></div></dl>
     </div>
 
-    <section class="chapter" id="c26">
+
+    <section class="chapter" id="c67">
       <div class="ch-head">
         <span class="ch-num">01</span>
         <div>
-          <p class="ch-kicker"><i data-lucide="bar-chart-3"></i>할 일 1</p>
-          <h2>목적별 차트 3종 + 슬라이서 연동 (따라 하기)</h2>
+          <p class="ch-kicker"><i data-lucide="code-xml"></i>할 일 1</p>
+          <h2>VBA란? — 엑셀 안에 들어 있는 자동화 언어</h2>
         </div>
       </div>
-      <p><strong>실무에서 쓰는 차트는 사실 3가지 목적으로 거의 다 해결됩니다.</strong></p>
-      <div class="table-wrap"><table><thead><tr><th>목적</th><th>차트</th><th>이 데이터의 예</th></tr></thead><tbody><tr><td>비교</td><td>막대 차트</td><td>지점별 불만 건수 비교</td></tr><tr><td>추이</td><td>선 차트</td><td>주차별 불만 건수 추이</td></tr><tr><td>구성</td><td>누적 막대/원형</td><td>불만유형별 비중</td></tr></tbody></table></div>
-      <h3><span class="sn">1.1</span>따라 하기</h3>
-      <h4 class="step"><span class="stepno">Step 1</span>06_고객불만접수대장.xlsx로 피벗테이블을 2~3개 만듭니다.</h4>
-      <p>1교시 미션에서 만든 피벗(유형별 건수, 지점별, 주차별 추이)을 그대로 재사용해도 됩니다.</p>
-      <h4 class="step"><span class="stepno">Step 2</span>피벗테이블 분석 → 피벗차트로 각각 차트를 만듭니다.</h4>
-      <h4 class="step"><span class="stepno">Step 3</span>슬라이서를 삽입하고 여러 피벗에 동시에 연결합니다.</h4>
-      <figure class="illus"><img src="images/excel-pivot-slicer-insert-guide.png" alt="슬라이서로 원하는 항목 필터링 — 슬라이서 삽입 → 원하는 항목 체크 → 확인" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
-      <h3><span class="sn">1.2</span>확인</h3>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>슬라이서 연동</td><td>슬라이서에서 지점 하나를 누르면 연결된 차트 2개 이상이 동시에 바뀜</td></tr></tbody></table></div>
+      <p><strong>VBA(Visual Basic for Applications)는 엑셀·워드·파워포인트 안에 들어 있는 프로그래밍 언어</strong>입니다. 따로 설치할 것이 없습니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>용어</th><th>뜻</th><th>비유</th></tr></thead>
+        <tbody>
+          <tr><td><strong>매크로</strong></td><td>반복 작업을 버튼 하나로 다시 실행하는 기능</td><td>녹화한 영상</td></tr>
+          <tr><td><strong>VBA</strong></td><td>그 매크로가 적혀 있는 언어</td><td>영상의 대본</td></tr>
+        </tbody>
+      </table></div>
+      <p>매크로 기록기로 녹화하든, AI가 코드를 써 주든 결과는 똑같이 <strong>VBA 코드</strong>로 저장됩니다.</p>
+      <h3><span class="sn">1.1</span>VBA로 할 수 있는 일</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>할 수 있는 일</th><th>예</th></tr></thead>
+        <tbody>
+          <tr><td>반복 작업 자동화</td><td>매일 같은 서식 입히기, 복사·붙여넣기</td></tr>
+          <tr><td>여러 파일·시트 다루기</td><td>폴더 안 파일 합치기, 기준별로 시트 나누기</td></tr>
+          <tr><td>엑셀 기능으로 안 되는 처리</td><td>조건에 따라 파일을 나눠 저장, 다른 오피스 앱 제어</td></tr>
+        </tbody>
+      </table></div>
+      <h3><span class="sn">1.2</span>준비 — 개발 도구 탭 켜기</h3>
+      <h4 class="step"><span class="stepno">Step 1</span>파일 → 옵션 → 리본 사용자 지정 → 오른쪽 목록에서 <strong>개발 도구</strong> 체크 → 확인.</h4>
+      <h4 class="step"><span class="stepno">Step 2</span>리본에 생긴 <strong>개발 도구</strong> 탭에서 <strong>매크로 기록</strong>, <strong>Visual Basic</strong> 단추를 확인합니다.</h4>
+      <p>VBA 편집기는 <code>Alt + F11</code>로도 열립니다.</p>
+      <div class="callout warn"><span class="ci"><i data-lucide="triangle-alert"></i></span><div class="cb"><p class="ct">실행 전에 꼭 알아 둘 것</p><p><strong>매크로로 바꾼 내용은 Ctrl + Z로 되돌릴 수 없습니다.</strong> 원본은 복사해 두고 사본으로 실행합니다. 매크로를 파일에 남기려면 <code>.xlsm</code>(매크로 사용 통합 문서)으로 저장해야 하고, 이 파일을 열 때 뜨는 보안 경고는 정상입니다.</p></div></div>
     </section>
 
-    <section class="chapter" id="c27">
-      <div class="ch-head">
-        <span class="ch-num">02</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="type"></i>할 일 2</p>
-          <h2>차트 다듬기 — 제목에 결론을 쓴다</h2>
-        </div>
-      </div>
-      <p><strong>같은 차트라도 제목 한 줄로 설득력이 달라집니다.</strong></p>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 14</span><span class="pt">사실 나열형 제목을 결론형으로 바꿔 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>이 차트 제목을 사실 나열 말고 결론형 한 문장으로 3개 제안해줘.
-지금 제목: '지점별 불만 건수'
-데이터: 최근 2주 지점별 고객불만 건수 막대 차트</pre>
-      </div>
-      <p>예시: "지점별 불만 건수" → "OO점, 다른 지점보다 불만이 2배 많습니다" 처럼 결론이 드러나는 제목으로 바뀝니다.</p>
-      <h3>다듬기 체크리스트</h3>
-      <ul><li>제목은 결론형 한 문장</li><li>불필요한 눈금선 정리</li><li>핵심 막대/선에만 데이터 레이블 표시</li><li>범례는 헷갈리지 않을 때만 생략</li></ul>
-    </section>
-
-    <section class="chapter" id="c28">
-      <div class="ch-head">
-        <span class="ch-num">03</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="layout-dashboard"></i>할 일 3</p>
-          <h2>대시보드 한 화면에 모으기 (따라 하기)</h2>
-        </div>
-      </div>
-      <p><strong>차트와 표, 슬라이서를 새 시트 한 장에 모으면 대시보드가 됩니다.</strong></p>
-      <h3><span class="sn">3.1</span>따라 하기</h3>
-      <h4 class="step"><span class="stepno">Step 1</span>새 시트를 만들고 '대시보드'로 이름을 바꿉니다.</h4>
-      <h4 class="step"><span class="stepno">Step 2</span>차트 3개 + 핵심 집계표 1개 + 슬라이서를 이 시트로 옮기거나 복사합니다.</h4>
-      <h4 class="step"><span class="stepno">Step 3</span>슬라이서를 눌러 전체가 함께 바뀌는지 확인합니다.</h4>
-      <h3><span class="sn">3.2</span>확인</h3>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>대시보드 한 장</td><td>차트 3개+표 1개가 한 화면에 보이고, 슬라이서 클릭 한 번으로 전체가 바뀜</td></tr></tbody></table></div>
-    </section>
-
-    <section class="chapter" id="c29">
-      <div class="ch-head">
-        <span class="ch-num">04</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
-          <h2>2교시를 세 단계로 보면</h2>
-        </div>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th>단계</th><th>2교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>목적별 차트 3종 고르는 법</td><td>내가 매번 쓰는 보고서 차트는 비교·추이·구성 중 무엇인가?</td></tr><tr><td>따라 하기</td><td>슬라이서 연동, 대시보드 조립</td><td>슬라이서 하나로 묶을 수 있는 내 피벗들이 있는가?</td></tr><tr><td>내 업무에 적용</td><td>차트 제목을 결론형으로 바꾸는 프롬프트</td><td>내 보고서 차트 제목도 결론형으로 바꿀 수 있는가?</td></tr></tbody></table></div>
-    </section>
-
-    <div class="part" id="part7">
-      <span class="part-label">2일차 PART 3 · 15:00~15:50</span>
-      <p class="part-title">반복 작업은 AI에게 넘기기 ① 매크로 만들기</p>
-      <p>매크로가 무엇인지 코딩 없이 체험하고, AI에게 어떻게 부탁하고 어디에 붙여넣는지 배웁니다.<br>오늘의 난관은 코드 자체가 아니라 '어디에 붙여넣나' 입니다.</p>
-      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>매크로 기록기로 반복 작업을 코딩 없이 녹화·재생할 수 있다</li><li>AI에게 매크로 코드를 요청하고, Alt+F11로 VBA 편집기를 열어 정확한 위치에 붙여넣을 수 있다</li><li>매크로 보안 경고가 떴을 때 당황하지 않고 '콘텐츠 사용'을 눌러 실행할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>매크로 기록기 체험 → AI 요청·붙여넣기 → 서식 매크로 실습</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>서식을 한 번에 입히는 매크로 1개</dd></span></div></dl>
-    </div>
 
     <section class="chapter" id="c30">
       <div class="ch-head">
-        <span class="ch-num">01</span>
+        <span class="ch-num">02</span>
         <div>
           <p class="ch-kicker"><i data-lucide="circle-dot"></i>할 일 1</p>
           <h2>매크로란? — 기록기 먼저 체험 (시연)</h2>
         </div>
       </div>
       <p><strong>매크로는 '내가 한 조작을 그대로 녹화했다가 다시 재생하는 것'입니다.</strong><br>코드를 먼저 배우지 않고, 기록기로 원리부터 체험합니다.</p>
-      <h3>알아 둘 것</h3>
-      <ul><li>매크로를 저장하려면 파일 형식을 <strong>.xlsm</strong>(매크로 사용 통합 문서)으로 바꿔야 합니다</li><li>개발 도구 탭이 안 보이면: 파일 → 옵션 → 리본 사용자 지정 → '개발 도구' 체크</li><li>매크로가 포함된 파일을 열면 보안 경고가 뜨는 것이 정상입니다(다음 챕터에서 다룸)</li></ul>
-      <h3><span class="sn">1.1</span>함께 보기</h3>
+      <h3><span class="sn">2.1</span>함께 보기</h3>
       <h4 class="step"><span class="stepno">Step 1</span>개발 도구 → 매크로 기록을 누릅니다.</h4>
       <h4 class="step"><span class="stepno">Step 2</span>머리글 굵게+배경색, 테두리 같은 서식을 손으로 입힙니다.</h4>
       <h4 class="step"><span class="stepno">Step 3</span>기록 중지를 누르고, 다른 시트에서 매크로 실행으로 똑같이 재생합니다.</h4>
       <p>방금 한 손동작이 그대로 재생되는 장면이 매크로의 전부입니다 — 코드는 그 손동작을 '받아 적은 메모'일 뿐입니다.</p>
-    </section>
-
-    <section class="chapter" id="c31">
-      <div class="ch-head">
-        <span class="ch-num">02</span>
-        <div>
-          <p class="ch-kicker"><i data-lucide="clipboard-paste"></i>할 일 2</p>
-          <h2>AI에게 요청하고, 정확한 위치에 붙여넣기</h2>
-        </div>
-      </div>
-      <p><strong>이 차시의 진짜 난관은 코드가 아니라 '어디에 붙여넣나'입니다.</strong> 단계를 정확히 따라갑니다.</p>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">하고 싶은 서식 작업을 매크로 코드로 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>이 서식 적용 과정을 엑셀 VBA 매크로로 만들어줘.
-1행(머리글) 굵게+배경색, 수량·단가·매출액 열은 천 단위 콤마,
-표 전체에 테두리, 열 너비는 자동 맞춤.
-엑셀 2016 이상에서 되는 코드로, 각 줄에 무엇을 하는지 주석도 달아줘.</pre>
-      </div>
-      <h3><span class="sn">2.1</span>따라 하기 — Alt+F11부터 실행까지</h3>
-      <h4 class="step"><span class="stepno">Step 1</span>Alt+F11을 눌러 VBA 편집기를 엽니다.</h4>
-      <h4 class="step"><span class="stepno">Step 2</span>왼쪽 트리에서 모듈을 삽입하고(삽입 → 모듈), 더블클릭해서 코드 창을 엽니다.</h4>
-      <figure class="illus"><img src="images/vba-module-code-paste-guide.png" alt="VBA 모듈 삽입 → Module1 더블클릭 → 코드 붙여넣기" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
-      <h4 class="step"><span class="stepno">Step 3</span>F5 또는 실행 버튼으로 매크로를 실행합니다.</h4>
+      <h4 class="step"><span class="stepno">Step 4</span><code>Alt + F11</code>을 눌러 방금 기록된 코드를 열어 봅니다.</h4>
+      <p>왼쪽 모듈(Module1)을 더블클릭하면 <code>Sub 매크로1()</code>로 시작하는 코드가 보입니다. 이것이 <strong>VBA</strong>입니다. 기록기는 내가 한 동작만 적을 수 있어서, "폴더 안의 파일을 모두 열기"처럼 손으로 보여줄 수 없는 일은 말로 설명해 AI에게 받아야 합니다 — 3·4교시에서 합니다.</p>
     </section>
 
     <section class="chapter" id="c32">
@@ -1629,13 +1731,185 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
       <h4 class="step"><span class="stepno">Step 1</span>첫 번째 시트(10월20일)에서 매크로를 기록하며 서식을 입힙니다.</h4>
       <h4 class="step"><span class="stepno">Step 2</span>기록 중지 후 이름을 '서식적용'으로 저장합니다.</h4>
       <h4 class="step"><span class="stepno">Step 3</span>나머지 시트(10월21일, 10월22일)로 이동해 매크로를 실행합니다.</h4>
+      <p><strong>10월21일 시트를 자세히 보세요.</strong> 이 시트는 다른 날보다 2행 많은 13행까지 자료가 있는데, 12~13행에는 테두리와 콤마가 들어가지 않습니다. 다음 장에서 이 문제를 AI와 함께 고칩니다.</p>
       <p>매크로 보안 경고가 뜨면 아래처럼 "콘텐츠 사용"을 눌러야 실행됩니다.</p>
       <figure class="illus"><img src="images/excel-xlam-enable-content-guide.png" alt="XLAM 파일의 매크로 사용 — 보안 경고 배너에서 콘텐츠 사용 클릭" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
       <h3><span class="sn">3.2</span>확인</h3>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>10월20일 (원본)</td><td>머리글 굵게+배경색, 수량·단가·매출액 천단위 콤마, 전체 테두리</td></tr><tr><td>10월21일, 10월22일 (매크로 실행)</td><td>매크로 실행 한 번으로 원본과 동일한 서식이 적용됨</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>10월20일 (원본)</td><td>머리글 굵게+배경색, 수량·단가·매출액 천단위 콤마, 전체 테두리</td></tr><tr><td>10월22일 (매크로 실행)</td><td>매크로 실행 한 번으로 원본과 동일한 서식이 적용됨</td></tr><tr><td>10월21일 (매크로 실행)</td><td>11행까지만 서식이 들어가고 12~13행은 빠짐 — 다음 장에서 해결</td></tr></tbody></table></div>
+    </section>
+
+    <section class="chapter" id="c31">
+      <div class="ch-head">
+        <span class="ch-num">04</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="clipboard-paste"></i>할 일 2</p>
+          <h2>녹화한 코드를 AI에게 고쳐 받기 — 범위가 저절로 바뀌게</h2>
+        </div>
+      </div>
+      <p class="lead">앞 장에서 10월21일 시트의 <strong>12~13행에는 서식이 안 들어간 것</strong>을 봤습니다. 기록기는 녹화할 때 칠한 <code>A1:E11</code> 범위를 그대로 기억하기 때문입니다.<br>녹화된 코드를 AI에게 보여주고, <strong>선택한 셀과 이어진 표 전체</strong>에 서식이 들어가도록 고쳐 받습니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>녹화된 코드를 복사합니다.</h4>
+      <p><code>Alt + F11</code> → 왼쪽 <strong>모듈 → Module1</strong> 더블클릭 → <code>Sub 서식적용()</code>부터 <code>End Sub</code>까지 드래그해 복사합니다. 코드 안에 <code>Range("A1:E11")</code>처럼 범위가 박혀 있는 것을 눈으로 확인합니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>아래 프롬프트 맨 끝에 복사한 코드를 붙여 AI에게 보냅니다.</h4>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">녹화한 매크로를 선택한 셀 기준으로 범위가 바뀌게 고쳐 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+아래는 엑셀 매크로 기록기로 녹화한 서식 적용 코드야.
+녹화한 시트에 맞춰 A1:E11처럼 범위가 고정되어 있어서, 행 수가 다른 시트에서는 서식이 일부만 적용돼.
+행·열 수가 달라도 쓸 수 있도록 고쳐줘.
+
+- 매크로를 실행할 때 선택되어 있는 셀을 기준으로, 그 셀과 이어진 영역(빈 행·빈 열 전까지)을 표 범위로 잡아줘.
+- 그 범위의 첫 행은 머리글로 보고, 녹화된 코드와 같은 서식을 그대로 적용해줘.
+- 천 단위 콤마는 숫자가 들어 있는 열(수량·단가·매출액)에만 적용해줘.
+- 녹화하면서 생긴 불필요한 코드(Select, 스크롤 등)는 정리해줘.
+- 코드를 주기 전에 무엇을 바꿨는지 먼저 설명하고, 줄마다 무엇을 하는지 주석을 달아줘.
+
+[녹화된 코드 붙여넣기 — Sub 서식적용() 부터 End Sub 까지]</pre>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">"선택한 셀과 이어진 영역"이란</p><p>표 안의 셀 하나를 누르고 <code>Ctrl + A</code>를 눌렀을 때 잡히는 범위입니다. 빈 행이나 빈 열이 나오기 전까지가 하나의 표로 잡힙니다. 범위를 숫자로 적지 않고 <strong>기준을 말로</strong> 알려주면 AI가 그에 맞는 코드를 씁니다.</p></div></div>
+      <h4 class="step"><span class="stepno">Step 3</span>받은 코드로 바꿔 넣습니다.</h4>
+      <p>VBA 편집기의 Module1에서 <code>Ctrl + A</code> → <code>Delete</code>로 녹화된 코드를 지우고, AI가 준 코드를 붙여넣습니다. 매크로 이름이 바뀌었다면 이름도 확인해 둡니다.</p>
+      <figure class="illus"><img src="images/vba-module-code-paste-guide.png" alt="VBA 모듈 삽입 → Module1 더블클릭 → 코드 붙여넣기" style="max-width:100%;border-radius:var(--radius);border:1px solid var(--line)"></figure>
+      <h4 class="step"><span class="stepno">Step 4</span>10월21일 시트의 표 안 아무 셀을 클릭하고 실행합니다.</h4>
+      <p>엑셀 화면으로 돌아와 <code>Alt + F8</code> → 매크로 선택 → 실행. 같은 방법으로 10월22일 시트에서도 실행합니다.</p>
+      <h3><span class="sn">4.1</span>확인</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody>
+        <tr><td>10월21일 (13행)</td><td>마지막 13행까지 테두리·천 단위 콤마가 들어감</td></tr>
+        <tr><td>10월22일 (11행)</td><td>표 밖 12행 아래로는 서식이 번지지 않음</td></tr>
+        <tr><td>코드</td><td><code>Range("A1:E11")</code> 같은 고정 범위가 사라짐</td></tr>
+      </tbody></table></div>
+      <div class="callout warn"><span class="ci"><i data-lucide="triangle-alert"></i></span><div class="cb"><p class="ct">표 밖의 빈 셀을 선택하고 실행하면</p><p>이어진 영역이 없어서 서식이 엉뚱한 곳에 들어가거나 오류가 납니다. 실행 전에 <strong>표 안의 셀</strong>을 눌렀는지 확인합니다. 원하면 "표 밖이 선택되어 있으면 안내 메시지를 띄워줘"라고 한 줄 더 요청할 수 있습니다.</p></div></div>
     </section>
 
     <section class="chapter" id="c33">
+      <div class="ch-head">
+        <span class="ch-num">05</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="flag"></i>정리</p>
+          <h2>2교시를 세 단계로 보면</h2>
+        </div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>2교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>매크로 기록기 체험</td><td>내 업무에서 매번 반복하는 손동작이 떠오르는가?</td></tr><tr><td>따라 하기</td><td>서식 매크로 녹화 → 녹화한 코드를 AI로 고쳐 범위 자동화</td><td>녹화한 매크로에서 고정 범위를 찾아 고쳐 달라고 할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>보안 경고 대응</td><td>매크로 파일을 열 때 당황하지 않을 수 있는가?</td></tr></tbody></table></div>
+    </section>
+
+
+
+    <div class="part" id="part7">
+      <span class="part-label">2일차 PART 3 · 15:00~15:50</span>
+      <p class="part-title">업무 구조화력 — AI에게 일을 맡길 수 있게 나누기</p>
+      <p>기록기는 "내가 한 동작"만 녹화합니다. 폴더 안의 파일을 모두 열거나, 조건에 따라 다르게 처리하는 일은 <strong>말로 설명해서 AI에게 코드를 받아야</strong> 합니다.<br>이 시간에는 코드가 아니라 <strong>설명하는 법</strong>을 배웁니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>막연한 업무를 결과·순서·입력·처리·결과물·검증으로 나눠 설명할 수 있다</li><li>구조화한 내용을 VBA 기본 템플릿에 옮겨 적을 수 있다</li><li>내 반복 업무 하나를 골라 자동화 기획표를 작성할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>업무 구조화 5단계 → VBA 기본 템플릿 → 내 업무 기획표 작성</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>VBA 요청 템플릿, 내 업무 자동화 기획표 1장</dd></span></div></dl>
+    </div>
+
+
+    <section class="chapter" id="c60">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="network"></i>할 일 1</p>
+          <h2>업무 구조화력 — 일을 잘하는 것과 설명하는 것은 다르다</h2>
+        </div>
+      </div>
+      <div class="statement"><small>업무 구조화력</small>내 일을 다른 사람이나 AI에게 맡길 수 있을 정도로, 나누고 설명하는 힘</div>
+      <p>익숙한 일은 생각하지 않고도 처리합니다. 그래서 "그냥 이렇게 하면 돼요"라고밖에 설명하지 못합니다.<br>AI에게 일을 맡겨도 요구가 막연하면 결과도 막연합니다. <strong>자동화의 시작은 코딩이 아니라, 머릿속 순서와 기준을 밖으로 꺼내는 것</strong>입니다.</p>
+      <h3><span class="sn">1.1</span>같은 일, 두 가지 설명</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4><i data-lucide="cloud"></i>막연한 설명</h4>
+          <ul><li>매출 파일 정리하기</li><li>보고서 만들기</li><li>이상한 데이터 확인하기</li></ul>
+        </div>
+        <div class="card">
+          <h4><i data-lucide="list-checks"></i>구조화된 설명</h4>
+          <ul><li>폴더 안의 지점별 매출 파일을 모두 불러온다</li><li>4행 머리글 아래 자료를 하나의 표로 이어 붙인다</li><li>A2 셀의 지점 이름을 "지점" 열로 채운다</li><li>날짜 순으로 정렬한다</li><li>"결과" 폴더에 새 파일로 저장한다</li><li>합친 행 수가 120행인지 확인한다</li></ul>
+        </div>
+      </div>
+      <h3><span class="sn">1.2</span>업무 구조화 5단계</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>단계</th><th>스스로 던질 질문</th><th>지점 매출 합치기라면</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 결과 정의</strong></td><td>무엇이 만들어져야 끝인가? 누가 어떤 형태로 받나?</td><td>지점 4곳 매출이 한 표에 모인 엑셀 파일 1개</td></tr>
+          <tr><td><strong>② 일 나누기</strong></td><td>큰 일을 작은 작업으로 쪼개면? 그중 어디를 자동화할까?</td><td>불러오기 → 붙이기 → 지점 열 채우기 → 정렬 → 저장</td></tr>
+          <tr class="pick"><td><strong>③ 입력 · 처리 · 결과</strong></td><td>무엇이 들어와서, 어떻게 처리되고, 무엇이 나오나?</td><td>파일 4개 → 이어 붙이고 정렬 → 통합 파일</td></tr>
+          <tr><td><strong>④ 규칙과 예외</strong></td><td>조건·반복·순서는? 자료가 없거나 이상하면?</td><td>머리글은 한 번만, 결과 파일은 합칠 대상에서 제외</td></tr>
+          <tr><td><strong>⑤ 검증 방법</strong></td><td>결과가 맞는지 어떻게 확인하나?</td><td>행 수 120, 매출액 합계가 원본 4개 합과 같은지</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">"이 업무를 자동화할 수 있을까?"가 아니라</p><p><strong>"이 업무 중 어느 부분을 자동화할 수 있을까?"</strong>를 묻습니다. 작게 나눌수록 자동화할 수 있는 부분이 보이고, 사람이 판단할 부분도 분명해집니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c62">
+      <div class="ch-head">
+        <span class="ch-num">02</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="clipboard-list"></i>할 일 3</p>
+          <h2>VBA 기본 템플릿 — 구조화한 내용을 그대로 옮겨 적는 양식</h2>
+        </div>
+      </div>
+      <p>앞에서 나눈 <strong>목적 · 입력 · 처리 · 결과</strong>를 빈칸에 채우기만 하면 되는 요청 양식입니다. 윗부분 다섯 줄은 매번 그대로 쓰고, 아래 빈칸만 바꿉니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 템플릿</span><span class="pt">빈칸만 채워서 쓰는 기본 요청 양식</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적:
+
+# input
+
+# process
+
+# output</pre>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>템플릿 줄</th><th>왜 넣나</th></tr></thead>
+        <tbody>
+          <tr><td>주석을 자세히</td><td>코드를 몰라도 주석을 읽고 어디를 고칠지 찾을 수 있다</td></tr>
+          <tr><td>실행 로그</td><td>오류가 나면 어느 단계에서 멈췄는지 직접 실행 창에서 보인다</td></tr>
+          <tr><td>모르면 물어봐</td><td>AI가 빈 정보를 지어내지 않고 되묻게 한다</td></tr>
+          <tr><td>로직 먼저 설명</td><td>코드가 나오기 전에 순서가 맞는지 내가 먼저 확인한다</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">익숙해지면 두 줄을 더 붙입니다.</p><p><code># exception</code>(파일이 없을 때·값이 비어 있을 때 어떻게 할지)과 <code># test</code>(결과가 맞는지 확인하는 방법) — 구조화 5단계의 ④·⑤를 그대로 옮긴 것입니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c68">
+      <div class="ch-head">
+        <span class="ch-num">03</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="file-pen-line"></i>실습</p>
+          <h2>내 업무 하나를 구조화해 기획표 쓰기</h2>
+        </div>
+      </div>
+      <p><strong>매주·매달 반복하는 엑셀 업무 하나</strong>를 골라 아래 기획표를 채웁니다. 떠오르지 않으면 "지점별 매출 파일 합치기"로 써 봅니다 — 다음 교시에 바로 자동화합니다.</p>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="clipboard-list"></i><span class="pl">기획표</span><span class="pt">업무 구조화 5단계</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>업무명: [반복하는 업무]
+① 결과: [누가 쓸 무엇을, 어떤 형태로 만드나?]
+② 작업 순서: [큰 일을 작은 단계로 — 그중 자동화할 부분은?]
+③ INPUT: [어떤 파일·시트·열이 들어오나? 머리글은 몇 행?]
+   PROCESS: [어떤 순서로 무엇을 하나?]
+   OUTPUT: [어떤 파일로, 어디에 저장하나?]
+④ 규칙과 예외: [조건·반복·순서, 자료가 없거나 비어 있으면?]
+⑤ 검증: [행 수·합계 등 무엇으로 맞는지 확인하나?]
+사람이 판단할 부분: [ ]</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 1</span>혼자 채우기 어려우면 AI에게 질문을 받으며 채웁니다.</h4>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">구조화 도우미</span><span class="pt">질문을 받으며 기획표 채우기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>내가 반복하는 엑셀 업무를 자동화하려고 해.
+업무: [한두 줄로 설명]
+
+이 업무를 결과 / 작업 순서 / INPUT·PROCESS·OUTPUT / 규칙과 예외 / 검증 방법으로 정리해줘.
+정리에 필요한 정보가 부족하면 먼저 나에게 질문해줘. 질문은 한 번에 3개 이내로.</pre>
+      </div>
+      <h4 class="step"><span class="stepno">Step 2</span>옆 사람에게 기획표만 보여주고 설명해 봅니다.</h4>
+      <p>옆 사람이 "이건 어떻게 해요?"라고 되묻는 곳이 <strong>아직 구조화가 덜 된 곳</strong>입니다. 그 부분을 기획표에 더 적습니다.</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">사람이 이해하면 AI도 이해합니다.</p><p>옆 사람이 질문 없이 따라 할 수 있는 설명이면, 템플릿에 옮겨 AI에게 보내도 원하는 코드가 나옵니다.</p></div></div>
+    </section>
+
+    <section class="chapter" id="c69">
       <div class="ch-head">
         <span class="ch-num">04</span>
         <div>
@@ -1643,101 +1917,163 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
           <h2>3교시를 세 단계로 보면</h2>
         </div>
       </div>
-      <div class="table-wrap"><table><thead><tr><th>단계</th><th>3교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>매크로 기록기 체험</td><td>내 업무에서 매번 반복하는 손동작이 떠오르는가?</td></tr><tr><td>따라 하기</td><td>서식 매크로 작성·Alt+F11 붙여넣기</td><td>모듈 삽입부터 실행까지 순서를 기억하는가?</td></tr><tr><td>내 업무에 적용</td><td>보안 경고 대응</td><td>매크로 파일을 열 때 당황하지 않을 수 있는가?</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>3교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody>
+        <tr><td>함께 보기</td><td>막연한 설명 vs 구조화된 설명, 5단계</td><td>내 업무를 "그냥 하면 돼요" 말고 순서와 기준으로 말할 수 있는가?</td></tr>
+        <tr><td>따라 하기</td><td>구조화한 내용을 VBA 템플릿으로 옮기기</td><td>템플릿의 목적·input·process·output을 빈칸 없이 채울 수 있는가?</td></tr>
+        <tr><td>내 업무에 적용</td><td>내 업무 기획표 작성, 옆 사람에게 설명</td><td>되물음이 나온 곳을 다시 채웠는가?</td></tr>
+      </tbody></table></div>
+      <div class="statement"><small>기억할 한 줄</small>좋은 자동화는 좋은 코드가 아니라 좋은 업무 설명에서 시작한다.</div>
     </section>
+
+
+
 
     <div class="part" id="part8">
       <span class="part-label">2일차 PART 4 · 16:00~17:00</span>
-      <p class="part-title">반복 작업은 AI에게 넘기기 ② 내 업무에 적용 + 마무리</p>
-      <p>시트를 나누고 합치는 매크로까지 다루면, 이틀 동안 배운 것으로 내 업무 매크로 1~2개를 직접 완성합니다.<br>오류가 나도 당황하지 않고 AI에게 되묻는 법으로 마무리합니다.</p>
-      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>여러 파일을 시트로 합치고, 하나의 표를 지점별 시트로 나누는 매크로를 쓸 수 있다</li><li>매크로 실행 중 오류 메시지가 뜨면 그대로 복사해 AI에게 되물어 해결할 수 있다</li><li>이틀간 배운 내용을 내 업무 매크로 1~2개로 연결할 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>시트 합치기·나누기 → 오류 되묻기 → 내 업무 매크로 → 결과물 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>내 업무용 매크로 1~2개, 이틀 전체 결과물 정리</dd></span></div></dl>
+      <p class="part-title">파일 합치기 — 구조화한 업무를 VBA로</p>
+      <p>3교시에 구조화한 "지점별 매출 파일 합치기"를 템플릿에 넣어 AI에게 코드를 받고 실행합니다.<br>이어서 합친 표를 기준별로 나누고, 오류가 났을 때 되묻는 법으로 마무리합니다.</p>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>VBA 템플릿으로 폴더 안의 여러 파일을 하나의 표로 합치는 매크로를 만들 수 있다</li><li>하나의 표를 기준 열에 따라 여러 시트로 나눌 수 있다</li><li>오류 창이나 다른 결과가 나오면 캡처와 문제 줄을 AI에게 보내 고칠 수 있다</li></ul></dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>파일 4개 합치기 → 상품별 시트로 나누기 → 오류 대응 → 결과물 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>10월_지점통합매출.xlsx, 상품별로 나눈 시트, 이틀 전체 결과물</dd></span></div></dl>
     </div>
 
-    <section class="chapter" id="c34">
+
+    <section class="chapter" id="c63">
       <div class="ch-head">
         <span class="ch-num">01</span>
         <div>
-          <p class="ch-kicker"><i data-lucide="split"></i>할 일 1</p>
-          <h2>시트 나누기 · 합치기 매크로 (따라 하기)</h2>
+          <p class="ch-kicker"><i data-lucide="combine"></i>실습 1</p>
+          <h2>지점별 매출 파일 4개를 하나로 합치기 (따라 하기)</h2>
         </div>
       </div>
-      <p><strong>따로 떨어진 파일을 하나로 합치거나, 큰 표를 지점별로 쪼개는 일도 매크로로 한 번에 끝낼 수 있습니다.</strong></p>
-      <h3><span class="sn">1.1</span>합치기 — 공통자료의 지점별 매출 4개 → 시트 1장</h3>
-      <p>지점 4곳(서울강남점, 대전둔산점, 세종보람점, 청주가경점)의 매출보고 파일을 한 통합 문서의 시트 4개로 모읍니다.</p>
+      <p>3교시에 구조화한 업무를 그대로 자동화합니다. <strong>매달 지점 네 곳에서 따로 받는 매출보고 파일을 하나의 표로 합칩니다.</strong> 네 파일의 모양은 같습니다.</p>
       <div class="datafile">
-        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>매출보고_서울강남점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
-        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_서울강남점_10월.xlsx" download="매출보고_서울강남점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+        <span class="df-ic"><i data-lucide="folder-open"></i></span>
+        <div class="df-b"><b>공통자료 폴더 — 매출보고_○○점_10월.xlsx 4개</b><span>서울강남점 · 대전둔산점 · 세종보람점 · 청주가경점 (2일차 zip 안에 들어 있음)</span></div>
+        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_서울강남점_10월.xlsx" download="매출보고_서울강남점_10월.xlsx"><i data-lucide="download"></i><span>예시 1개</span></a>
       </div>
-      <div class="datafile">
-        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>매출보고_대전둔산점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
-        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_대전둔산점_10월.xlsx" download="매출보고_대전둔산점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
+      <div class="codebox plain">
+        <div class="ph"><i data-lucide="package"></i><span class="pl">재료</span><span class="pt">파일 하나의 모양</span></div>
+<pre>A1  ㈜다온유통 지점별 매출 보고
+A2  지점: 대전둔산점        B2  담당: 이정화
+A4  날짜 | 상품명 | 수량 | 단가(원) | 매출액(원)   ← 머리글은 4행
+A5~ 자료 30행</pre>
       </div>
-      <div class="datafile">
-        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>매출보고_세종보람점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
-        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_세종보람점_10월.xlsx" download="매출보고_세종보람점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
-      </div>
-      <div class="datafile">
-        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>매출보고_청주가경점_10월.xlsx</b><span>지점별 매출 보고(1일차 1교시 폴더 병합 시연에도 쓰인 자료)</span></div>
-        <a class="copy-btn df-dl" href="실습파일_과정1/공통자료/매출보고_청주가경점_10월.xlsx" download="매출보고_청주가경점_10월.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
-      </div>
+      <h4 class="step"><span class="stepno">Step 1</span>파일을 열어 모양을 먼저 봅니다 — 구조화의 ③·④.</h4>
+      <p>머리글이 1행이 아니라 <strong>4행</strong>이고, 지점 이름은 표 안이 아니라 <strong>A2 셀</strong>에 있습니다. 이걸 말해 주지 않으면 AI는 "1행이 머리글"이라고 가정합니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>템플릿을 채워 요청합니다.</h4>
       <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 16</span><span class="pt">여러 파일을 시트로 합치는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>폴더 안의 엑셀 파일 여러 개를, 각 파일을 시트 하나씩으로 해서
-새 통합 문서 하나로 모으는 매크로를 만들어줘.
-시트 이름은 원본 파일 이름으로 해줘. 엑셀 2016 이상에서 되게 해줘.</pre>
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 1</span><span class="pt">폴더 안 파일 합치기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적: 폴더 안에 있는 지점별 매출보고 파일을 하나의 표로 합친다.
+
+# input
+* 윈도우 탐색기 창으로 폴더를 선택하고, 그 폴더 안의 xlsx 파일을 모두 사용
+* 각 파일에는 시트가 하나 있고, 4행이 머리글(날짜/상품명/수량/단가(원)/매출액(원)), 5행부터 자료
+* 지점 이름은 A2 셀에 "지점: 대전둔산점" 형태로 들어 있음
+* 모든 파일의 형식은 같으므로 머리글은 한 번만 사용
+
+# process
+1. 모든 파일의 자료를 세로 방향으로 이어 붙인다.
+2. 맨 앞에 "지점" 열을 만들고, A2 셀에서 "지점: "을 뺀 이름을 채운다.
+3. 날짜 순으로 오름차순 정렬한다.
+4. 열 너비를 자동 맞춤하고, 머리글 행은 하늘색으로 칠한다.
+
+# output
+선택한 폴더 안에 "결과" 폴더를 만들고 "10월_지점통합매출.xlsx"로 저장
+끝나면 합친 파일 수와 자료 행 수를 메시지 상자로 보여줘</pre>
       </div>
-      <h3><span class="sn">1.2</span>나누기 — 04_통합매출_2026.xlsx → 지점별 시트 4장</h3>
-      <div class="datafile">
-        <span class="df-ic"><i data-lucide="file-spreadsheet"></i></span>
-        <div class="df-b"><b>04_통합매출_2026.xlsx</b><span>1,200행 — 지점 열 기준으로 나누기 연습</span></div>
-        <a class="copy-btn df-dl" href="실습파일_과정1/1일차/04_통합매출_2026.xlsx" download="04_통합매출_2026.xlsx"><i data-lucide="download"></i><span>내려받기</span></a>
-      </div>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 17</span><span class="pt">한 표를 기준 열 값대로 여러 시트로 나누는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>B열(지점) 값이 다른 행들을 각각 지점 이름의 새 시트로 나눠주는
-엑셀 VBA 매크로를 만들어줘. 머리글 행은 각 시트에 똑같이 복사해줘.</pre>
-      </div>
-      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody><tr><td>합치기</td><td>4개 지점 파일이 시트 4장으로 모인 통합 문서가 생성됨</td></tr><tr><td>나누기</td><td>04_통합매출_2026.xlsx가 서울강남점, 대전둔산점, 세종보람점, 청주가경점 4개 시트로 나뉨, 각 시트 행 수의 합이 1,200행(+머리글)과 일치</td></tr></tbody></table></div>
+      <h4 class="step"><span class="stepno">Step 3</span>AI가 설명한 로직을 읽고 "좋아, 코드 만들어줘"라고 답한 뒤, 새 엑셀 파일의 모듈에 붙여넣고 실행합니다.</h4>
+      <p>폴더 선택 창이 뜨면 <strong>공통자료</strong> 폴더를 고릅니다.</p>
+      <h3><span class="sn">1.1</span>확인 — 구조화의 ⑤</h3>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody>
+        <tr><td>메시지 상자</td><td>파일 4개, 자료 120행</td></tr>
+        <tr><td>지점 열</td><td>서울강남점 · 대전둔산점 · 세종보람점 · 청주가경점이 30행씩</td></tr>
+        <tr><td>매출액 합계</td><td>44,631,900원 (원본 4개 파일 합계와 같음)</td></tr>
+        <tr><td>저장 위치</td><td>공통자료\결과\10월_지점통합매출.xlsx</td></tr>
+      </tbody></table></div>
     </section>
 
-    <section class="chapter" id="c35">
+    <section class="chapter" id="c64">
       <div class="ch-head">
         <span class="ch-num">02</span>
         <div>
-          <p class="ch-kicker"><i data-lucide="repeat"></i>할 일 2</p>
-          <h2>오류가 나면 되묻는 루프</h2>
+          <p class="ch-kicker"><i data-lucide="split"></i>실습 2</p>
+          <h2>합친 표를 상품별 시트로 나누기 (따라 하기)</h2>
         </div>
       </div>
-      <p><strong>매크로가 빨간 오류 창과 함께 멈추는 건 실패가 아니라 정상적인 중간 과정입니다.</strong></p>
-      <h3>오류 대응 3단계</h3>
-      <ol><li>당황하지 않고 오류 메시지 창의 내용을 그대로 복사한다(디버그 버튼을 누르면 노란 줄로 어느 코드인지 보임)</li><li>AI에게 '이 매크로를 실행했더니 이 오류가 났어' + 오류 메시지 전체 + 코드 전체를 그대로 붙여넣는다</li><li>고쳐준 코드로 다시 실행 — 안 되면 1번부터 반복</li></ol>
+      <p><strong>이번엔 반대 방향입니다.</strong> 실습 1에서 만든 <code>10월_지점통합매출.xlsx</code>를 상품 담당자에게 보낼 수 있도록 상품명별 시트로 나눕니다.</p>
+      <h4 class="step"><span class="stepno">Step 1</span>통합 파일을 열고, 템플릿을 채워 요청합니다.</h4>
       <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 18</span><span class="pt">오류 메시지를 그대로 복사해 되묻습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>아래 매크로를 실행했더니 오류가 났어.
-[오류 메시지 전체를 그대로 붙여넣기]
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 2</span><span class="pt">기준 열로 필터링해서 시트 나누기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적: 자료를 상품명별로 나누어 각각의 시트로 만든다.
 
-[매크로 코드 전체]
+# input
+* 현재 시트를 원본 자료로 사용
+* 첫 번째 행은 머리글
+* "상품명"은 C열에 있음
 
-어느 줄이 문제인지, 어떻게 고치면 되는지 알려줘.</pre>
+# process
+1. C열의 상품명별로 자료를 필터링한다.
+2. 필터링한 자료를 그 상품명을 이름으로 하는 새 시트에 복사한다. (머리글 포함, 서식은 그대로)
+3. 현재 시트는 그대로 보존한다.
+
+# output
+현재 파일에 시트를 추가하고 저장
+끝나면 만든 시트 수를 메시지 상자로 보여줘</pre>
       </div>
-      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>오류가 나면 되묻는다 — 이 루프 하나만 있으면 코드를 몰라도 완성할 수 있습니다.</p></div></div>
+      <p>실습 1 결과에서 상품명이 몇 번째 열인지 먼저 확인하세요. 지점 열을 맨 앞에 넣었다면 C열입니다. 다르면 프롬프트의 열만 바꿉니다.</p>
+      <h4 class="step"><span class="stepno">Step 2</span>실행하고 결과를 확인합니다.</h4>
+      <div class="table-wrap"><table><thead><tr><th>확인 항목</th><th>통과 기준</th></tr></thead><tbody>
+        <tr><td>시트 수</td><td>상품 6개 → 새 시트 6장</td></tr>
+        <tr><td>행 수</td><td>참기름 선물세트 23 · 견과류 믹스 21 · 냉동만두 20 · 전통 조청 20 · 유기농 김 19 · 한우육포 17 → 합계 120</td></tr>
+        <tr><td>원본</td><td>통합 시트가 그대로 남아 있음</td></tr>
+      </tbody></table></div>
+      <h3><span class="sn">2.1</span>여유 조 — 시트마다 파일로 저장하기</h3>
+      <p>나눈 시트를 상품 담당자에게 따로 보내려면 파일로 하나씩 떼어 냅니다. 같은 대화창에 이어서 요청합니다.</p>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 2-2</span><span class="pt">시트를 개별 파일로 저장</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이번에는 현재 파일의 시트 중 통합 시트를 뺀 나머지를 각각 별도 파일로 저장하는 코드를 만들어줘.
+
+# output
+1. 지금 파일이 있는 폴더 아래에 "상품별자료" 폴더를 만들고 그 안에 저장
+2. 파일명은 {시트명}_{yyyymmdd}.xlsx (날짜는 실행한 날)</pre>
+      </div>
     </section>
 
-    <section class="chapter" id="c36">
+    <section class="chapter" id="c65">
       <div class="ch-head">
         <span class="ch-num">03</span>
         <div>
-          <p class="ch-kicker"><i data-lucide="wrench"></i>할 일 3</p>
-          <h2>내 반복 업무, 매크로로 만들기</h2>
+          <p class="ch-kicker"><i data-lucide="bug"></i>할 일 4</p>
+          <h2>오류가 나거나 원하는 대로 안 될 때</h2>
         </div>
       </div>
-      <p><strong>개인 파일을 가져오셨다면 오늘은 그 파일로, 아니라면 오늘 실습 파일로 내 업무용 매크로 1~2개를 완성합니다.</strong></p>
-      <div class="table-wrap"><table><thead><tr><th>자주 매크로로 만드는 업무</th><th>프롬프트 힌트</th></tr></thead><tbody><tr><td>매달 같은 서식 입히기</td><td>오늘 만든 '서식적용' 매크로를 내 파일 열 구성에 맞게 고쳐 달라고 요청</td></tr><tr><td>여러 시트/파일 합치기</td><td>34번 프롬프트의 폴더 경로·파일 조건만 내 상황으로 바꿔 요청</td></tr><tr><td>조건별로 시트 나누기</td><td>34번 나누기 프롬프트의 기준 열만 내 표에 맞게 바꿔 요청</td></tr></tbody></table></div>
-      <div class="callout warn"><span class="ci"><i data-lucide="shield-alert"></i></span><div class="cb"><p class="ct">개인 파일 주의</p><p>개인 파일을 쓰실 경우, 고객 실명·연락처 등 개인정보가 담긴 열은 AI에게 보여주지 않습니다. 열 이름과 몇 개의 가상 값만으로 충분합니다.</p></div></div>
+      <p><strong>빨간 오류 창은 실패가 아니라 중간 과정입니다.</strong> 상황에 따라 두 가지로 되묻습니다.</p>
+      <h3><span class="sn">3.1</span>오류 창이 떴을 때</h3>
+      <ol><li><code>Win + Shift + S</code>로 오류 창을 캡처해 AI 대화창에 붙여넣습니다.</li><li>오류 창의 <strong>디버그</strong>를 누르면 문제 줄이 노랗게 표시됩니다. 그 줄을 복사합니다.</li><li>아래처럼 함께 보냅니다.</li></ol>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 오류</span><span class="pt">캡처 + 노란 줄을 함께 보내기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[오류 창 캡처 붙여넣기]
+
+[노랗게 표시된 줄 붙여넣기]
+
+이 부분에서 첨부한 오류가 발생해. 원인과 고친 전체 코드를 알려줘.</pre>
+      </div>
+      <h3><span class="sn">3.2</span>오류는 없는데 결과가 다를 때</h3>
+      <p>지금 나온 결과와 원하는 결과를 <strong>둘 다</strong> 구체적으로 적습니다. 결과 화면을 캡처해 함께 보내면 더 빨리 고쳐집니다.<br>예) "지점 열이 비어 있어. A2 셀의 '지점: ' 뒤 이름이 들어가야 해."</p>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">로그가 여기서 쓰입니다.</p><p>템플릿에 넣은 "실행 로그" 덕분에 직접 실행 창(<code>Ctrl + G</code>)을 보면 어디까지 진행되고 멈췄는지 보입니다. 그 기록도 함께 복사해 보냅니다.</p></div></div>
     </section>
 
     <section class="chapter" id="c37">
@@ -1749,10 +2085,11 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
         </div>
       </div>
       <h3>이틀의 최종 결과물</h3>
-      <div class="table-wrap"><table><thead><tr><th>구분</th><th>결과물</th></tr></thead><tbody><tr><td>1일차</td><td>정리된 실습 파일, 엑셀 질문 프롬프트 카드</td></tr><tr><td>2일차</td><td>분석 보고서(미션)와 대시보드 한 장, 내 업무용 매크로 1~2개</td></tr></tbody></table></div>
-      <div class="table-wrap"><table><thead><tr><th>단계</th><th>4교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>오류 되묻는 루프 시연</td><td>오류가 나도 멈추지 않고 되물을 수 있는가?</td></tr><tr><td>따라 하기</td><td>시트 합치기·나누기 매크로</td><td>내 업무의 '모으기/나누기' 패턴에 바로 적용할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>내 반복 업무 매크로 1~2개 완성</td><td>이 매크로를 다음 주에도 계속 쓸 수 있는가?</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>구분</th><th>결과물</th></tr></thead><tbody><tr><td>1일차</td><td>정리된 실습 파일, 엑셀 질문 프롬프트 카드</td></tr><tr><td>2일차</td><td>엑셀 대시보드 한 장, 서식 매크로, 내 업무 기획표, 지점 매출 합치기·나누기 매크로</td></tr></tbody></table></div>
+      <div class="table-wrap"><table><thead><tr><th>단계</th><th>4교시에서 한 일</th><th>내 업무에 옮길 때</th></tr></thead><tbody><tr><td>함께 보기</td><td>파일 모양(머리글 4행, A2의 지점 이름)부터 확인</td><td>내 파일의 머리글 위치와 예외를 먼저 적었는가?</td></tr><tr><td>따라 하기</td><td>템플릿으로 파일 합치기 · 상품별 나누기</td><td>3교시 기획표를 템플릿에 옮겨 바로 요청할 수 있는가?</td></tr><tr><td>내 업무에 적용</td><td>오류 창 캡처 + 노란 줄로 되묻기</td><td>오류가 나도 멈추지 않고 되물을 수 있는가?</td></tr></tbody></table></div>
       <p>결과물은 USB·메일 등 기관에서 안내한 방법으로 반출합니다. 다음 주차 과정(업무자동화·AI 비서 활용)에서 더 다양한 자동화를 이어서 다룹니다.</p>
     </section>
+
 
     <section class="chapter" id="kit">
       <div class="ch-head">
@@ -1853,48 +2190,129 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
 [제약] SUMIFS 하나로, 조건은 월(10월)·채널(온라인)·지점(서울강남점) 3개
 바로 붙여넣을 수 있는 수식만 먼저 주고, 설명은 그 아래에 써줘.</pre>
       </div>
-      <h3><span class="sn">5</span>2일차 피벗 복습</h3>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 13</span><span class="pt">피벗에서 발견한 숫자를 가지고 원인을 역으로 물어봅니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>최근 2주 신선도 불만 15건 중 11건이 냉장 제품에서 나왔어.
-이 비중이 정상 범위인지 판단하기 어려운데, 어떤 추가 데이터나 현장 정보를 확인해야
-원인을 좁힐 수 있을지 질문 목록을 만들어줘.</pre>
-      </div>
-      <h3><span class="sn">6</span>2일차 대시보드</h3>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 14</span><span class="pt">사실 나열형 제목을 결론형으로 바꿔 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>이 차트 제목을 사실 나열 말고 결론형 한 문장으로 3개 제안해줘.
-지금 제목: '지점별 불만 건수'
-데이터: 최근 2주 지점별 고객불만 건수 막대 차트</pre>
-      </div>
-      <h3><span class="sn">7</span>2일차 매크로①</h3>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">하고 싶은 서식 작업을 매크로 코드로 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>이 서식 적용 과정을 엑셀 VBA 매크로로 만들어줘.
-1행(머리글) 굵게+배경색, 수량·단가·매출액 열은 천 단위 콤마,
-표 전체에 테두리, 열 너비는 자동 맞춤.
-엑셀 2016 이상에서 되는 코드로, 각 줄에 무엇을 하는지 주석도 달아줘.</pre>
-      </div>
-      <h3><span class="sn">8</span>2일차 매크로②</h3>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 16</span><span class="pt">여러 파일을 시트로 합치는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>폴더 안의 엑셀 파일 여러 개를, 각 파일을 시트 하나씩으로 해서
-새 통합 문서 하나로 모으는 매크로를 만들어줘.
-시트 이름은 원본 파일 이름으로 해줘. 엑셀 2016 이상에서 되게 해줘.</pre>
-      </div>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 17</span><span class="pt">한 표를 기준 열 값대로 여러 시트로 나누는 매크로를 요청합니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>B열(지점) 값이 다른 행들을 각각 지점 이름의 새 시트로 나눠주는
-엑셀 VBA 매크로를 만들어줘. 머리글 행은 각 시트에 똑같이 복사해줘.</pre>
-      </div>
-      <div class="codebox prompt">
-        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 18</span><span class="pt">오류 메시지를 그대로 복사해 되묻습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
-<pre>아래 매크로를 실행했더니 오류가 났어.
-[오류 메시지 전체를 그대로 붙여넣기]
+      <h3><span class="sn">5</span>2일차 대시보드</h3>
+      <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">대시보드 1</span><span class="pt">KPI·차트 제안받기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>너는 데이터 시각화 전문가야.
+첨부한 파일은 우리 회사 고객 불만 접수 대장이야. (첫 번째 시트, 2026년 6~8월)
+고객지원파트장이 매주 회의에서 볼 대시보드를 만들려고 해.
 
-[매크로 코드 전체]
+어떤 KPI 3개와 차트 3개를 넣으면 좋을지 이유와 함께 제안해줘.
+아직 대시보드는 만들지 말고 제안만 해줘.</pre></div>
+      <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">대시보드 2</span><span class="pt">HTML 대시보드 만들기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>제안한 내용으로 HTML 대시보드를 만들어줘.
 
-어느 줄이 문제인지, 어떻게 고치면 되는지 알려줘.</pre>
+- 위쪽에 KPI 카드 3개, 아래쪽에 차트 3개
+- 전체 / 6월 / 7월 / 8월 버튼을 넣고, 누르면 KPI와 차트가 함께 바뀌게 해줘
+- 색상은 3가지 이내로, 스크롤 없이 한 화면에 보이게 해줘
+- 파일 하나로 만들어서 바로 열어볼 수 있게 해줘</pre></div>
+      <h3><span class="sn">6</span>2일차 VBA와 매크로 기록기</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">프롬프트 15</span><span class="pt">녹화한 매크로를 선택한 셀 기준으로 범위가 바뀌게 고쳐 받습니다</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+아래는 엑셀 매크로 기록기로 녹화한 서식 적용 코드야.
+녹화한 시트에 맞춰 A1:E11처럼 범위가 고정되어 있어서, 행 수가 다른 시트에서는 서식이 일부만 적용돼.
+행·열 수가 달라도 쓸 수 있도록 고쳐줘.
+
+- 매크로를 실행할 때 선택되어 있는 셀을 기준으로, 그 셀과 이어진 영역(빈 행·빈 열 전까지)을 표 범위로 잡아줘.
+- 그 범위의 첫 행은 머리글로 보고, 녹화된 코드와 같은 서식을 그대로 적용해줘.
+- 천 단위 콤마는 숫자가 들어 있는 열(수량·단가·매출액)에만 적용해줘.
+- 녹화하면서 생긴 불필요한 코드(Select, 스크롤 등)는 정리해줘.
+- 코드를 주기 전에 무엇을 바꿨는지 먼저 설명하고, 줄마다 무엇을 하는지 주석을 달아줘.
+
+[녹화된 코드 붙여넣기 — Sub 서식적용() 부터 End Sub 까지]</pre>
+      </div>
+      <h3><span class="sn">7</span>2일차 업무 구조화력</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 템플릿</span><span class="pt">빈칸만 채워서 쓰는 기본 요청 양식</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적:
+
+# input
+
+# process
+
+# output</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">구조화 도우미</span><span class="pt">질문을 받으며 기획표 채우기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>내가 반복하는 엑셀 업무를 자동화하려고 해.
+업무: [한두 줄로 설명]
+
+이 업무를 결과 / 작업 순서 / INPUT·PROCESS·OUTPUT / 규칙과 예외 / 검증 방법으로 정리해줘.
+정리에 필요한 정보가 부족하면 먼저 나에게 질문해줘. 질문은 한 번에 3개 이내로.</pre>
+      </div>
+      <h3><span class="sn">8</span>2일차 파일 합치기</h3>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 1</span><span class="pt">폴더 안 파일 합치기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적: 폴더 안에 있는 지점별 매출보고 파일을 하나의 표로 합친다.
+
+# input
+* 윈도우 탐색기 창으로 폴더를 선택하고, 그 폴더 안의 xlsx 파일을 모두 사용
+* 각 파일에는 시트가 하나 있고, 4행이 머리글(날짜/상품명/수량/단가(원)/매출액(원)), 5행부터 자료
+* 지점 이름은 A2 셀에 "지점: 대전둔산점" 형태로 들어 있음
+* 모든 파일의 형식은 같으므로 머리글은 한 번만 사용
+
+# process
+1. 모든 파일의 자료를 세로 방향으로 이어 붙인다.
+2. 맨 앞에 "지점" 열을 만들고, A2 셀에서 "지점: "을 뺀 이름을 채운다.
+3. 날짜 순으로 오름차순 정렬한다.
+4. 열 너비를 자동 맞춤하고, 머리글 행은 하늘색으로 칠한다.
+
+# output
+선택한 폴더 안에 "결과" 폴더를 만들고 "10월_지점통합매출.xlsx"로 저장
+끝나면 합친 파일 수와 자료 행 수를 메시지 상자로 보여줘</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 2</span><span class="pt">기준 열로 필터링해서 시트 나누기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>너는 엑셀 VBA 전문가야.
+다음의 기능을 하는 VBA 코드를 만들어줘.
+주요 과정마다 주석으로 번호를 매겨주고, 어떤 작업을 하는 것인지 주석을 최대한 자세히 남겨줘.
+오류 원인을 추적할 수 있도록 주요 단계별 실행 로그를 직접 실행 창에 남겨줘.
+내가 알려줘야 하는 내용이 있다면 물어봐서 작업해줘.
+코드를 만들기 전에 로직을 먼저 설명해주고, 내가 확인한 뒤에 코드를 만들어줘.
+---
+목적: 자료를 상품명별로 나누어 각각의 시트로 만든다.
+
+# input
+* 현재 시트를 원본 자료로 사용
+* 첫 번째 행은 머리글
+* "상품명"은 C열에 있음
+
+# process
+1. C열의 상품명별로 자료를 필터링한다.
+2. 필터링한 자료를 그 상품명을 이름으로 하는 새 시트에 복사한다. (머리글 포함, 서식은 그대로)
+3. 현재 시트는 그대로 보존한다.
+
+# output
+현재 파일에 시트를 추가하고 저장
+끝나면 만든 시트 수를 메시지 상자로 보여줘</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 2-2</span><span class="pt">시트를 개별 파일로 저장</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>이번에는 현재 파일의 시트 중 통합 시트를 뺀 나머지를 각각 별도 파일로 저장하는 코드를 만들어줘.
+
+# output
+1. 지금 파일이 있는 폴더 아래에 "상품별자료" 폴더를 만들고 그 안에 저장
+2. 파일명은 {시트명}_{yyyymmdd}.xlsx (날짜는 실행한 날)</pre>
+      </div>
+      <div class="codebox prompt">
+        <div class="ph"><i data-lucide="terminal"></i><span class="pl">VBA 오류</span><span class="pt">캡처 + 노란 줄을 함께 보내기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
+<pre>[오류 창 캡처 붙여넣기]
+
+[노랗게 표시된 줄 붙여넣기]
+
+이 부분에서 첨부한 오류가 발생해. 원인과 고친 전체 코드를 알려줘.</pre>
       </div>
     </section>
 
@@ -1912,7 +2330,7 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
       </div>
       <div class="summary">
         <div class="summary-h"><i data-lucide="quote"></i>차시별로 기억할 한 문장</div>
-        <ol><li><strong>1일차 1교시</strong> AI도 피벗도 함수도, 같은 모양의 데이터를 좋아한다.</li><li><strong>1일차 2교시</strong> 데이터를 통째로 주지 말고, 경우의 수만 줘라.</li><li><strong>1일차 3교시</strong> 무엇을 볼지 모를 때, 머리글만 보여주고 물어봐라.</li><li><strong>1일차 4교시</strong> 수식을 외우지 말고, 설명받고 검증하라.</li><li><strong>2일차 1교시</strong> 피벗은 집계 도구가 아니라 원인을 찾는 도구다.</li><li><strong>2일차 2교시</strong> 차트 제목에 결론을 쓰면 보고서가 된다.</li><li><strong>2일차 3교시</strong> 매크로의 난관은 코드가 아니라 어디에 붙여넣는지다.</li><li><strong>2일차 4교시</strong> 오류가 나면 멈추지 말고 그대로 되물어라.</li></ol>
+        <ol><li><strong>1일차 1교시</strong> AI도 피벗도 함수도, 같은 모양의 데이터를 좋아한다.</li><li><strong>1일차 2교시</strong> 데이터를 통째로 주지 말고, 경우의 수만 줘라.</li><li><strong>1일차 3교시</strong> 무엇을 볼지 모를 때, 머리글만 보여주고 물어봐라.</li><li><strong>1일차 4교시</strong> 수식을 외우지 말고, 설명받고 검증하라.</li><li><strong>2일차 1교시</strong> 원본·계산·화면을 나누고 슬라이서 하나로 묶으면, 다음 달엔 새로 고침만 하면 된다.</li><li><strong>2일차 2교시</strong> 매크로는 녹화, VBA는 그 대본이다 — 기록기로 원리부터 본다.</li><li><strong>2일차 3교시</strong> 좋은 자동화는 좋은 코드가 아니라 좋은 업무 설명에서 시작한다.</li><li><strong>2일차 4교시</strong> 구조화한 설명을 템플릿에 넣고, 오류가 나면 그대로 되물어라.</li></ol>
       </div>
     </section>
 
@@ -2001,7 +2419,7 @@ F, M, f, 남, 남자, 여, 여성, 여자, (빈칸)
   });
 
   /* ---------- Scroll spy + progress ---------- */
-  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a:not(.toc-day)'));
   var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
   var bar = document.getElementById('progress');
   function onScroll() {
