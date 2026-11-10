@@ -657,6 +657,7 @@
 })();
 </script>
 
+
 <div class="progress" id="progress" style="width: 0%;"></div>
 
 <header class="topbar">
@@ -702,7 +703,7 @@
     <p class="toc-title"><i data-lucide="list-tree"></i>목차</p>
     <ol>
       <li><a href="#objectives"><span class="n">▸</span>학습 목표 · 자동화 3단계</a></li>
-      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 1일차 · 지시를 다듬고, 산출물을 위임한다 ──</li>
+      <li class="toc-part" style="margin-top:24px;"><a href="#day1-start" style="font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 1일차 · 지시를 다듬고, 산출물을 위임한다 ──</a></li>
       <li class="toc-part">1일차 PART 1 · 생성형 AI 이해와 너나형해! 프롬프트 기본</li>
       <li><a href="#c00"><span class="n">00</span>환경 세팅 — Gemini 로그인과 실습자료</a></li>
       <li><a href="#c47"><span class="n">01</span>생성형 AI의 이해</a></li>
@@ -738,15 +739,15 @@
       <li><a href="#c07"><span class="n">01</span>심화 3기법</a></li>
       <li><a href="#c08"><span class="n">02</span>내 업무 프롬프트 작성</a></li>
       <li><a href="#c09"><span class="n">03</span>파트 4 정리</a></li>
-      <li class="toc-part" style="margin-top:24px; font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 2일차 · AI 일정과 업무 자동화 ──</li>
+      <li class="toc-part" style="margin-top:24px;"><a href="#day2-start" style="font-size:.8125rem; font-weight:800; color:var(--accent-ink);">── 2일차 · AI 일정과 업무 자동화 ──</a></li>
       <li class="toc-part">2일차 PART 1 · 일정 관리와 홍보물</li>
-      <li><a href="#c29"><span class="n">01</span>말로 캘린더 일정 등록</a></li><li><a href="#c31"><span class="n">02</span>뉴스 요약 예약</a></li><li><a href="#c13"><span class="n">03</span>공지 이미지 만들기</a></li><li><a href="#c46"><span class="n">04</span>행사 홍보 포스터</a></li>
-      <li class="toc-part">2일차 PART 2 · 파이썬 자동화 ①</li>
+      <li><a href="#c29"><span class="n">01</span>AI로 캘린더 일정 등록</a></li><li><a href="#c31"><span class="n">02</span>뉴스 요약 예약</a></li><li><a href="#c13"><span class="n">03</span>공지 이미지 만들기</a></li><li><a href="#c46"><span class="n">04</span>행사 홍보 포스터</a></li><li><a href="#c49"><span class="n">05</span>자동화 예시</a></li><li><a href="#c50"><span class="n">06</span>업무 구조화력</a></li>
+      <li class="toc-part">2일차 PART 2 · 자동화의 이해</li>
+      <li><a href="#c51"><span class="n">01</span>자동화의 이해</a></li>
+      <li class="toc-part">2일차 PART 3 · 파이썬 자동화 ①</li>
       <li><a href="#c33"><span class="n">01</span>QR코드 만들기</a></li><li><a href="#c34"><span class="n">02</span>Colab 기본 프롬프트</a></li><li><a href="#c35"><span class="n">03</span>엑셀 파일 합치기</a></li>
-      <li class="toc-part">2일차 PART 3 · 파이썬 자동화 ②</li>
+      <li class="toc-part">2일차 PART 4 · 파이썬 자동화 ②</li>
       <li><a href="#c38"><span class="n">01</span>오류를 AI에게 전달하고 수정</a></li><li><a href="#c45"><span class="n">02</span>엑셀·차트·워드 보고서</a></li>
-      <li class="toc-part">2일차 PART 4 · 종합 실습</li>
-      <li><a href="#c40"><span class="n">01</span>업무 구조화력 다섯 단계</a></li><li><a href="#c41"><span class="n">02</span>자동화 기획표</a></li><li><a href="#c42"><span class="n">03</span>자동화 1호 제작과 공유</a></li><li><a href="#c43"><span class="n">04</span>과정 마무리</a></li>
       <li><a href="#kit"><span class="n">▸</span>차시별 요청문 모음</a></li>
       <li><a href="#summary"><span class="n">+</span>한 장 요약</a></li>
     </ol>
@@ -760,7 +761,7 @@
       <dl class="meta">
         <div><span class="ic"><i data-lucide="hammer"></i></span><span><dt>무엇을</dt><dd>프롬프트 템플릿, 나만의 AI 비서(스킬), 문서 기반 질의응답, 캘린더·예약 작업, 공지 이미지, 코랩 파이썬 자동화</dd></span></div>
         <div><span class="ic"><i data-lucide="database"></i></span><span><dt>어떤 자료로</dt><dd>㈜다온유통 가상 자료 — 회의 전사본 3종, 받은 메일 2종, 사내규정집·대표 발언기록, 지점별 매출 엑셀 4개</dd></span></div>
-        <div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>무엇이 남는지</dt><dd>내 업무 프롬프트 템플릿, AI 비서(스킬) 1개, 예약 작업 1건, 공지 이미지, 코랩 노트, 자동화 플랜</dd></span></div>
+        <div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>무엇이 남는지</dt><dd>내 업무 프롬프트 템플릿, AI 비서(스킬) 1개, 예약 작업 1건, 공지 이미지, QR코드 생성기, 코랩 노트</dd></span></div>
         <div><span class="ic"><i data-lucide="clock"></i></span><span><dt>얼마나</dt><dd>2일 8차시(13:00~17:00) · ChatGPT, Gemini, Claude, 제미나이 노트북, Google Colab</dd></span></div>
       </dl>
     </section>
@@ -787,7 +788,7 @@
           </tbody>
         </table>
       </div>
-      <p>Google Colab은 이 사다리와 결이 다릅니다. "덜 손대는" 방향이 아니라, <strong>AI가 코드까지 직접 짜 줘서 코딩을 몰라도 복잡한 반복 작업을 자동화 프로그램으로 만들 수 있다</strong>는 걸 보여줍니다. 2일차 2·3교시에 다룹니다.</p>
+      <p>Google Colab은 이 사다리와 결이 다릅니다. "덜 손대는" 방향이 아니라, <strong>AI가 코드까지 직접 짜 줘서 코딩을 몰라도 복잡한 반복 작업을 자동화 프로그램으로 만들 수 있다</strong>는 걸 보여줍니다. 2일차 3·4교시에 다룹니다.</p>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">교시가 바뀔 때마다 여기로 돌아옵니다.</p><p>"지금 몇 단계를 하고 있는지"만 알면 길을 잃지 않습니다. 1일차는 ①에서 ②로, 2일차는 ②에서 ③으로 넘어갑니다.</p></div></div>
 
       <div class="grid-2">
@@ -804,9 +805,9 @@
           <h4><i data-lucide="calendar"></i>2일차 — 비서를 만들고, 실행을 맡긴다.</h4>
           <ul>
             <li>1일차에 만든 스킬의 지침을 점검하고 개선할 수 있다.</li>
-            <li>말로 캘린더를 관리하고, 정기 업무를 예약해 자동 실행시킬 수 있다.</li>
+            <li>AI로 캘린더를 관리하고, 정기 업무를 예약해 자동 실행시킬 수 있다.</li>
+            <li>자동화가 무엇인지 이해하고, 나의 일 중에 자동화할 수 있는 일을 말할 수 있다.</li>
             <li>AI가 짜준 코드를 코랩에서 실행해 파일 작업을 자동화하고, 오류를 되물어 고칠 수 있다.</li>
-            <li>내 반복 업무에 맞는 도구를 골라 자동화 1세트를 완성할 수 있다.</li>
           </ul>
         </div>
       </div>
@@ -825,10 +826,10 @@
             <tr><td>01_메일답장비서</td><td>1일차 PART 2</td><td>메일 작성 예시 3개, 실습용 메일 자료</td></tr>
             <tr><td>02_회의록작성</td><td>1일차 PART 2</td><td>회의 전사샘플 3종, 보고서 표준 양식, 회의록 스킬 지침</td></tr>
             <tr><td>03_제미나이노트북_규정집</td><td>1일차 4교시(시간 되면)</td><td>사내규정집, 대표 발언기록, 단계별 질문지</td></tr>
-            <tr><td>04_전략검토스킬</td><td>2일차 4교시(상급)</td><td>지침만으로 만드는 스킬 예시</td></tr>
-            <tr><td>1.지점별파일</td><td>2일차 2교시</td><td>지점별 매출 엑셀 4개, 실습 안내</td></tr>
-            <tr><td>2.통합매출</td><td>2일차 2교시 결과물 · 3교시 입력(안전망)</td><td>통합매출.xlsx</td></tr>
-            <tr><td>3.최종결과물</td><td>2일차 3교시 결과물(안전망)</td><td>매출분석보고.docx</td></tr>
+            <tr><td>04_전략검토스킬</td><td>참고자료(상급, 자율 학습)</td><td>지침만으로 만드는 스킬 예시</td></tr>
+            <tr><td>1.지점별파일</td><td>2일차 3교시</td><td>지점별 매출 엑셀 4개, 실습 안내</td></tr>
+            <tr><td>2.통합매출</td><td>2일차 3교시 결과물 · 4교시 입력(안전망)</td><td>통합매출.xlsx</td></tr>
+            <tr><td>3.최종결과물</td><td>2일차 4교시 결과물(안전망)</td><td>매출분석보고.docx</td></tr>
           </tbody>
         </table>
       </div>
@@ -838,7 +839,7 @@
       <span class="part-label">1일차 PART 1 · 13:00~13:50</span>
       <p class="part-title">생성형 AI 이해와 너나형해! 프롬프트 기본</p>
       <p>첫 시간은 "AI가 뭘 하는 애인지"부터 가볍게 짚고 시작합니다.<br>"어느 것이 최고냐"가 아니라 <strong>"언제 무엇을 쓰냐"</strong>가 정답입니다.</p>
-      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>생성형 AI가 검색과 다른 점과 환각의 의미를 설명할 수 있다.</li><li>자동화 3단계 중 오늘 어디까지 가는지 말할 수 있다.</li><li>주요 AI 도구의 화면 출력과 파일 형태를 비교할 수 있다.</li><li>너나형해!의 네 요소를 설명하고 프롬프트 기본요소 예시에 적용할 수 있다.</li></ul></dd></span></div><div><span class="ic"><i data-lucide="timer"></i></span><span><dt>시간 배분</dt><dd>환경 세팅 10분 → 생성형 AI·AI비서 개념 10분 → 도입 질문·도구 비교 → 너나형해! 프롬프트 기본 → 정리</dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>Gemini 로그인·실습자료 내려받기 → 생성형 AI의 이해 → AI비서가 할 수 있는 일(자동화 3단계) → 도입 질문 → 도구 지도 → 같은 요청으로 Gemini·ChatGPT 비교 → 너나형해! → 1교시 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>내 <strong>반복 업무 목록</strong>(2일차 4교시 재료), 너나형해! 프롬프트 기본요소 예시</dd></span></div></dl>
+      <dl class="meta part-meta"><div><span class="ic"><i data-lucide="target"></i></span><span><dt>학습목표</dt><dd><ul><li>생성형 AI가 검색과 다른 점과 환각의 의미를 설명할 수 있다.</li><li>자동화 3단계 중 오늘 어디까지 가는지 말할 수 있다.</li><li>주요 AI 도구의 화면 출력과 파일 형태를 비교할 수 있다.</li><li>너나형해!의 네 요소를 설명하고 프롬프트 기본요소 예시에 적용할 수 있다.</li></ul></dd></span></div><div><span class="ic"><i data-lucide="timer"></i></span><span><dt>시간 배분</dt><dd>환경 세팅 10분 → 생성형 AI·AI비서 개념 10분 → 도입 질문·도구 비교 → 너나형해! 프롬프트 기본 → 정리</dd></span></div><div><span class="ic"><i data-lucide="list-ordered"></i></span><span><dt>순서</dt><dd>Gemini 로그인·실습자료 내려받기 → 생성형 AI의 이해 → AI비서가 할 수 있는 일(자동화 3단계) → 도입 질문 → 도구 지도 → 같은 요청으로 Gemini·ChatGPT 비교 → 너나형해! → 1교시 정리</dd></span></div><div><span class="ic"><i data-lucide="package-check"></i></span><span><dt>끝나면 손에 남는 것</dt><dd>내 <strong>반복 업무 목록</strong>(2일차 업무 구조화력 재료), 너나형해! 프롬프트 기본요소 예시</dd></span></div></dl>
     </div>
 
     <section class="chapter" id="c00">
@@ -917,7 +918,7 @@
           <h2>지난주에 한 일 중, 지루하게 반복된 일은?</h2>
         </div>
       </div>
-      <p class="lead">강의를 시작하기 전에 2~3명의 답을 받아 칠판에 적습니다.<br>이 목록이 그냥 아이스브레이킹이 아닙니다 — <strong>2일차 마지막 시간의 실습 재료</strong>입니다.</p>
+      <p class="lead">강의를 시작하기 전에 2~3명의 답을 받아 칠판에 적습니다.<br>이 목록이 그냥 아이스브레이킹이 아닙니다 — <strong>2일차 업무 구조화력 시간의 재료</strong>입니다.</p>
       <h4 class="step"><span class="stepno">Step 1</span>세 개만 적습니다.</h4>
       <p>거창할 필요 없습니다. "매주 지점 매출 취합", "똑같은 안내 메일 20통", "회의록 받아쓰기", "월말 보고서 양식 채우기" — 이 정도면 충분합니다.</p>
       <div class="codebox plain">
@@ -926,10 +927,10 @@
 2. (                                              )
 3. (                                              )
 
-  → 이 중 하나를 2일차 4교시에 자동화합니다.
+  → 이 중 하나를 2일차 업무 구조화력 시간에 직접 구조화해 봅니다.
   → 교시마다 "지금 배운 걸로 이 중 뭘 할 수 있나"를 생각해 보세요.</pre>
       </div>
-      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">좋은 후보의 조건</p><p>① 주 1회 이상 반복된다 ② 들어오는 재료가 매번 비슷하다 ③ 결과물의 형태가 정해져 있다. 세 개 다 맞으면 자동화 1호 후보입니다.</p></div></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">좋은 후보의 조건</p><p>① 주 1회 이상 반복된다 ② 들어오는 재료가 매번 비슷하다 ③ 결과물의 형태가 정해져 있다. 세 개 다 맞으면 자동화 후보입니다.</p></div></div>
     </section>
 
     <section class="chapter" id="c02">
@@ -949,7 +950,7 @@
             <tr><td><strong>Gemini</strong></td><td>구글 서비스 연동, <strong>스킬</strong>, 캘린더, 이미지 생성</td><td>글·표·코드·이미지</td><td>1일차 직접 실습<br>2일차 스킬·캘린더</td><td><strong>O</strong></td></tr>
             <tr><td><strong>Claude</strong></td><td>긴 문서 읽기와 글쓰기</td><td>글·표·코드·문서 초안</td><td>도구 살펴보기</td><td><strong>O</strong></td></tr>
             <tr class="pick"><td><strong>제미나이 노트북</strong><br>(구 NotebookLM)</td><td>올린 자료를 바탕으로 답하고 출처를 표시</td><td>출처가 표시된 답변·요약·오디오·슬라이드</td><td>1일차 4교시</td><td><strong>O</strong></td></tr>
-            <tr><td><strong>Google Colab</strong></td><td>설치 없이 브라우저에서 파이썬 실행</td><td>코드 실행 결과·표·그래프·파일</td><td>2일차 2·3교시</td><td><strong>O</strong></td></tr>
+            <tr><td><strong>Google Colab</strong></td><td>설치 없이 브라우저에서 파이썬 실행</td><td>코드 실행 결과·표·그래프·파일</td><td>2일차 3·4교시</td><td><strong>O</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -1615,12 +1616,12 @@
       <div class="datafile"><span class="df-ic"><i data-lucide="files"></i></span><div class="df-b"><b>2일차 실습자료</b><span>1.지점별파일(엑셀 4개) · 2.통합매출 · 3.최종결과물 — 뒤의 두 폴더는 안전망입니다</span></div><a class="copy-btn df-dl" href="2일차_실습자료.zip" download><i data-lucide="download"></i><span>전체 내려받기</span></a></div>
       <div class="table-wrap"><table><thead><tr><th>시간</th><th>내용</th><th>결과물</th></tr></thead><tbody>
       <tr><td>13:00~13:50</td><td>일정 관리와 홍보물</td><td>캘린더 일정, 뉴스 요약 예약, 공지 이미지와 포스터</td></tr>
-      <tr><td>14:00~14:50</td><td>파이썬 자동화 ①</td><td>지점별 엑셀을 합친 통합매출.xlsx</td></tr>
-      <tr><td>15:00~15:50</td><td>파이썬 자동화 ②</td><td>차트가 들어간 워드 보고서</td></tr>
-      <tr><td>16:00~17:00</td><td>종합 실습</td><td>업무 자동화 기획표와 자동화 1호</td></tr>
+      <tr><td>14:00~14:50</td><td>자동화의 이해</td><td>업무 자동화의 범위와 가능성 이해</td></tr>
+      <tr><td>15:00~15:50</td><td>파이썬 자동화 ①</td><td>QR코드 생성기, 지점별 엑셀을 합친 통합매출.xlsx</td></tr>
+      <tr><td>16:00~17:00</td><td>파이썬 자동화 ②</td><td>차트가 들어간 워드 보고서</td></tr>
       </tbody></table></div></div>
-    <div class="part" id="part-2-1"><span class="part-label">2일차 · 13:00~13:50</span><p class="part-title">일정 관리와 홍보물 만들기</p><p>말로 캘린더에 일정을 등록하고 뉴스 요약을 예약한 뒤, 공지 이미지와 홍보 포스터를 만듭니다.</p></div>
-    <section class="chapter" id="c29"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>일정 관리</p><h2>말로 캘린더에 일정 등록하기</h2></div></div><p>Gemini에서 캘린더 연결이 필요한 경우 이 실습에서 설정 → 앱을 열어 Google Calendar 연결을 확인합니다. 아래 요청을 입력하고 실제 캘린더에서 날짜와 시간을 확인합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">일정 요청</span><span class="pt">다음 주 수영강습</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>다음 주 월·수·목 오전 9시부터 10시까지 &quot;수영강습&quot;을 캘린더에 등록해줘.</pre></div></section>
+    <div class="part" id="part-2-1"><span class="part-label">2일차 · 13:00~13:50</span><p class="part-title">일정 관리와 홍보물 만들기</p><p>AI로 캘린더에 일정을 등록하고 뉴스 요약을 예약한 뒤, 공지 이미지와 홍보 포스터를 만듭니다.</p></div>
+    <section class="chapter" id="c29"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>일정 관리</p><h2>AI로 캘린더에 일정 등록하기</h2></div></div><p>Gemini에서 캘린더 연결이 필요한 경우 이 실습에서 설정 → 앱을 열어 Google Calendar 연결을 확인합니다. 아래 요청을 입력하고 실제 캘린더에서 날짜와 시간을 확인합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">일정 요청</span><span class="pt">다음 주 수영강습</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>다음 주 월·수·목 오전 9시부터 10시까지 &quot;수영강습&quot;을 캘린더에 등록해줘.</pre></div></section>
     <section class="chapter" id="c31"><div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>반복 업무</p><h2>매주 월요일 뉴스 요약 예약하기</h2></div></div><p>ChatGPT에 로그인한 뒤 예약 작업을 만듭니다. 일정이나 무료 사용 한도는 계정에 따라 다를 수 있으므로 화면에서 확인합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">예약 요청</span><span class="pt">업계 뉴스 요약</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>매주 월요일 아침 식품·생활용품 유통 업계 뉴스를 5건 이내로 요약해서 보내줘. 각 뉴스에 출처 링크를 붙여줘.</pre></div><p>작업 목록에서 예약 내용을 확인하고 결과를 받을 때 출처를 직접 열어 봅니다.</p></section>
     <section class="chapter" id="c13">
       <div class="ch-head"><span class="ch-num">03</span><div><p class="ch-kicker"><i data-lucide="image"></i>공지 이미지 실습</p><h2>공지 이미지 만들기</h2></div></div>
@@ -1649,9 +1650,109 @@
 대상: [참가 대상]
 
 세로형으로 만들고, 제목과 일시가 잘 보이게 해줘. 없는 내용은 넣지 마.</pre></div><p>제목·일시·장소가 정확한지 살펴봅니다. 글자가 잘못 나오면 배경을 만들고 파워포인트에서 문구를 직접 넣습니다.</p></section>
+    <section class="chapter" id="c49">
+      <div class="ch-head">
+        <span class="ch-num">05</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="sparkles"></i>자동화 예시</p>
+          <h2>자동화 예시 — 실제로 만들어본 사례</h2>
+        </div>
+      </div>
+      <p class="lead">코드를 몰라도 AI로 이런 것까지 만들 수 있습니다.<br>다음 교시부터 같은 원리로 직접 만들어 봅니다.</p>
+      <ul>
+        <li>내가 꿈꾸는 자동화
+          <ul><li>28개 학과에 대한 "학생 역량 진단 보고서 자동 생성"</li></ul>
+        </li>
+      </ul>
+      <figure class="illus"><img src="img/01_보고서자동화.gif" alt="학생 역량 진단 보고서 자동 생성 결과 화면"></figure>
+      <h3><span class="sn">5.1</span>보고서 생성 프로그램을 만들기 위한 시간: 2주</h3>
+      <ul>
+        <li>데이터 전처리
+          <ul>
+            <li>로직 구상</li>
+            <li>한글 파일 템플릿 제작</li>
+            <li>기초 통계 분석</li>
+            <li>분석 결과 한글 표에 옮기기</li>
+            <li>차트 생성</li>
+            <li>차트 생성 이미지 한글 파일에 옮기기</li>
+            <li>학과별로 생성된 파일 하나로 합치기</li>
+          </ul>
+        </li>
+      </ul>
+      <ul>
+        <li>항목별 차트 그리기 — <a href="https://youtu.be/fKAkXmOkh8o" target="_blank" rel="noopener noreferrer">영상 보기 ↗</a></li>
+        <li>홈페이지에서 자료 다운 받기 — <a href="https://youtu.be/tVL2f-_YVq4" target="_blank" rel="noopener noreferrer">영상 보기 ↗</a></li>
+        <li>엑셀 데이터 한글로 옮기기 — <a href="https://youtu.be/aFyFth4GdYg" target="_blank" rel="noopener noreferrer">영상 보기 ↗</a></li>
+        <li>PDF파일에서 승인번호 찾아서 이미지로 캡쳐하기 — <a href="https://www.youtube.com/watch?v=9WbMSTDIPpY" target="_blank" rel="noopener noreferrer">영상 보기 ↗</a></li>
+      </ul>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">오늘 3·4교시에서</p><p>이 정도 규모는 아니지만 같은 원리로 지점별 엑셀을 합치고 차트가 들어간 보고서를 만듭니다. 코드는 AI가 쓰고, 나는 무엇을 원하는지만 정확히 설명합니다.</p></div></div>
+    </section>
+    <section class="chapter" id="c50">
+      <div class="ch-head">
+        <span class="ch-num">06</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="network"></i>업무 구조화력</p>
+          <h2>업무 구조화력 — 일을 잘하는 것과 설명하는 것은 다르다</h2>
+        </div>
+      </div>
+      <div class="statement"><small>업무 구조화력</small>내 일을 다른 사람이나 AI에게 맡길 수 있을 정도로, 나누고 설명하는 힘</div>
+      <p>익숙한 일은 생각하지 않고도 처리합니다. 그래서 "그냥 이렇게 하면 돼요"라고밖에 설명하지 못합니다.<br>AI에게 일을 맡겨도 요구가 막연하면 결과도 막연합니다. <strong>자동화의 시작은 코딩이 아니라, 머릿속 순서와 기준을 밖으로 꺼내는 것</strong>입니다.</p>
+      <h3><span class="sn">6.1</span>같은 일, 두 가지 설명</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4><i data-lucide="cloud"></i>막연한 설명</h4>
+          <ul><li>매출 파일 정리하기</li><li>보고서 만들기</li><li>이상한 데이터 확인하기</li></ul>
+        </div>
+        <div class="card">
+          <h4><i data-lucide="list-checks"></i>구조화된 설명</h4>
+          <ul><li>폴더 안의 지점별 매출 파일을 모두 불러온다</li><li>4행 머리글 아래 자료를 하나의 표로 이어 붙인다</li><li>A2 셀의 지점 이름을 "지점" 열로 채운다</li><li>날짜 순으로 정렬한다</li><li>"결과" 폴더에 새 파일로 저장한다</li><li>합친 행 수가 120행인지 확인한다</li></ul>
+        </div>
+      </div>
+      <h3><span class="sn">6.2</span>업무 구조화 5단계</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>단계</th><th>스스로 던질 질문</th><th>지점 매출 합치기라면</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 결과 정의</strong></td><td>무엇이 만들어져야 끝인가? 누가 어떤 형태로 받나?</td><td>지점 4곳 매출이 한 표에 모인 엑셀 파일 1개</td></tr>
+          <tr><td><strong>② 일 나누기</strong></td><td>큰 일을 작은 작업으로 쪼개면? 그중 어디를 자동화할까?</td><td>불러오기 → 붙이기 → 지점 열 채우기 → 정렬 → 저장</td></tr>
+          <tr class="pick"><td><strong>③ 입력 · 처리 · 결과</strong></td><td>무엇이 들어와서, 어떻게 처리되고, 무엇이 나오나?</td><td>파일 4개 → 이어 붙이고 정렬 → 통합 파일</td></tr>
+          <tr><td><strong>④ 규칙과 예외</strong></td><td>조건·반복·순서는? 자료가 없거나 이상하면?</td><td>머리글은 한 번만, 결과 파일은 합칠 대상에서 제외</td></tr>
+          <tr><td><strong>⑤ 검증 방법</strong></td><td>결과가 맞는지 어떻게 확인하나?</td><td>행 수 120, 매출액 합계가 원본 4개 합과 같은지</td></tr>
+        </tbody>
+      </table></div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">"이 업무를 자동화할 수 있을까?"가 아니라</p><p><strong>"이 업무 중 어느 부분을 자동화할 수 있을까?"</strong>를 묻습니다. 작게 나눌수록 자동화할 수 있는 부분이 보이고, 사람이 판단할 부분도 분명해집니다.</p></div></div>
+    </section>
     <hr class="chapter-divider" aria-hidden="true">
-    <div class="part" id="part-2-2"><span class="part-label">2일차 · 14:00~14:50</span><p class="part-title">코딩 없이 파이썬 자동화 ①</p><p>완성된 프롬프트로 코드를 요청해 지점별 엑셀 파일을 합칩니다.</p></div>
-    <section class="chapter" id="c33"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>실습 준비</p><h2>결과부터 정하고 작업을 나누기</h2></div></div><p>코드를 만들기 전에 최종 결과를 정합니다. QR코드는 사이트 주소와 이름을 입력받아 이미지 한 장을 만드는 예입니다. 아래처럼 입력·처리·결과를 나누면 AI에 필요한 정보를 전달하기 쉽습니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">QR코드 예시</span><span class="pt">목적·INPUT·PROCESS·OUTPUT</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>[작업 설명]
+    <div class="part" id="part-2-2"><span class="part-label">2일차 · 14:00~14:50</span><p class="part-title">자동화의 이해</p><p>코딩 없이도 자동화가 가능해진 이유와, 오늘 만드는 것들이 어디에 해당하는지 정리합니다.</p></div>
+    <section class="chapter" id="c51">
+      <div class="ch-head">
+        <span class="ch-num">01</span>
+        <div>
+          <p class="ch-kicker"><i data-lucide="sparkles"></i>개념</p>
+          <h2>자동화의 이해 — 코딩의 장벽이 낮아졌다</h2>
+        </div>
+      </div>
+      <p class="lead">업무 자동화는 업무 전체를 통째로 자동화하는 것이 아닙니다.<br>작은 반복 하나를 줄이는 것도 자동화입니다.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>규모</th><th>예시</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td><strong>작은 자동화</strong></td><td>엑셀 파일 합치기, 파일명 일괄 변경, QR코드 생성, 반복 계산</td></tr>
+            <tr><td><strong>중간 규모 자동화</strong></td><td>거래처별 파일 생성, 정기 보고서 작성, 설문 결과 집계</td></tr>
+            <tr><td><strong>업무 프로세스 자동화</strong></td><td>신청 → 검토 → 승인 → 결과 전달처럼 여러 단계가 이어지는 흐름 전체</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">오늘은 작은 자동화부터</p><p>오늘 만드는 QR코드 생성기와 엑셀 통합이 바로 "작은 자동화"입니다. 거창한 프로그램이 아니어도 자동화입니다.</p></div></div>
+      <h3><span class="sn">1.1</span>왜 지금 코딩 없이 자동화가 가능한가</h3>
+      <ul>
+        <li>예전엔 자동화하려면 프로그래밍 지식과 개발 경험이 필요했습니다.</li>
+        <li>지금은 자연어로 원하는 기능을 설명하면 AI가 코드를 만듭니다.</li>
+        <li>오류가 나도 메시지를 그대로 AI에게 전달하면 고쳐줍니다.</li>
+      </ul>
+      <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p class="ct">기억할 한 줄</p><p>코드를 직접 쓰는 부담은 줄었지만, <strong>무엇을 자동화할지 정의하는 능력</strong>은 더 중요해졌습니다. 1일차에 배운 자동화 3단계, 바로 앞에서 다룬 업무 구조화력이 여기서 쓰입니다.</p></div></div>
+    </section>
+    <div class="part" id="part-2-3"><span class="part-label">2일차 · 15:00~15:50</span><p class="part-title">코딩 없이 파이썬 자동화 ①</p><p>완성된 프롬프트로 코드를 요청해 지점별 엑셀 파일을 합칩니다.</p></div>
+    <section class="chapter" id="c33"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>실습 준비</p><h2>결과부터 정하고 작업을 나누기</h2></div></div><p>코드를 만들기 전에 최종 결과를 정합니다. QR코드는 사이트 주소와 이름을 입력받아 이미지 한 장을 만드는 예입니다. 아래처럼 입력·처리·결과를 나누면 AI에 필요한 정보를 전달하기 쉽습니다.</p><figure class="illus" style="max-width:50%; margin-left:auto; margin-right:auto;"><img src="img/02_QR코드_예시.png" alt="QR코드 아래 중앙에 사이트명이 표시된 출력 예시"><figcaption>최종 아웃풋 형태 — QR코드 아래 중앙에 사이트명이 표시됩니다.</figcaption></figure><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">QR코드 예시</span><span class="pt">목적·INPUT·PROCESS·OUTPUT</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>[작업 설명]
 ## 목적
 웹페이지로 접속할 수 있는 QR코드를 만들고 구분을 위해 사이트명을 표시한다.
 ## INPUT
@@ -1659,7 +1760,7 @@
 ## PROCESS
 URL에 해당하는 QR코드를 만들고 아래 중앙에 사이트명을 표시한다.
 ## OUTPUT
-&#x27;사이트명_QR코드.png&#x27;로 저장하고 다운로드한다.</pre></div><p>이번 본 실습에서는 같은 방식으로 엑셀 4개를 통합하는 작업을 설계합니다.</p></section>
+&#x27;사이트명_QR코드.png&#x27;로 저장하고 다운로드한다.</pre></div><p>위 프롬프트를 Colab에 그대로 복사해 실행하면 QR코드 PNG 파일을 바로 받을 수 있습니다 — 오늘의 첫 자동화 결과물입니다. 이번 본 실습에서는 같은 방식으로 엑셀 4개를 통합하는 작업을 설계합니다.</p></section>
     <section class="chapter" id="c34"><div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>기본 프롬프트</p><h2>Google Colab용 기본 프롬프트</h2></div></div><p>뒤에 나올 두 실습(엑셀 합치기, 워드 보고서) 프롬프트에는 아래 기본 요구사항이 이미 포함되어 있어 따로 합칠 필요가 없습니다. 코랩 환경과 초보자를 위한 설명 방식이 어떻게 미리 정리되어 있는지만 참고로 봐 둡니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">Colab 기본 프롬프트</span><span class="pt">Colab용 공통 요청문</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>당신은 파이썬 전문가입니다.
 저는 파이썬 초보자이며 Google Colab에서 실행할 코드를 만들고 싶습니다.
 
@@ -1743,15 +1844,15 @@ URL에 해당하는 QR코드를 만들고 아래 중앙에 사이트명을 표�
 ## OUTPUT
 - 결과를 &#x27;통합매출.xlsx&#x27;로 저장하고 다운로드한다. 첫 행은 머리글이다.</pre></div><p>AI가 만든 전체 코드를 Colab 새 노트의 코드 셀에 붙여넣고 실행합니다. 파일 선택창에서 지점별 파일 4개를 선택하고, 결과 파일이 내려오면 엽니다.</p><div class="callout key"><span class="ci"><i data-lucide="check-check"></i></span><div class="cb"><p class="ct">결과 확인</p><p>통합 파일에 지점 열이 있고 4개 지점의 데이터가 포함되었는지, 각 30행씩 총 120행인지 원본과 비교합니다.</p></div></div></section>
     <hr class="chapter-divider" aria-hidden="true">
-    <div class="part" id="part-2-3"><span class="part-label">2일차 · 15:00~15:50</span><p class="part-title">코딩 없이 파이썬 자동화 ②</p><p>실행 결과를 확인하고 오류를 AI에게 전달해 수정한 뒤, 엑셀 데이터로 차트가 들어간 워드 보고서를 만듭니다.</p>
-      <div class="callout warn"><span class="ci"><i data-lucide="life-buoy"></i></span><div class="cb"><p class="ct">2교시에 통합매출.xlsx를 못 만들었다면</p><p>오류를 고치다 시간이 부족했거나 결과가 계속 안 맞아도 괜찮습니다. 아래 파일을 내려받아 이어서 3교시를 진행하세요. 쉬는 시간에 2교시 실습을 마저 끝내고 싶다면 직접 만든 파일을 이어서 써도 됩니다.</p></div></div>
-      <div class="datafile"><span class="df-ic"><i data-lucide="file-spreadsheet"></i></span><div class="df-b"><b>통합매출.xlsx (안전망)</b><span>2교시 결과물과 동일한 형식 — 지점 열 포함 120행</span></div><a class="copy-btn df-dl" href="통합매출.xlsx" download><i data-lucide="download"></i><span>내려받기</span></a></div>
+    <div class="part" id="part-2-4"><span class="part-label">2일차 · 16:00~17:00</span><p class="part-title">코딩 없이 파이썬 자동화 ②</p><p>실행 결과를 확인하고 오류를 AI에게 전달해 수정한 뒤, 엑셀 데이터로 차트가 들어간 워드 보고서를 만듭니다.</p>
+      <div class="callout warn"><span class="ci"><i data-lucide="life-buoy"></i></span><div class="cb"><p class="ct">3교시에 통합매출.xlsx를 못 만들었다면</p><p>오류를 고치다 시간이 부족했거나 결과가 계속 안 맞아도 괜찮습니다. 아래 파일을 내려받아 이어서 4교시를 진행하세요. 쉬는 시간에 3교시 실습을 마저 끝내고 싶다면 직접 만든 파일을 이어서 써도 됩니다.</p></div></div>
+      <div class="datafile"><span class="df-ic"><i data-lucide="file-spreadsheet"></i></span><div class="df-b"><b>통합매출.xlsx (안전망)</b><span>3교시 결과물과 동일한 형식 — 지점 열 포함 120행</span></div><a class="copy-btn df-dl" href="통합매출.xlsx" download><i data-lucide="download"></i><span>내려받기</span></a></div>
     </div>
     <section class="chapter" id="c38"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>오류 수정</p><h2>오류를 그대로 전달해 코드 고치기</h2></div></div><p>빨간 오류가 나오거나 결과가 예상과 다르면 오류 메시지 전체와 무엇을 했는지 AI에게 전달합니다. 결과가 틀렸다면 실제 행 수, 열 이름, 기대했던 결과도 함께 알려줍니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">오류 수정 요청</span><span class="pt">오류와 입력 환경 전달</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>아래 오류가 났어. Google Colab에서 실행할 수 있도록 원인을 설명하고 전체 수정 코드를 다시 줘.
 [오류 메시지 전체 붙여넣기]
 
 입력 파일 구조와 출력 파일 형식은 그대로 유지해줘.</pre></div><p>수정된 전체 코드를 새 셀에 붙여넣고 처음부터 다시 실행합니다. 오류가 없는 경우에는 열 이름이나 결과가 예상과 다른 상황을 예로 들어 수정 요청을 연습합니다.</p></section>
-    <section class="chapter" id="c45"><div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>본 실습</p><h2>엑셀에서 차트가 포함된 워드 보고서 만들기</h2></div></div><p>2교시에서 내려받은 <strong>통합매출.xlsx</strong>를 입력으로 사용합니다. 이번에는 기본 프롬프트와 작업 설명을 합칠 필요 없이, 아래 프롬프트를 그대로 복사해 AI에게 요청합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">작업 설명 ②</span><span class="pt">엑셀 → 교차표·차트 → 워드 보고서 (바로 복사)</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>당신은 파이썬 전문가입니다.
+    <section class="chapter" id="c45"><div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>본 실습</p><h2>엑셀에서 차트가 포함된 워드 보고서 만들기</h2></div></div><p>3교시에서 내려받은 <strong>통합매출.xlsx</strong>를 입력으로 사용합니다. 이번에는 기본 프롬프트와 작업 설명을 합칠 필요 없이, 아래 프롬프트를 그대로 복사해 AI에게 요청합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">작업 설명 ②</span><span class="pt">엑셀 → 교차표·차트 → 워드 보고서 (바로 복사)</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>당신은 파이썬 전문가입니다.
 저는 파이썬 초보자이며 Google Colab에서 실행할 코드를 만들고 싶습니다.
 
 [요구사항]
@@ -1799,20 +1900,6 @@ URL에 해당하는 QR코드를 만들고 아래 중앙에 사이트명을 표�
       <div class="callout warn"><span class="ci"><i data-lucide="life-buoy"></i></span><div class="cb"><p class="ct">완성된 모습이 궁금하거나 끝까지 못 만들었다면</p><p>아래 샘플 보고서를 내려받아 내가 만든 결과와 비교해 보세요. 오류를 해결하지 못했어도 다음 교시로 넘어가는 데는 문제가 없습니다.</p></div></div>
       <div class="datafile"><span class="df-ic"><i data-lucide="file-text"></i></span><div class="df-b"><b>매출분석보고.docx (샘플)</b><span>교차표·상품별 막대그래프가 포함된 완성 예시</span></div><a class="copy-btn df-dl" href="매출분석보고.docx" download><i data-lucide="download"></i><span>내려받기</span></a></div>
     </section>
-    <hr class="chapter-divider" aria-hidden="true">
-    <div class="part" id="part-2-4"><span class="part-label">2일차 · 16:00~17:00</span><p class="part-title">종합 실습 — 내 업무 자동화 설계</p><p>내 업무를 구조화하고 기획표를 작성한 뒤 스킬·예약 작업·코랩 중 하나로 자동화 1호를 만들어 공유합니다.</p></div>
-    <section class="chapter" id="c40"><div class="ch-head"><span class="ch-num">01</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>업무 구조화력</p><h2>내 업무를 구조화하는 다섯 단계</h2></div></div><p>업무 구조화력은 내가 하는 일을 다른 사람이나 AI에게 맡길 수 있도록 목표와 절차를 분명히 설명하는 힘입니다.</p><div class="table-wrap"><table><thead><tr><th>단계</th><th>생각할 질문</th></tr></thead><tbody><tr><td>① 결과 정의</td><td>무엇을 왜 만들고 누가 어떤 형식으로 받는가?</td></tr><tr><td>② 업무 나누기</td><td>큰 일을 실행 가능한 작은 작업으로 나누면 어떤 순서인가?</td></tr><tr><td>③ 입력·처리·결과</td><td>무엇이 들어와 어떤 처리를 거쳐 무엇이 나오는가?</td></tr><tr><td>④ 규칙과 예외</td><td>판단 기준·반복·순서는 무엇이며 빠진 자료는 어떻게 처리할까?</td></tr><tr><td>⑤ 검증 방법</td><td>누락, 중복, 숫자나 형식이 맞는지 어떻게 확인할까?</td></tr></tbody></table></div></section>
-    <section class="chapter" id="c41"><div class="ch-head"><span class="ch-num">02</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>기획</p><h2>내 업무 자동화 기획표 작성</h2></div></div><p>1일차에 적은 반복 업무 중 하나를 골라 아래 기획표를 채웁니다. 실제 자료를 사용하기 어렵다면 가상의 자료로 작성합니다.</p><div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">기획표</span><span class="pt">업무 구조화</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>업무명: [반복하는 업무]
-목적과 최종 결과물: [누가 사용할 무엇을 어떤 형식으로 만들까?]
-작업 순서: [큰 업무를 작은 단계로 나누기]
-INPUT: [필요한 자료와 형식]
-PROCESS: [처리 순서, 조건, 반복, 예외]
-OUTPUT: [결과물 형식과 받는 방법]
-검증 방법: [누락·중복·숫자·형식을 어떻게 확인할까?]
-사람이 판단할 부분: [ ]
-사용할 도구: [ ] 스킬  [ ] 예약 작업  [ ] Colab</pre></div></section>
-    <section class="chapter" id="c42"><div class="ch-head"><span class="ch-num">03</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>제작과 공유</p><h2>자동화 1호를 만들고 공유하기</h2></div></div><p>기획표를 바탕으로 도구 하나를 골라 작은 범위부터 만듭니다. 반복 작성은 스킬, 정해진 시점의 요약·알림은 예약 작업, 파일 처리와 보고서는 Colab을 활용합니다.</p><p>샘플 자료로 한 번 실행하고 기획표에 적은 방법으로 결과를 확인합니다. 업무 목적, 선택한 도구, 만든 결과와 확인한 내용을 함께 공유합니다.</p></section>
-    <section class="chapter" id="c43"><div class="ch-head"><span class="ch-num">04</span><div><p class="ch-kicker"><i data-lucide="file-text"></i>마무리</p><h2>과정 마무리</h2></div></div><p>완성한 스킬·예약 작업·Colab 노트와 결과 파일을 확인하고, 다음에 적용할 업무 하나를 정합니다.</p><div class="statement"><small>기억할 한 줄</small>자동화는 최종 결과를 정하고 입력·처리·결과와 확인 방법을 설명하는 것에서 시작한다.</div></section>
     <hr class="chapter-divider" aria-hidden="true">
 
     <section class="chapter" id="kit"><div class="ch-head"><span class="ch-num">+</span><div><p class="ch-kicker"><i data-lucide="clipboard-list"></i>실습 키트</p><h2>차시별 요청문 모음</h2></div></div>
@@ -2047,7 +2134,7 @@ OUTPUT: [결과물 형식과 받는 방법]
 대상: [참가 대상]
 
 세로형으로 만들고, 제목과 일시가 잘 보이게 해줘. 없는 내용은 넣지 마.</pre></div>
-<h3><span class="sn">7</span>2일차 PART 2 · QR코드와 엑셀 통합</h3>
+<h3><span class="sn">7</span>2일차 PART 3 · QR코드와 엑셀 통합</h3>
 <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">QR코드 예시</span><span class="pt">목적·INPUT·PROCESS·OUTPUT</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>[작업 설명]
 ## 목적
 웹페이지로 접속할 수 있는 QR코드를 만들고 구분을 위해 사이트명을 표시한다.
@@ -2139,7 +2226,7 @@ URL에 해당하는 QR코드를 만들고 아래 중앙에 사이트명을 표�
 
 ## OUTPUT
 - 결과를 &#x27;통합매출.xlsx&#x27;로 저장하고 다운로드한다. 첫 행은 머리글이다.</pre></div>
-<h3><span class="sn">8</span>2일차 PART 3 · 오류 수정과 워드 보고서</h3>
+<h3><span class="sn">8</span>2일차 PART 4 · 오류 수정과 워드 보고서</h3>
 <div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">오류 수정 요청</span><span class="pt">오류와 입력 환경 전달</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>아래 오류가 났어. Google Colab에서 실행할 수 있도록 원인을 설명하고 전체 수정 코드를 다시 줘.
 [오류 메시지 전체 붙여넣기]
 
@@ -2189,16 +2276,6 @@ URL에 해당하는 QR코드를 만들고 아래 중앙에 사이트명을 표�
 
 ## OUTPUT
 - 제목, 상품명·지점별 매출 합계 교차표, 상품별 막대그래프를 모두 포함한 &#x27;매출분석보고.docx&#x27;를 생성해서 다운로드한다.</pre></div>
-<h3><span class="sn">9</span>2일차 PART 4 · 자동화 기획표</h3>
-<div class="codebox prompt"><div class="ph"><i data-lucide="terminal"></i><span class="pl">기획표</span><span class="pt">업무 구조화</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div><pre>업무명: [반복하는 업무]
-목적과 최종 결과물: [누가 사용할 무엇을 어떤 형식으로 만들까?]
-작업 순서: [큰 업무를 작은 단계로 나누기]
-INPUT: [필요한 자료와 형식]
-PROCESS: [처리 순서, 조건, 반복, 예외]
-OUTPUT: [결과물 형식과 받는 방법]
-검증 방법: [누락·중복·숫자·형식을 어떻게 확인할까?]
-사람이 판단할 부분: [ ]
-사용할 도구: [ ] 스킬  [ ] 예약 작업  [ ] Colab</pre></div>
     </section>
 
     <section class="chapter" id="summary">
@@ -2213,7 +2290,6 @@ OUTPUT: [결과물 형식과 받는 방법]
         <li><strong>일정과 홍보물</strong> — Gemini로 캘린더 일정을 등록하고, ChatGPT에 뉴스 요약을 예약한다. 공지 이미지와 포스터의 문구를 확인한다.</li>
         <li><strong>파이썬 자동화 ①</strong> — 완성된 프롬프트로 지점별 엑셀 파일을 통합한다.</li>
         <li><strong>파이썬 자동화 ②</strong> — 오류를 AI에게 전달해 수정하고, 통합 매출의 상품·지점별 교차표와 상품별 차트를 워드 보고서로 만든다.</li>
-        <li><strong>종합 실습</strong> — 업무 자동화 기획표를 작성하고 스킬·예약 작업·Colab 중 적합한 도구로 자동화 1호를 만든다.</li>
       </ol></div>
       <div class="summary"><div class="summary-h"><i data-lucide="list-checks"></i>업무 구조화의 다섯 단계</div><ol>
         <li><strong>결과 정의</strong> — 누가 사용할 무엇을 어떤 형식으로 만들지 정한다.</li>
