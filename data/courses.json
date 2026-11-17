@@ -48,6 +48,11 @@
         "title": "세종연구원 · AI 업무자동화·AI 비서 활용",
         "url": "./class/sejong2/",
         "cta": "강의실 바로 가기 →"
+      },
+      {
+        "title": "KISTI · 챗GPT를 활용한 업무 자동화",
+        "url": "./class/kisti/",
+        "cta": "강의실 바로 가기 →"
       }
     ]
   }
