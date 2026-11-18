@@ -820,6 +820,13 @@
   .board-link .bl-b b { font-size: 1.125rem; }
   .board-link .bl-b span { font-size: .8125rem; opacity: .9; }
   @media print { .board-link { box-shadow: none; } .board-link::after { content: " (" attr(href) ")"; font-size: 12px; } }
+
+  /* ---------- 목차 절(4.1) 항목 (2026-11-18) ---------- */
+  .toc li.toc-sub a { padding-top: 3px; padding-bottom: 3px; padding-left: 2.1em; font-size: 13px; color: var(--muted); line-height: 1.45; }
+  .toc li.toc-sub a .n { min-width: 2.4em; font-size: 12px; }
+  .toc li.toc-sub a:hover { color: var(--fg); }
+  .toc li.toc-sub a.active { color: var(--accent-ink); }
+  html { scroll-padding-top: 90px; }
 </style>
 </head>
 <body>
@@ -913,27 +920,81 @@
       <li><a href="#ChatGPT자동화-강의-소개"><span class="n">02</span>강의 소개</a></li>
       <li><a href="#ChatGPT자동화-AI시대와-자동화"><span class="n">03</span>AI시대와 자동화</a></li>
       <li><a href="#ChatGPT자동화-자동화-예시"><span class="n">04</span>자동화 예시</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-예시-s1"><span class="n">4.1</span>보고서 생성 프로그램을 만들기 위한 시간: 2주</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-예시-s2"><span class="n">4.2</span>자동화 사례 영상</a></li>
       <li><a href="#ChatGPT자동화-업무-자동화-프로세스"><span class="n">05</span>업무 자동화 프로세스</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-업무-자동화-프로세스-s1"><span class="n">5.1</span>김장을 자동화 할 수 있을까?</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-업무-자동화-프로세스-s2"><span class="n">5.2</span>INPUT - PROCESS -OUTPUT</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-업무-자동화-프로세스-s3"><span class="n">5.3</span>업무 쪼개기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-업무-자동화-프로세스-s4"><span class="n">5.4</span>보고서 업무 쪼개기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-업무-자동화-프로세스-s5"><span class="n">5.5</span>바이브 코딩의 본질</a></li>
       <li><a href="#ChatGPT자동화-AI로-이메일-초안-만들기"><span class="n">06</span>AI로 이메일 초안 만들기</a></li>
       <li><a href="#AI자동화-템플릿과-스킬의-차이-스킬-3요소"><span class="n">07</span>템플릿과 스킬의 차이 — 스킬 3요소</a></li>
+      <li class="toc-sub"><a href="#AI자동화-템플릿과-스킬의-차이-스킬-3요소-s1"><span class="n">7.1</span>스킬 3요소</a></li>
       <li><a href="#AI자동화-제공된-지침으로-이메일-초안-스킬-만들기"><span class="n">08</span>제공된 지침으로 이메일 초안 스킬 만들기</a></li>
       <li><a href="#AI자동화-짧은-메모로-스킬-시험하기"><span class="n">09</span>짧은 메모로 스킬 시험하기</a></li>
       <li><a href="#AI자동화-제공된-지침을-내-방식으로-수정하기"><span class="n">10</span>제공된 지침을 내 방식으로 수정하기</a></li>
       <li><a href="#AI자동화-예시를-분석해-새로운-스킬-지침-만들기"><span class="n">11</span>예시를 분석해 새로운 스킬 지침 만들기</a></li>
       <li><a href="#ChatGPT자동화-AI-활용-vs-자동화-개발"><span class="n">12</span>AI 활용 vs 자동화 개발</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-AI-활용-vs-자동화-개발-s1"><span class="n">12.1</span>AI 활용</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-AI-활용-vs-자동화-개발-s2"><span class="n">12.2</span>자동화 개발</a></li>
       <li><a href="#ChatGPT자동화-자동화-도구의-선택"><span class="n">13</span>자동화 도구의 선택</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-도구의-선택-s1"><span class="n">13.1</span>다양한 자동화 도구</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-도구의-선택-s2"><span class="n">13.2</span>도구 선택의 기준</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-도구의-선택-s3"><span class="n">13.3</span>상황별 추천 도구</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-자동화-도구의-선택-s4"><span class="n">13.4</span>도구별 적합한 상황 요약</a></li>
       <li><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기"><span class="n">14</span>ChatGPT로 VBA 코드 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s1"><span class="n">14.1</span>엑셀 VBA란?</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s2"><span class="n">14.2</span>VBA 코드 생성을 위한 프롬프트 템플릿</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s3"><span class="n">14.3</span>VBA 기초</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s4"><span class="n">14.4</span>누락된 시트 찾기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s5"><span class="n">14.5</span>시트이동링크 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s6"><span class="n">14.6</span>시트 복사하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s7"><span class="n">14.7</span>데이터합치기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s8"><span class="n">14.8</span>데이터 필터링해서 나누기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s9"><span class="n">14.9</span>형식에 맞춰서 데이터 입력하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s10"><span class="n">14.10</span>참석자 리스트 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s11"><span class="n">14.11</span>회의록 정리하기</a></li>
       <li class="toc-part" style="margin-top:24px; font-size:13px; font-weight:800; color:var(--accent-ink);"><a class="toc-day" href="#day2-start">── 2일차 ──</a></li>
       <li><a href="#ChatGPT자동화-VBA-애드인"><span class="n">01</span>VBA 애드인</a></li>
       <li><a href="#ChatGPT자동화-개발-환경-구축"><span class="n">02</span>개발 환경 구축</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-개발-환경-구축-s1"><span class="n">2.1</span>파이썬</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-개발-환경-구축-s2"><span class="n">2.2</span>VS Code</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-개발-환경-구축-s3"><span class="n">2.3</span>경로 불일치 오류시 해결 방법</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-개발-환경-구축-s4"><span class="n">2.4</span>Google Colab</a></li>
       <li><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기"><span class="n">03</span>ChatGPT로 파이썬 코드 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s1"><span class="n">3.1</span>기본 프롬프트</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s2"><span class="n">3.2</span>프로젝트 이용하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s3"><span class="n">3.3</span>만들어준 코드에 오류가 날 때 대처 방법</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s4"><span class="n">3.4</span>자주 발생하는 오류</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s5"><span class="n">3.5</span>파이썬 코드를 이해하는 법</a></li>
       <li><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기"><span class="n">04</span>파이썬으로 엑셀 데이터 편집하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s1"><span class="n">4.1</span>왜 엑셀 대신 파이썬인가</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s2"><span class="n">4.2</span>엑셀을 다루는 파이썬 라이브러리</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s3"><span class="n">4.3</span>데이터의 구조</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s4"><span class="n">4.4</span>파이썬에서 주의할 점</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s5"><span class="n">4.5</span>파이썬으로 엑셀을 다룰때 초보자가 실수하기 쉬운 5가지</a></li>
       <li><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습"><span class="n">05</span>파이썬으로 엑셀 다루기 실습</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s1"><span class="n">5.1</span>같은 형식의 여러 엑셀 파일 취합하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s2"><span class="n">5.2</span>파일 확장자 바꾸기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s3"><span class="n">5.3</span>항목별로 차트 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s4"><span class="n">5.4</span>거래처별로 자료 만들기(차트 생성)</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s5"><span class="n">5.5</span>견적서 입력하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s6"><span class="n">5.6</span>엑셀 파일 사용 시 주의 사항</a></li>
       <li class="toc-part" style="margin-top:24px; font-size:13px; font-weight:800; color:var(--accent-ink);"><a class="toc-day" href="#day3-start">── 3일차 ──</a></li>
       <li><a href="#ChatGPT자동화-파이썬-자동화-실습"><span class="n">01</span>파이썬 자동화 실습</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬-자동화-실습-s1"><span class="n">1.1</span>매출전표 캡쳐하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-파이썬-자동화-실습-s2"><span class="n">1.2</span>대시보드 만들기</a></li>
       <li><a href="#ChatGPT자동화-웹-크롤링"><span class="n">02</span>웹 크롤링</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-웹-크롤링-s1"><span class="n">2.1</span>웹 크롤링이란?</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-웹-크롤링-s2"><span class="n">2.2</span>웹 페이지 구조 이해하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-웹-크롤링-s3"><span class="n">2.3</span>웹 크롤링 기본 프롬프트</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-웹-크롤링-s4"><span class="n">2.4</span>웹 제어하기(텍스트 입력, 버튼 클릭 등) 기본 프롬프트</a></li>
       <li><a href="#ChatGPT자동화-API활용해서-보고서-만들기"><span class="n">03</span>API활용해서 보고서 만들기</a></li>
       <li><a href="#ChatGPT자동화-코드-활용하기"><span class="n">04</span>코드 활용하기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-코드-활용하기-s1"><span class="n">4.1</span>원하는 시점에 실행시키기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-코드-활용하기-s2"><span class="n">4.2</span>.py파일 바로가기 만들기</a></li>
+      <li class="toc-sub"><a href="#ChatGPT자동화-코드-활용하기-s3"><span class="n">4.3</span>내가 만든 코드 배포하기</a></li>
       <li><a href="#생성형AI업무활용-나의-이야기"><span class="n">05</span>나의 이야기</a></li>
       <li><a href="#answer-prompts"><span class="n">▸</span>정답 프롬프트 내려받기</a></li>
     </ol>
@@ -1137,9 +1198,9 @@
       </div>
       <ul><li>내가 꿈꾸는 자동화</li><ul><li>28개 학과에 대한 “학생 역량 진단 보고서 자동 생성”</li></ul></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_자동화-예시/01_보고서자동화.gif" alt=""></figure>
-      <h3><span class="sn">4.1</span>보고서 생성 프로그램을 만들기 위한 시간: 2주</h3>
+      <h3 id="ChatGPT자동화-자동화-예시-s1"><span class="sn">4.1</span>보고서 생성 프로그램을 만들기 위한 시간: 2주</h3>
       <ul><li>데이터 전처리</li><ul><li>로직 구상</li><li>한글 파일 템플릿 제작</li><li>기초 통계 분석</li><li>분석 결과 한글 표에 옮기기</li><li>차트 생성</li><li>차트 생성 이미지 한글 파일에 옮기기</li><li>학과별로 생성된 파일 하나로 합치기</li></ul></ul>
-      <h3><span class="sn">4.2</span>자동화 사례 영상</h3>
+      <h3 id="ChatGPT자동화-자동화-예시-s2"><span class="sn">4.2</span>자동화 사례 영상</h3>
       <div class="grid-2 videos">
         <figure class="video"><p class="video-title">항목별 차트 그리기</p><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/fKAkXmOkh8o" title="항목별 차트 그리기" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div><figcaption><a href="https://youtu.be/fKAkXmOkh8o" target="_blank" rel="noopener noreferrer">youtu.be/fKAkXmOkh8o</a></figcaption></figure>
         <figure class="video"><p class="video-title">홈페이지에서 자료 다운 받기</p><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/tVL2f-_YVq4" title="홈페이지에서 자료 다운 받기" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div><figcaption><a href="https://youtu.be/tVL2f-_YVq4" target="_blank" rel="noopener noreferrer">youtu.be/tVL2f-_YVq4</a></figcaption></figure>
@@ -1156,11 +1217,11 @@
           <h2>업무 자동화 프로세스</h2>
         </div>
       </div>
-      <h3><span class="sn">5.1</span>김장을 자동화 할 수 있을까?</h3>
+      <h3 id="ChatGPT자동화-업무-자동화-프로세스-s1"><span class="sn">5.1</span>김장을 자동화 할 수 있을까?</h3>
       <figure class="illus"><img src="이미지/ChatGPT자동화_업무-자동화-프로세스/01_김장1.jpg" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_업무-자동화-프로세스/02_김장2.jpg" alt=""></figure>
       <p>김치의 모든 작업을 자동화 할 수 있는 것은 아니다.</p>
-      <h3><span class="sn">5.2</span>INPUT - PROCESS -OUTPUT</h3>
+      <h3 id="ChatGPT자동화-업무-자동화-프로세스-s2"><span class="sn">5.2</span>INPUT - PROCESS -OUTPUT</h3>
       <h4><span class="hn">1.</span>IPO 기본 개념</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>컴퓨터와 AI는 모든 일을 세 단계로만 이해함</p></div></div>
       <ul><li>INPUT: 재료, 데이터, 입력값</li><li>PROCESS: 처리 방법, 규칙, 로직</li><li>OUTPUT: 결과물, 산출물</li></ul>
@@ -1170,7 +1231,7 @@
       <h4><span class="hn">3.</span>자동화 가능성의 기준</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>자동화 여부는 IPO의 명확성에 의해 결정됨</p></div></div>
       <ul><li>INPUT이 명확해야 함</li><li>PROCESS가 규칙으로 정의 가능해야 함</li><li>OUTPUT이 구체적이어야 함</li><li>하나라도 모호하면 자동화 어려움</li></ul>
-      <h3><span class="sn">5.3</span>업무 쪼개기</h3>
+      <h3 id="ChatGPT자동화-업무-자동화-프로세스-s3"><span class="sn">5.3</span>업무 쪼개기</h3>
       <h4><span class="hn">1.</span>업무 분해(Decomposition) 개념</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>큰 일을 작은 IPO 단위로 나누는 과정</p></div></div>
       <ul><li>각 단계는 독립적인 IPO 구조</li><li>OUTPUT이 다음 단계 INPUT이 됨</li><li>이어달리기 방식으로 연결됨</li></ul>
@@ -1181,7 +1242,7 @@
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>업무를 쪼개면 역할 분리가 가능해짐</p></div></div>
       <ul><li>🤖 규칙 기반 작업 → 자동화</li><li>👤 판단/경험 필요 → 인간 담당</li></ul>
       <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><h4>자동화의 핵심은 "쪼개기"</h4></div></div>
-      <h3><span class="sn">5.4</span>보고서 업무 쪼개기</h3>
+      <h3 id="ChatGPT자동화-업무-자동화-프로세스-s4"><span class="sn">5.4</span>보고서 업무 쪼개기</h3>
       <h4><span class="hn">1.</span>잘못된 접근 방식</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>IPO가 정의되지 않은 상태</p></div></div>
       <ul><li>INPUT: 불명확</li><li>PROCESS: 추상적</li><li>OUTPUT: 애매함</li><li>결과: AI 활용 불가</li></ul>
@@ -1191,7 +1252,7 @@
       <h4><span class="hn">3.</span>자동화 가능 영역 분석</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>단계별 난이도 구분 가능</p></div></div>
       <ul><li>단순 반복 작업 → 자동화 쉬움</li><li>계산/처리 작업 → 자동화 가능</li><li>해석/판단 작업 → 인간 필요</li></ul>
-      <h3><span class="sn">5.5</span>바이브 코딩의 본질</h3>
+      <h3 id="ChatGPT자동화-업무-자동화-프로세스-s5"><span class="sn">5.5</span>바이브 코딩의 본질</h3>
       <h4><span class="hn">1.</span>바이브 코딩 정의</h4>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>AI와 협업하는 방식의 변화</p></div></div>
       <ul><li>감이 아니라 구조로 소통</li><li>명확한 IPO 기반 요청</li></ul>
@@ -1244,7 +1305,7 @@
           </tbody>
         </table>
       </div>
-      <h3><span class="sn">7.1</span>스킬 3요소</h3>
+      <h3 id="AI자동화-템플릿과-스킬의-차이-스킬-3요소-s1"><span class="sn">7.1</span>스킬 3요소</h3>
       <div style="display:grid; grid-template-columns:minmax(0,1fr); gap:12px; margin:16px 0 20px;">
         <div class="card">
           <h4><i data-lucide="tag"></i>① 이름</h4>
@@ -1364,7 +1425,7 @@
           <h2>AI 활용 vs 자동화 개발</h2>
         </div>
       </div>
-      <h3><span class="sn">12.1</span>AI 활용</h3>
+      <h3 id="ChatGPT자동화-AI-활용-vs-자동화-개발-s1"><span class="sn">12.1</span>AI 활용</h3>
       <p><strong>[예시]</strong></p>
       <ul><li>회의록 요약</li><li>보고서 초안 작성</li><li>이메일 작성</li><li>아이디어 생성</li><li>자료 조사</li></ul>
       <p><strong>[업무 흐름]</strong></p>
@@ -1375,7 +1436,7 @@
       <p>매번 같은 과정을 반복해야 함</p>
       <ul><li>파일 업로드</li><li>프롬프트 입력</li><li>결과 검토</li><li>복사 및 붙여넣기</li></ul>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>AI가일을 하지만, <br>업무 프로세스는 여전히 사람이 관리해야 함</p></div></div>
-      <h3><span class="sn">12.2</span>자동화 개발</h3>
+      <h3 id="ChatGPT자동화-AI-활용-vs-자동화-개발-s2"><span class="sn">12.2</span>자동화 개발</h3>
       <p><strong>[예시]</strong></p>
       <p>매월 300개의 엑셀 파일을 취합해야 하는 업무</p>
       <p><strong>[업무 흐름]</strong></p>
@@ -1449,14 +1510,14 @@
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>이 업무는 어떤 구조로 되어 있는가? 어떤 부분을 사람이 하지 않게 만들 것인가? 이 업무를 자동화하기에 가장 적합한 도구는 무엇인가?</p></div></div>
       <p>즉, 자동화의 핵심은 <strong>도구 선택</strong>이 아니라 <strong>업무 구조 파악</strong>입니다.</p>
       <hr class="divider">
-      <h3><span class="sn">13.1</span>다양한 자동화 도구</h3>
+      <h3 id="ChatGPT자동화-자동화-도구의-선택-s1"><span class="sn">13.1</span>다양한 자동화 도구</h3>
       <p>자동화에 사용할 수 있는 도구는 다양합니다.</p>
       <ul><li>ChatGPT</li><li>Excel</li><li>VBA</li><li>Python</li><li>Power Automate</li><li>Google Apps Script</li><li>RPA</li><li>API</li><li>사내 시스템</li><li>커스텀 GPT</li><li>노코드/로우코드 도구</li></ul>
       <p>하지만 이 도구들은 모두 목적이 아니라 수단입니다.</p>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>자동화의 목적은 프로그램을 쓰는 것이 아니라, 사람이 반복해서 하던 일을 줄이고 업무 흐름을 안정적으로 만드는 것입니다.</p></div></div>
       <p>따라서 상황에 따라 도구는 얼마든지 바뀔 수 있습니다.</p>
       <hr class="divider">
-      <h3><span class="sn">13.2</span>도구 선택의 기준</h3>
+      <h3 id="ChatGPT자동화-자동화-도구의-선택-s2"><span class="sn">13.2</span>도구 선택의 기준</h3>
       <p>자동화 도구를 고를 때는 먼저 프로그램 이름을 생각하기보다 아래 기준을 먼저 봐야 합니다.</p>
       <h4><span class="hn">1.</span>업무가 어디에서 일어나는가?</h4>
       <ul><li>엑셀 안에서 끝나는 업무인가?</li><li>파일과 폴더를 다루는 업무인가?</li><li>웹사이트에서 자료를 수집하는 업무인가?</li><li>이메일, 문서, 보고서까지 이어지는 업무인가?</li><li>사내 시스템이나 ERP와 연결되는 업무인가?</li></ul>
@@ -1471,7 +1532,7 @@
       <h4><span class="hn">6.</span>누가 사용할 것인가?</h4>
       <ul><li>나 혼자 사용할 것인가?</li><li>팀원이 같이 사용할 것인가?</li><li>비개발자도 실행해야 하는가?</li><li>기관이나 조직 단위로 운영해야 하는가?</li></ul>
       <hr class="divider">
-      <h3><span class="sn">13.3</span>상황별 추천 도구</h3>
+      <h3 id="ChatGPT자동화-자동화-도구의-선택-s3"><span class="sn">13.3</span>상황별 추천 도구</h3>
       <h4><span class="hn">1.</span>간단한 문서 작성, 요약, 아이디어 정리</h4>
       <p>추천 도구</p>
       <ul><li>ChatGPT</li><li>Claude</li><li>Gemini</li><li>Copilot</li><li>커스텀 GPT</li></ul>
@@ -1568,7 +1629,7 @@
       <p>정리</p>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>AI가 잘하는 판단·요약·분류 업무는 자동화 프로그램과 결합할 때 실무 효과가 커집니다.</p></div></div>
       <hr class="divider">
-      <h3><span class="sn">13.4</span>도구별 적합한 상황 요약</h3>
+      <h3 id="ChatGPT자동화-자동화-도구의-선택-s4"><span class="sn">13.4</span>도구별 적합한 상황 요약</h3>
       <div class="table-wrap"><table><thead><tr><th>도구</th><th>적합한 업무</th><th>장점</th><th>주의할 점</th></tr></thead><tbody><tr><td>ChatGPT</td><td>문서 작성, 요약, 아이디어 정리</td><td>빠르고 쉬움</td><td>반복 자동화에는 한계</td></tr><tr><td>Excel 함수</td><td>간단한 계산, 정리</td><td>접근성 높음</td><td>복잡한 자동화에는 한계</td></tr><tr><td>Power Query</td><td>데이터 취합, 변환</td><td>엑셀 사용자에게 적합</td><td>세밀한 제어는 제한</td></tr><tr><td>VBA</td><td>엑셀 반복 작업, 버튼 자동화</td><td>엑셀 안에서 실행 쉬움</td><td>유지보수 어려울 수 있음</td></tr><tr><td>Python</td><td>파일, 데이터, 웹, AI 연계</td><td>확장성 높음</td><td>기본 학습 필요</td></tr><tr><td>Power Automate</td><td>Microsoft 365 자동화</td><td>조직 업무와 연계 쉬움</td><td>라이선스와 정책 확인 필요</td></tr><tr><td>Google Apps Script</td><td>Google Workspace 자동화</td><td>Gmail, Sheets와 연계 좋음</td><td>Google 환경 중심</td></tr><tr><td>RPA</td><td>화면 클릭 기반 자동화</td><td>기존 시스템 변경 없이 가능</td><td>화면 변경에 취약</td></tr><tr><td>API</td><td>시스템 간 안정적 연동</td><td>정확하고 확장성 높음</td><td>API 제공 여부 필요</td></tr><tr><td>커스텀 GPT</td><td>반복 질문, 상담형 업무</td><td>사용하기 쉬움</td><td>실행 자동화보다는 응답 자동화에 가까움</td></tr></tbody></table></div>
     </section>
 
@@ -1580,7 +1641,7 @@
           <h2>ChatGPT로 VBA 코드 만들기</h2>
         </div>
       </div>
-      <h3><span class="sn">14.1</span>엑셀 VBA란?</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s1"><span class="sn">14.1</span>엑셀 VBA란?</h3>
       <h4><span class="hn">1.</span>정의</h4>
       <ul><li><strong>VBA (Visual Basic for Applications)</strong>는 Microsoft Office 제품군(특히 Excel, Word, PowerPoint 등)에 내장된 <strong>프로그래밍 언어</strong>로, Microsoft의 <strong>Visual Basic</strong> 언어를 기반으로함</li></ul>
       <h4><span class="hn">2.</span>주요 특징</h4>
@@ -1598,7 +1659,7 @@
       <ul><li><strong>Ctrl+Z안됨: </strong>실수로 데이터가 삭제되거나 손상될 수 있으므로 <strong>백업 필수</strong></li><li>VBA코드가 삽입된 파일은 xlsm파일로 저장해야 코드가 함께 저장됨</li><li>VBA는 <strong>보안 경고</strong>가 뜰 수 있으므로 공유시 미리 공지하는 것이 좋음</li><li>Mac 버전 Excel에서는 일부 기능이 제한될 수 있음</li></ul>
       <h4><span class="hn">6.</span>소소하지만 유용한 팁</h4>
       <ul><li>나만의 VBA파일을 만들어보자</li><ul><li>대부분의 경우 ActiveSheet를 기준으로 작동하는데, 이 경우 VBA코드가 다른 파일에 저장되어있어도 실행이 가능하다.</li></ul><li>버튼을 적극 활용하자</li><ul><li>VBA를 실행 할 때 매번 VBA편집기를 열어서 실행하기 불편하다.</li><li>단축키는 외우기 힘들고 제한이 있다.</li><li>도형에 VBA코드를 쉽게 연결 할 수 있으므로 버튼을 적극 사용하자</li></ul><li>서식 복사를 이용하자</li><ul><li>서식과 관련된 작업을 할 경우 원본 파일이 서식이 없는 상태였다면 아무 빈 셀을 선택하여 서식 복사를 해서 붙여넣으면 서식이 없는 상태로 되돌아간다.</li></ul><li>XLSM파일을 공유할때는 ZIP파일을 이용하자</li><ul><li>VBA코드는 컴퓨터를 제어 할 수 있는 코드이기 때문에 나쁜 마음을 먹으면 바이러스를 심거나 다른 사람의 컴퓨터를 망쳐놓는 것도 가능하다.</li><li>따라서 메일이나 메신져로 공유 할 때 형식이 제한이 되는 경유가 많다.</li><li>이럴때 ZIP파일로 저장해서 송부 할 수 있다.</li><li>상대방이 VBA를 쓸 줄 안다면 TEXT파일로 코드만 따로 보내는 것도 방법이다.</li></ul></ul>
-      <h3><span class="sn">14.2</span>VBA 코드 생성을 위한 프롬프트 템플릿</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s2"><span class="sn">14.2</span>VBA 코드 생성을 위한 프롬프트 템플릿</h3>
       <ul><li>주석은 컴퓨터 언어를 사람이 이해할 수 있는 해설이라고 생각하면됨</li><li>주석을 자세하게 요청하면 코드를 몰라도 어느 정도 수정이 가능함</li></ul>
       <div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">VBA 코드 생성을 위한 프롬프트 템플릿</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1616,7 +1677,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.3</span>VBA 기초</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s3"><span class="sn">14.3</span>VBA 기초</h3>
       <figure class="illus"><img src="이미지/ChatGPT자동화_ChatGPT로-VBA-코드-만들기/02_1000013873.png" alt=""></figure>
       <h4><span class="hn">1.</span>오류 발생 시 대응 방법</h4>
       <figure class="illus"><img src="이미지/ChatGPT자동화_ChatGPT로-VBA-코드-만들기/03_image.png" alt=""></figure>
@@ -1632,7 +1693,7 @@
 이 부분에 첨부한 오류가 발생해</pre></div>
       <h4><span class="hn">2.</span>오류는 아닌데 내가 원하는 대로 작동하지 않을 경우</h4>
       <ul><li>현재 작업이 일어난 결과의 상황을 설명하고 내가 원하는 상황을 다시 구체적으로 설명</li><li>내가 의도한 결과물과 현재 결과물을 이미지로 첨부하여 설명하면 더 쉽게 해결 가능</li></ul>
-      <h3><span class="sn">14.4</span>누락된 시트 찾기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s4"><span class="sn">14.4</span>누락된 시트 찾기</h3>
       <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><p><a href="https://youtu.be/dErLAh4kDxI?si=Csb0vdNEaL6qVDgz" target="_blank" rel="noopener noreferrer"><strong>누락된 엑셀 시트 이름 찾기 시연 영상</strong></a></p></div></div>
       <ul><li>자료와 비교해서 누락된 시트 찾기</li><li>[거래처 리스트]<br>삼성전자,LG화학,현대모비스,네이버,카카오,롯데제과,한화에어로스페이스,CJ제일제당,포스코인터내셔널,SK하이닉스</li></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="1hkmml4"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">누락된 시트 찾기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -1651,7 +1712,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.5</span>시트이동링크 만들기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s5"><span class="sn">14.5</span>시트이동링크 만들기</h3>
       <div class="callout warn"><span class="ci"><i data-lucide="info"></i></span><div class="cb"><p><a href="https://youtu.be/KVlHqXr3OwQ?si=2w4X5nMWH5-kSIK3" target="_blank" rel="noopener noreferrer"><strong>시트 링크걸기 시연 영상</strong></a></p></div></div>
       <ul><li>시트가 많은 파일에서 이동이 불편함</li><li>시트 맨 앞에 새로운 시트를 추가하고 시트명 입력</li><li>시트명을 누르면 해당 시트로 이동가능</li><li>모든 시트의 B1셀에 첫번째 시트로 이동하는 링크 추가</li></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_ChatGPT로-VBA-코드-만들기/05_VBA_시트바로가기.gif" alt=""></figure>
@@ -1671,7 +1732,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.6</span>시트 복사하기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s6"><span class="sn">14.6</span>시트 복사하기</h3>
       <figure class="illus"><img src="이미지/ChatGPT자동화_ChatGPT로-VBA-코드-만들기/06_image.png" alt=""></figure>
       <ul><li>같은 형식의 시트를 복사해서 1월부터 12월까지 개별 시트로 만들어보자.</li><ul><li>A1셀에는 “재무팀 M월 근태 보고서”라는 텍스트가 들어가야 한다.</li><li>모든 시트의 형식은 그대로 유지되어야 한다.</li><li>시트명은 1월부터 12월까지 순차적으로 입력되어야한다.</li><li>(원본 시트는 삭제하지 말고 숨기기 처리 한다.)</li></ul></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="1reu901"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">시트 복사하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -1690,7 +1751,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.7</span>데이터합치기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s7"><span class="sn">14.7</span>데이터합치기</h3>
       <ul><li>같은 형식으로 되어있는 데이터를 세로 방향으로 합쳐보자.(어펜드)</li><ul><li>파일들은 하나의 폴더 안에 들어있다.</li><li>모든 파일의 형식은 동일하다.</li><li>거래일자 순으로 오름차순 정렬한다.</li><li>사용된 모든 열의 폭을 자동 맞춤 한다.</li><li>헤더는 하늘색으로 칠한다.</li></ul></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="faxupp"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">데이터합치기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1708,7 +1769,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.8</span>데이터 필터링해서 나누기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s8"><span class="sn">14.8</span>데이터 필터링해서 나누기</h3>
       <ul><li>거래처명 별로 데이터를 나누어보자.</li><ul><li>“취합데이터”시트에 있는 자료를 거래처명별로 필터링해서 각각의 시트로 저장한다.</li><li>해당 파일에 있는 모든 시트를 시트명을 파일명으로 하는 각각의 파일로 저장한다.</li></ul></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="1cs8fia"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">데이터 필터링해서 나누기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1726,7 +1787,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.9</span>형식에 맞춰서 데이터 입력하기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s9"><span class="sn">14.9</span>형식에 맞춰서 데이터 입력하기</h3>
       <ul><li>로우데이터가 있는 시트의 정보에서 원하는 정보만 추출하여 레포트 시트의 형식에 맞춰서 입력하기</li></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="x2poln"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">형식에 맞춰서 데이터 입력하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1744,7 +1805,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.10</span>참석자 리스트 만들기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s10"><span class="sn">14.10</span>참석자 리스트 만들기</h3>
       <ul><li>각 부서에서 보내준 행사 참여 여부 정리 파일을 취합하여 각 행사에 어느 부서의 누가 참여하는지 확인할 수 있는 리스트 만들기</li></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="jliaxl"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">참석자 리스트 만들기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1762,7 +1823,7 @@
 
 # output
 </pre></div>
-      <h3><span class="sn">14.11</span>회의록 정리하기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-VBA-코드-만들기-s11"><span class="sn">14.11</span>회의록 정리하기</h3>
       <ul><li>워드파일로 하루에 하나씩 저장되어있는 회의록을 하나의 엑셀파일로 불러와서 쉽게 확인 할 수 있도록 해보기</li></ul>
       <div class="codebox prompt" data-kind="프롬프트" data-old="75708a"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">회의록 정리하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 엑셀 VBA전문가야.
@@ -1845,7 +1906,7 @@
           <h2>개발 환경 구축</h2>
         </div>
       </div>
-      <h3><span class="sn">2.1</span>파이썬</h3>
+      <h3 id="ChatGPT자동화-개발-환경-구축-s1"><span class="sn">2.1</span>파이썬</h3>
       <ul><li>파이썬: <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">https://www.python.org/downloads/</a></li><li>우리가 사용할 버전: 3.13.12</li><ul><li><a href="https://www.python.org/downloads/release/python-31312/" target="_blank" rel="noopener noreferrer">https://www.python.org/downloads/release/python-31312/</a></li></ul></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/01_image.png" alt=""></figure>
       <ul><li>인스톨 할 때 주의 할 점<br><strong>반드시 Add python.exe to PATH에 체크</strong></li></ul>
@@ -1970,7 +2031,7 @@ print(&quot;Pandas 설치 성공&quot;)</pre></div>
 <pre>where python</pre></div>
       <div class="codebox plain cmd" data-kind="명령어"><div class="ph"><i data-lucide="terminal"></i><span class="pl">명령어</span><span class="pt">문의할 때 보내주세요</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>python -m pip --version</pre></div>
-      <h3><span class="sn">2.2</span>VS Code</h3>
+      <h3 id="ChatGPT자동화-개발-환경-구축-s2"><span class="sn">2.2</span>VS Code</h3>
       <ul><li>VS Code: <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer">code.visualstudio.com</a></li></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/07_image.png" alt=""></figure>
       <ul><ul><li>설치 후 익스텐션 설치</li><ul><li>정의: 에디터 기능을 추가·확장하는 플러그인 모듈</li><li>필요성: 언어 지원 강화, 자동 완성·디버깅·포매팅·테스트 등 개발 생산성·일관성 향상</li></ul></ul></ul>
@@ -1981,7 +2042,7 @@ print(&quot;Pandas 설치 성공&quot;)</pre></div>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/10_image.png" alt=""></figure>
       <h4><span class="hn">1.</span>VS코드 기본 편집 기능</h4>
       <div class="table-wrap"><table><thead><tr><th>기능</th><th>단축키</th><th>설명</th></tr></thead><tbody><tr><td><strong>들여쓰기 <br>/ 내어쓰기</strong></td><td><code>Tab</code> / <code>Shift</code> + <code>Tab</code></td><td>선택한 줄 또는 커서가 있는 줄을 4칸씩 들여쓰기 또는 반대로 내어쓰기 함. 코드 구조를 정리하거나 블록 구문을 맞출 때 사용</td></tr><tr><td><strong>주석 토글</strong></td><td><code>Ctrl</code> + <code>/</code></td><td>커서가 있는 줄 또는 선택된 줄을 한 줄 주석으로 처리하거나 해제함. 테스트 중 코드 비활성화나 설명 추가 시 사용</td></tr><tr><td><strong>컨트롤 + 클릭<br> (정의로 이동)</strong></td><td><code>Ctrl</code> + 클릭</td><td>함수, 변수, 클래스 등의 이름을 클릭하면 해당 정의 위치로 즉시 이동함. 코드 추적이나 함수 구조 파악에 유용</td></tr><tr><td><strong>동일한 내용 <br>선택</strong></td><td><code>Ctrl</code> + <code>Shift</code> + <code>L</code></td><td>함수, 변수, 클래스 등의 이름을 클릭하면 해당 정의 위치로 즉시 이동함. 코드 추적이나 함수 구조 파악에 유용</td></tr><tr><td><strong>다음 동일 항목 <br>선택</strong></td><td><code>Ctrl</code> + <code>D</code></td><td>커서가 위치한 단어나 선택한 텍스트와 동일한 다음 항목을 순차적으로 선택함. 여러 위치를 한 번에 수정할 때 사용</td></tr><tr><td><strong>줄 복제</strong></td><td><code>Shift</code> + <code>Alt</code> + <code>↓</code></td><td>현재 줄을 바로 아래로 복제함. <code>↑</code>로 위쪽에도 복제 가능. 비슷한 코드를 여러 줄 작성할 때 유용</td></tr><tr><td><strong>접었다 펴기</strong></td><td><code>Ctrl</code> + <code>Shift</code> + <code>[</code> (접기) <br>/ <code>Ctrl</code> + <code>Shift</code> + <code>]</code> (펴기)</td><td>함수, 클래스, 조건문 등 코드 블록을 접거나 펼침. 복잡한 파일에서 가독성을 높일 때 사용</td></tr></tbody></table></div>
-      <h3><span class="sn">2.3</span>경로 불일치 오류시 해결 방법</h3>
+      <h3 id="ChatGPT자동화-개발-환경-구축-s3"><span class="sn">2.3</span>경로 불일치 오류시 해결 방법</h3>
       <ol class="steps"><li>VS코드의 터미널 창에 다음을 입력해서 나온 경로를 복사한다.</li></ol>
       <div class="codebox plain cmd" data-kind="명령어"><div class="ph"><i data-lucide="terminal"></i><span class="pl">명령어</span><span class="pt">경로 불일치 오류시 해결 방법</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>python -c &quot;import sys; print(sys.executable)&quot;</pre></div>
@@ -1992,7 +2053,7 @@ print(&quot;Pandas 설치 성공&quot;)</pre></div>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/12_image.png" alt=""></figure>
       <ol class="steps"><li>대부분 1에서 복사한 경로와 일치하는 경로를 추천해주는데 불일치 할 경우<br>”Enter interpreter path…”를 클릭하고 1의 경로를 입력한다.</li></ol>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/13_image.png" alt=""></figure>
-      <h3><span class="sn">2.4</span>Google Colab</h3>
+      <h3 id="ChatGPT자동화-개발-환경-구축-s4"><span class="sn">2.4</span>Google Colab</h3>
       <p>[[Colab 설치하기 영상]](https://youtu.be/KyJ56582gsc)</p>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/14_image.png" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_개발-환경-구축/15_image.png" alt=""></figure>
@@ -2039,7 +2100,7 @@ plt.rcParams[&#x27;font.family&#x27;] = &#x27;NanumGothic&#x27;
           <h2>ChatGPT로 파이썬 코드 만들기</h2>
         </div>
       </div>
-      <h3><span class="sn">3.1</span>기본 프롬프트</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s1"><span class="sn">3.1</span>기본 프롬프트</h3>
       <p>텍스트 파일에 붙여넣고 편집 후 GPT에게 물어보세요.</p>
       <ul><li>PC버전<div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">PC버전</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 전문가입니다.
@@ -2306,7 +2367,7 @@ def main():
 # (7) 실행 진입점
 if __name__ == &quot;__main__&quot;:
     main()</pre></div></div></details>
-      <h3><span class="sn">3.2</span>프로젝트 이용하기</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s2"><span class="sn">3.2</span>프로젝트 이용하기</h3>
       <ul><li>프로젝트 지침에 다음의 내용 추가</li></ul>
       <div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">프로젝트 이용하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 전문가입니다.
@@ -2338,12 +2399,12 @@ if __name__ == &quot;__main__&quot;:
      마이너스 기호(-) 깨짐 방지 코드도 포함
 
 사용자가 INPUT/PROCESS/OUTPUT 형식으로 설명하면 이를 반영하여 코드를 설계하세요.</pre></div>
-      <h3><span class="sn">3.3</span>만들어준 코드에 오류가 날 때 대처 방법</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s3"><span class="sn">3.3</span>만들어준 코드에 오류가 날 때 대처 방법</h3>
       <figure class="illus"><img src="이미지/ChatGPT자동화_ChatGPT로-파이썬-코드-만들기/02_image.png" alt=""></figure>
       <ul><li>Traceback이 있는 부분부터 맨 마지막 까지 복사해서 GPT에게 붙여넣기</li></ul>
-      <h3><span class="sn">3.4</span>자주 발생하는 오류</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s4"><span class="sn">3.4</span>자주 발생하는 오류</h3>
       <div class="table-wrap"><table><thead><tr><th>대표 오류</th><th>발생 상황</th><th>주요 원인</th></tr></thead><tbody><tr><td><code>FileNotFoundError</code></td><td>파일을 불러오지 못함</td><td>파일명, 경로, 확장자 오류</td></tr><tr><td><code>PermissionError</code></td><td>파일을 저장하거나 수정하지 못함</td><td>파일이 열려 있음, 저장 권한 없음</td></tr><tr><td><code>KeyError</code></td><td>특정 열이나 값을 찾지 못함</td><td>열 이름 변경, 오타, 앞뒤 공백</td></tr><tr><td><code>ValueError</code></td><td>값 변환이나 계산이 안 됨</td><td>숫자·날짜 형식 불일치, 잘못된 값 포함</td></tr><tr><td><code>TypeError</code></td><td>계산이나 처리가 안 됨</td><td>숫자와 문자처럼 서로 다른 형식의 데이터를 함께 처리함</td></tr><tr><td><code>IndexError</code></td><td>특정 위치의 데이터를 가져오지 못함</td><td>데이터가 비어 있음, 행/열 개수 부족</td></tr><tr><td><code>ModuleNotFoundError</code></td><td>필요한 라이브러리를 불러오지 못함</td><td>라이브러리 미설치, 다른 파이썬 환경에 설치됨</td></tr><tr><td><code>ImportError</code></td><td>라이브러리나 기능을 불러오지 못함</td><td>설치된 라이브러리 버전 문제, 잘못된 import 문</td></tr><tr><td><code>UnicodeDecodeError</code></td><td>CSV 파일 등을 불러올 때 한글이 깨지거나 읽히지 않음</td><td>인코딩 방식 불일치</td></tr><tr><td><code>ConnectionError</code></td><td>웹사이트, API, 서버에 접속하지 못함</td><td>인터넷 연결 문제, 서버 접속 불가, 방화벽</td></tr><tr><td><code>TimeoutError</code></td><td>접속이나 처리가 제한 시간 안에 끝나지 않음</td><td>서버 응답 지연, 인터넷 불안정, 작업량 과다</td></tr><tr><td><code>AttributeError</code></td><td>특정 기능이나 속성을 사용할 수 없음</td><td>변수 형식이 예상과 다름, 잘못된 기능 이름 사용</td></tr><tr><td><code>NameError</code></td><td>변수를 찾지 못함</td><td>변수명 오타, 변수를 만들기 전에 사용함</td></tr><tr><td><code>SyntaxError</code></td><td>코드가 실행되지 않음</td><td>괄호, 따옴표, 콜론 등 문법 오류</td></tr><tr><td><code>IndentationError</code></td><td>코드 들여쓰기 때문에 실행되지 않음</td><td>들여쓰기 불일치, 공백/탭 혼용</td></tr><tr><td><code>ZeroDivisionError</code></td><td>계산 중 0으로 나누려고 함</td><td>분모 값이 0이 됨</td></tr><tr><td><code>Worksheet not found</code></td><td>엑셀 시트를 불러오지 못함</td><td>시트명 변경, 공백, 월별 시트명 차이</td></tr><tr><td><code>ElementNotInteractableException</code></td><td>웹페이지 요소를 클릭하거나 입력하지 못함</td><td>요소가 숨겨져 있음, 아직 로딩되지 않음</td></tr><tr><td><code>NoSuchElementException</code></td><td>웹페이지에서 원하는 요소를 찾지 못함</td><td>사이트 구조 변경, 선택자 오류, 로딩 지연</td></tr><tr><td><code>StaleElementReferenceException</code></td><td>찾았던 웹 요소를 다시 사용할 수 없음</td><td>페이지가 새로고침됨, 화면 내용이 동적으로 변경됨</td></tr><tr><td><code>SMTPAuthenticationError</code></td><td>메일 계정 로그인에 실패함</td><td>아이디/비밀번호 오류, 앱 비밀번호 필요, 보안 정책</td></tr><tr><td><code>SMTPConnectError</code></td><td>메일 서버에 연결하지 못함</td><td>SMTP 서버 주소 오류, 포트 오류, 방화벽</td></tr><tr><td><code>InvalidFileException</code></td><td>엑셀 파일을 열지 못함</td><td>지원하지 않는 파일 형식, 파일 손상, 확장자 불일치</td></tr></tbody></table></div>
-      <h3><span class="sn">3.5</span>파이썬 코드를 이해하는 법</h3>
+      <h3 id="ChatGPT자동화-ChatGPT로-파이썬-코드-만들기-s5"><span class="sn">3.5</span>파이썬 코드를 이해하는 법</h3>
       <div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">파이썬 코드를 이해하는 법</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>너는 파이썬전문가이자 매우 친절한 파이썬전문 강사야.
 나는 파이썬을 처음 배우는 초보자야.
@@ -2364,11 +2425,11 @@ AI가 생성해준 파이썬 코드가 있는데 코드를 이해하지 못해�
           <h2>파이썬으로 엑셀 데이터 편집하기</h2>
         </div>
       </div>
-      <h3><span class="sn">4.1</span>왜 엑셀 대신 파이썬인가</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s1"><span class="sn">4.1</span>왜 엑셀 대신 파이썬인가</h3>
       <div class="table-wrap"><table><thead><tr><th>구분</th><th>엑셀</th><th>파이썬</th></tr></thead><tbody><tr><td>데이터 처리 방식</td><td>셀 기반 수작업 중심 처리</td><td>코드 기반 자동화 처리</td></tr><tr><td>작업 방식</td><td>사람이 직접 수정해야 하는 구조</td><td>한 번 작성하면 반복 실행 가능</td></tr><tr><td>데이터 처리 규모</td><td>수십만 행 이상에서 속도 저하</td><td>대용량 데이터 처리 최적화 가능</td></tr><tr><td>로직 구현</td><td>복잡한 수식으로 가독성 저하</td><td>조건문, 함수로 구조적 설계 가능</td></tr></tbody></table></div>
-      <h3><span class="sn">4.2</span>엑셀을 다루는 파이썬 라이브러리</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s2"><span class="sn">4.2</span>엑셀을 다루는 파이썬 라이브러리</h3>
       <div class="table-wrap"><table><thead><tr><th>라이브러리</th><th>주요 특징</th><th>장점</th><th>단점</th></tr></thead><tbody><tr><td><strong>openpyxl</strong></td><td><code>.xlsx</code> 파일 읽기/쓰기 전용 라이브러리</td><td>- 셀 서식, 수식, 차트 등 엑셀 요소 직접 제어 가능- 엑셀 파일 생성, 편집, 저장에 강력</td><td>- <code>.xls</code>(구버전 엑셀) 미지원<br>- 대용량 데이터 처리에는 비효율적</td></tr><tr><td><strong>pandas</strong></td><td>데이터 분석 중심의 라이브러리, <code>read_excel</code>, <code>to_excel</code> 지원</td><td>- 테이블 형태의 데이터 처리에 매우 강력- 필터링, 그룹화, 통계 분석에 적합- 대용량 처리에 효율적</td><td>- 서식, 수식, 차트 등 엑셀 고급 기능 미지원<br>- 스타일 적용은 제한적</td></tr><tr><td><strong>xlwings</strong></td><td>엑셀과 파이썬을 직접 연결하여 양방향 통신 가능</td><td>- 실제 엑셀 앱을 제어하며 VBA 수준의 조작 가능- 서식, 수식, 차트 등 완전한 엑셀 제어 가능</td><td>- 윈도우 및 엑셀 설치 필요<br>- 속도가 다소 느림<br>- 설치 환경 제약 (Mac 일부 기능 제한)</td></tr></tbody></table></div>
-      <h3><span class="sn">4.3</span>데이터의 구조</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s3"><span class="sn">4.3</span>데이터의 구조</h3>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-데이터-편집하기/01_3.png" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-데이터-편집하기/02_2.png" alt=""></figure>
       <p><strong>Pandas에서 롱폼을 쓰는 이유</strong></p>
@@ -2408,7 +2469,7 @@ AI가 생성해준 파이썬 코드가 있는데 코드를 이해하지 못해�
       <h4><span class="hn">9.</span><strong>직관적 비유</strong></h4>
       <div class="table-wrap"><table><thead><tr><th>형태</th><th>비유</th><th>설명</th></tr></thead><tbody><tr><td><strong>와이드폼</strong></td><td>“사람이 보기 좋은 엑셀 보고서”</td><td>가로로 정리되어 한눈에 보기 좋지만 계산은 불편</td></tr><tr><td><strong>롱폼</strong></td><td>“기계가 읽기 좋은 데이터 일지”</td><td>각 줄이 하나의 사건을 기록하므로 분석 자동화에 유리</td></tr></tbody></table></div>
       <div class="callout key"><span class="ci"><i data-lucide="lightbulb"></i></span><div class="cb"><p>엑셀은 ‘보기 좋은 데이터’, Pandas는 ‘처리하기 좋은 데이터’</p></div></div>
-      <h3><span class="sn">4.4</span>파이썬에서 주의할 점</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s4"><span class="sn">4.4</span>파이썬에서 주의할 점</h3>
       <h4><span class="hn">1.</span>대소문자 구분</h4>
       <ul><li>파이썬은 <strong>대소문자를 구분</strong>함<br>예:</li></ul>
       <div class="codebox plain" data-kind="코드"><div class="ph"><i data-lucide="code"></i><span class="pl">코드</span><span class="pt">대소문자 구분</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -2464,7 +2525,7 @@ print(x + y)   # 오류 (문자 + 숫자 불가)</pre></div>
       <ul><li>타입 확인 방법<div class="codebox plain" data-kind="코드"><div class="ph"><i data-lucide="code"></i><span class="pl">코드</span><span class="pt">타입 확인 방법</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>print(type(x))</pre></div></li><li>필요한 경우 형변환<div class="codebox plain" data-kind="코드"><div class="ph"><i data-lucide="code"></i><span class="pl">코드</span><span class="pt">필요한 경우 형변환</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>x = int(x)   # 문자열을 숫자로 변환</pre></div></li></ul>
-      <h3><span class="sn">4.5</span>파이썬으로 엑셀을 다룰때 초보자가 실수하기 쉬운 5가지</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-데이터-편집하기-s5"><span class="sn">4.5</span>파이썬으로 엑셀을 다룰때 초보자가 실수하기 쉬운 5가지</h3>
       <h4><span class="hn">1.</span>경로 표기 오류 (<code>\</code> 때문에 파일을 못 읽는 문제)</h4>
       <ul><li><strong>원인</strong>: 윈도우 탐색기에서 복사한 경로가 <code>C:\Users\홍길동\Desktop\sales.xlsx</code> 형태라 <code>\U</code> 등이 특수문자로 인식됨</li><li><strong>해결</strong>:</li><ul><li>슬래시(<code>/</code>)로 바꾸거나</li><li>문자열 앞에 <code>r</code>을 붙임</li></ul></ul>
       <div class="codebox plain" data-kind="코드"><div class="ph"><i data-lucide="code"></i><span class="pl">코드</span><span class="pt">경로 표기 오류 ( \ 때문에 파일을 못 읽는 문제)</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
@@ -2495,7 +2556,7 @@ print(x + y)   # 오류 (문자 + 숫자 불가)</pre></div>
           <h2>파이썬으로 엑셀 다루기 실습</h2>
         </div>
       </div>
-      <h3><span class="sn">5.1</span>같은 형식의 여러 엑셀 파일 취합하기</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s1"><span class="sn">5.1</span>같은 형식의 여러 엑셀 파일 취합하기</h3>
       <ul><li>상황</li><ul><li>월 별로 작성되어 있는 상반기 매출 기록을 취합</li></ul><li>INPUT(”매출기록” 폴더)</li><ul><li>한 폴더 안에 저장되어 있음</li><li>한 파일에 하나의 시트만 있음</li><li>데이터의 구조는 동일함</li><li>정렬이 되어있지 않음</li></ul><li>PROC</li><ul><li>폴더 안의 모든 파일을 병합함(세로 방향으로 append)</li><li>거래일자, 거래처명, 제품명 순으로 오름차순 정렬</li><li>수량, 단가, 공급가액, 부가세, 합계는 콤마스타일 적용</li><li>원하는 서식 적용</li></ul><li>OUTPUT</li><ul><li>2025_1분기_매출기록.xlsx로 저장</li></ul></ul>
       <details class="fold-box"><summary>프롬프트 예시(미리 열어보지 마세요!)</summary><div class="fold-body"><div class="codebox prompt" data-kind="프롬프트" data-old="8uo952"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">같은 형식의 여러 엑셀 파일 취합하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 전문가입니다.
@@ -2534,7 +2595,7 @@ print(x + y)   # 오류 (문자 + 숫자 불가)</pre></div>
 ## PROCESS
 
 ## OUTPUT</pre></div></div></details>
-      <h3><span class="sn">5.2</span>파일 확장자 바꾸기</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s2"><span class="sn">5.2</span>파일 확장자 바꾸기</h3>
       <h4><span class="hn">1.</span>상황</h4>
       <ul><li>다른 부서에서 받은 자료를 사이트에 업로드해야하는데 받은 자료는 xls파일인데 업로드는 xlsx만 가능한 상황</li><li>100개가 넘는 파일의 확장자를 모두 바꿔야 하는데 어떻게 해야할까?</li></ul>
       <h4><span class="hn">2.</span>질문</h4>
@@ -2576,7 +2637,7 @@ print(x + y)   # 오류 (문자 + 숫자 불가)</pre></div>
 ## PROCESS
 
 ## OUTPUT</pre></div></div></details>
-      <h3><span class="sn">5.3</span>항목별로 차트 만들기</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s3"><span class="sn">5.3</span>항목별로 차트 만들기</h3>
       <ul><li>상황</li><ul><li>월별로 정리된 제품별 매출 건수 자료가 있음</li><li>이 자료를 시각화 해야하는데 항목이 너무 많아서 잘 보이지 않음</li><li>제품별로 월별 판매량 그래프를 그리고 싶음</li></ul></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-다루기-실습/01_image.png" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-다루기-실습/02_사무용_의자_매출차트.png" alt=""></figure>
@@ -2840,7 +2901,7 @@ def main():
 # (8) 실행
 if __name__ == &quot;__main__&quot;:
     main()</pre></div></div></details>
-      <h3><span class="sn">5.4</span>거래처별로 자료 만들기(차트 생성)</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s4"><span class="sn">5.4</span>거래처별로 자료 만들기(차트 생성)</h3>
       <ul><li>상황</li><ul><li>취합된 상반기 매출을 거래처별로 자료 생성하기</li></ul><li>INPUT(”매출기록” 폴더)</li><ul><li>2025_1분기_매출기록.xlsx</li><li>거래일자(A열), 거래처명(B열), 매출액(H열)</li></ul><li>PROCESS</li><ul><li>거래처별로 데이터를 나눠서 각자의 파일로 다운로드</li><ul><li>파일명은 “[거래처명]_yymmdd.xlsx”</li><li>파일 형식은 원본 파일과 동일하게 유지</li></ul><li>거래처별로 월별 매출액 합계를 세로막대 그래프로 적용</li><ul><li>색상은 #28D390, #00B89B, #009B9B, #007F8E, #1A6277, #2F4858 적용</li><li>반드시 한글 글꼴 적용</li><li>Y축 눈금값을 제거하고 데이터 레이블 추가(콤마스타일 적용)</li><li>max값을 1.2배하여 상단에 여백 남기기</li></ul></ul><li>OUTPUT</li><ul><li>파일별로 시트를 두개 생성, 첫번째 시트는 “거래처명”, 두번째 시트는 “거래처명_매출차트”</li><li>“차트”시트에 해당 거래처의 차트 삽입</li><li>생성된 차트는 하나의 워드 파일로 저장(별도 파일 생성)</li></ul></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-다루기-실습/05_image.png" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_파이썬으로-엑셀-다루기-실습/06_image.png" alt=""></figure>
@@ -2881,7 +2942,7 @@ if __name__ == &quot;__main__&quot;:
 ## PROCESS
 
 ## OUTPUT</pre></div></div></details>
-      <h3><span class="sn">5.5</span>견적서 입력하기</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s5"><span class="sn">5.5</span>견적서 입력하기</h3>
       <ul><li>상황</li><ul><li>견적서에 넣어야 할 데이터가 있는데 이것을 양식에 맞춰서 견적 번호별로 하나의 견적서로 만들어야함</li><li>견적번호가 여러개가 있고 견적 번호별로 하나의 시트를 만들고 PDF파일로 변환해야함</li></ul><li>INPUT</li><ul><li>견적데이터</li><li>견적서양식</li></ul><li>PROCESS</li><ul><li>“견적데이터”의 내용을 기반으로 “견적 번호”를 기준으로 각각 한 장의 견적서를 만든다.</li><li>견적데이터에서 견적서에 필요한 내용을 자동으로 채운다.</li><li>각 품목은 아래의 표에 채워진다.</li></ul><li>OUTPUT</li><ul><li>견적서가 각각의 시트로 저장된 엑셀파일</li><li>각 시트가 PDF로 변환된 파일</li><li>별도의 폴더에 저장</li></ul></ul>
       <details class="fold-box"><summary>프롬프트 예시</summary><div class="fold-body"><div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">견적서 입력하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>[필요한 샘플들을 가짜 정보로 가공한 후 첨부]
@@ -2889,7 +2950,7 @@ if __name__ == &quot;__main__&quot;:
 ---
 prompt
 &quot;견적_데이터_샘플&quot;파일의 구조처럼 생긴 데이터를 &quot;견적서_양식&quot;에 맞춰서 자동으로 모든 &quot;견적서번호&quot;에 대한 파일을 만들고싶어. 어떻게 하면 될까?</pre></div></div></details>
-      <h3><span class="sn">5.6</span>엑셀 파일 사용 시 주의 사항</h3>
+      <h3 id="ChatGPT자동화-파이썬으로-엑셀-다루기-실습-s6"><span class="sn">5.6</span>엑셀 파일 사용 시 주의 사항</h3>
       <ul><li>데이터 프레임은 “데이터”를 다루는 형식이기 때문에  서식은 모두 사라짐</li><li>결과를 엑셀로 저장할 때에는 기본 서식에 헤더만 굵게 처리되어 저장</li><li>기본 세팅으로 불러올 경우 첫 시트만 가지고 오고 첫 행을 헤더로 인식</li><li>다른 경우를 처리하려고 할 경우 옵션을 설정해줘야 함</li><li>불러오려는 엑셀 파일이 열려 있을 경우 오류 발생</li><li>기본 형태</li></ul>
       <div class="codebox plain" data-kind="코드"><div class="ph"><i data-lucide="code"></i><span class="pl">코드</span><span class="pt">엑셀 파일 사용 시 주의 사항</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>import pandas as pd  # 판다스 라이브러리를 pd라고 줄여서 사용
@@ -2911,7 +2972,7 @@ df = pd.read_excel(&quot;파일.xlsx&quot;)</pre></div>
           <h2>파이썬 자동화 실습</h2>
         </div>
       </div>
-      <h3><span class="sn">1.1</span>매출전표 캡쳐하기</h3>
+      <h3 id="ChatGPT자동화-파이썬-자동화-실습-s1"><span class="sn">1.1</span>매출전표 캡쳐하기</h3>
       <ul><li>상황</li><ul><li>법인카드 사용후 증빙처리가 안된 지출이 있어서 매출전표에서 영수증을 캡쳐해야 함</li></ul><li>INPUT</li><li>PROCESS</li><li>OUTPUT</li></ul>
       <details class="fold-box"><summary>프롬프트</summary><div class="fold-body"><div class="codebox prompt" data-kind="프롬프트" data-old="16duqci"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">매출전표 캡쳐하기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 전문가입니다.
@@ -2988,7 +3049,7 @@ df = pd.read_excel(&quot;파일.xlsx&quot;)</pre></div>
 
 ## OUTPUT</pre></div>
       <details class="fold-box"><summary>코드</summary><div class="fold-body"></div></details></div></details>
-      <h3><span class="sn">1.2</span>대시보드 만들기</h3>
+      <h3 id="ChatGPT자동화-파이썬-자동화-실습-s2"><span class="sn">1.2</span>대시보드 만들기</h3>
       <details class="fold-box"><summary>템플릿</summary><div class="fold-body"><div class="codebox prompt" data-kind="프롬프트" data-old="cqkjau"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">대시보드 만들기</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 전문가입니다.
 저는 파이썬 초보자이며 내 데스크탑의 VS코드에서 실행할 코드를 만들고 싶습니다.
@@ -4784,7 +4845,7 @@ HTML: 결과 화면 구성, 차트 표시, 표 표시</pre></div>
           <h2>웹 크롤링</h2>
         </div>
       </div>
-      <h3><span class="sn">2.1</span>웹 크롤링이란?</h3>
+      <h3 id="ChatGPT자동화-웹-크롤링-s1"><span class="sn">2.1</span>웹 크롤링이란?</h3>
       <h4><span class="hn">1.</span>웹크롤링의 개념</h4>
       <ul><li><strong>정의</strong>:<br>웹크롤링(Web Crawling)은 인터넷에 공개된 웹페이지의 정보를 자동으로 탐색하고 수집하는 기술을 의미함</li></ul>
       <p></p>
@@ -4813,7 +4874,7 @@ HTML: 결과 화면 구성, 차트 표시, 표 표시</pre></div>
       <hr class="divider">
       <h4><span class="hn">10.</span>웹크롤링 시 주의사항</h4>
       <ul><li><strong>요청 속도 제어</strong></li><ul><li>과도한 요청은 서버에 부하를 주어 차단될 수 있음</li></ul><li><strong>개인정보 및 저작권 보호 준수</strong></li><ul><li>공개되지 않은 정보, 저작권이 있는 데이터는 수집 금지</li></ul></ul>
-      <h3><span class="sn">2.2</span>웹 페이지 구조 이해하기</h3>
+      <h3 id="ChatGPT자동화-웹-크롤링-s2"><span class="sn">2.2</span>웹 페이지 구조 이해하기</h3>
       <h4><span class="hn">1.</span>HTML의 역할</h4>
       <ul><li><strong>HTML(HyperText Markup Language)</strong> 은 웹페이지의 <strong>구조(Structure)</strong> 를 정의하는 언어</li><li>크롤링은 바로 이 HTML 문서에서 <strong>필요한 정보(텍스트, 링크, 이미지 등)</strong> 를 찾아내는 과정</li><li>따라서 HTML 구조를 이해해야 원하는 데이터를 <strong>정확하게 선택(select)</strong> 할 수 있음</li></ul>
       <hr class="divider">
@@ -4865,7 +4926,7 @@ HTML: 결과 화면 구성, 차트 표시, 표 표시</pre></div>
       <hr class="divider">
       <h4><span class="hn">8.</span>핵심 포인트</h4>
       <ul><li>크롤링은 HTML 문서의 구조를 <strong>이해 → 탐색 → 추출</strong> 하는 과정</li><li>HTML 구조를 모르면 데이터를 찾을 수 없음</li><li>태그와 속성, DOM 계층 구조를 파악하는 것이 크롤링의 <strong>출발점</strong></li></ul>
-      <h3><span class="sn">2.3</span>웹 크롤링 기본 프롬프트</h3>
+      <h3 id="ChatGPT자동화-웹-크롤링-s3"><span class="sn">2.3</span>웹 크롤링 기본 프롬프트</h3>
       <div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">웹 크롤링 기본 프롬프트</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 웹크롤링 전문가입니다.
 저는 파이썬 초보자이며 내 데스크탑의 VS코드에서 실행할 코드를 만들고 싶습니다.
@@ -5277,7 +5338,7 @@ def main():
 
 if __name__ == &quot;__main__&quot;:
     main()</pre></div></div></details>
-      <h3><span class="sn">2.4</span>웹 제어하기(텍스트 입력, 버튼 클릭 등) 기본 프롬프트</h3>
+      <h3 id="ChatGPT자동화-웹-크롤링-s4"><span class="sn">2.4</span>웹 제어하기(텍스트 입력, 버튼 클릭 등) 기본 프롬프트</h3>
       <div class="codebox prompt" data-kind="프롬프트"><div class="ph"><i data-lucide="message-square-text"></i><span class="pl">프롬프트</span><span class="pt">웹 제어하기(텍스트 입력, 버튼 클릭 등) 기본 프롬프트</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>당신은 파이썬 웹크롤링 전문가입니다.
 저는 파이썬 초보자이며 내 데스크탑의 VS코드에서 실행할 코드를 만들고 싶습니다.
@@ -6141,7 +6202,7 @@ if __name__ == &quot;__main__&quot;:
         </div>
       </div>
       <div class="datafile"><span class="df-ic"><i data-lucide="file-spreadsheet"></i></span><div class="df-b"><b>클립보드정리기.zip</b><span>실습파일</span></div><a class="copy-btn df-dl" href="실습파일/클립보드정리기.zip" download="클립보드정리기.zip"><i data-lucide="download"></i><span>내려받기</span></a></div>
-      <h3><span class="sn">4.1</span>원하는 시점에 실행시키기</h3>
+      <h3 id="ChatGPT자동화-코드-활용하기-s1"><span class="sn">4.1</span>원하는 시점에 실행시키기</h3>
       <h4><span class="hn">1.</span>작업 스케줄러 실행시키기</h4>
       <ul><li>Windows 검색창에서 "작업 스케줄러" 입력 → 실행</li></ul>
       <figure class="illus"><img src="이미지/ChatGPT자동화_코드-활용하기/01_image.png" alt=""></figure>
@@ -6155,12 +6216,12 @@ if __name__ == &quot;__main__&quot;:
       <figure class="illus"><img src="이미지/ChatGPT자동화_코드-활용하기/05_image.png" alt=""></figure>
       <ul><ul><ul><li>프로그램/스크립트에 내 컴퓨터 파이썬 프로그램 실행파일 경로</li><ul><li>내 파이썬 프로그램 실행파일 위치 찾는 방법<br>(터미널 창에 다음의 명령어를 입력)<div class="codebox plain cmd" data-kind="명령어"><div class="ph"><i data-lucide="terminal"></i><span class="pl">명령어</span><span class="pt">내 파이썬 프로그램 실행파일 위치 찾는 방법 (터미널 창에 다음의 명령어…</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
 <pre>python -c &quot;import sys; print(sys.executable)&quot;</pre></div></li></ul><li>인수 추가에 내가 실행할 파이썬 코드 파일 경로 입력</li><ul><li>확장자가 py인것만 실행 가능(ipynb파일은 안됨)</li></ul></ul></ul></ul>
-      <h3><span class="sn">4.2</span>.py파일 바로가기 만들기</h3>
+      <h3 id="ChatGPT자동화-코드-활용하기-s2"><span class="sn">4.2</span>.py파일 바로가기 만들기</h3>
       <p>단축키를 이용하여 코드를 바로 실행시킬 수 있는 방법</p>
       <p><strong>바로가기 키가 바탕화면에 있을때만 실행됨</strong></p>
       <figure class="illus"><img src="이미지/ChatGPT자동화_코드-활용하기/06_image.png" alt=""></figure>
       <figure class="illus"><img src="이미지/ChatGPT자동화_코드-활용하기/07_image.png" alt=""></figure>
-      <h3><span class="sn">4.3</span>내가 만든 코드 배포하기</h3>
+      <h3 id="ChatGPT자동화-코드-활용하기-s3"><span class="sn">4.3</span>내가 만든 코드 배포하기</h3>
       <h4><span class="hn">1.</span>PyInstaller 설치</h4>
       <ul><li>터미널 창에 다음의 명령어를 입력하여 PyInstaller 설치</li></ul>
       <div class="codebox plain cmd" data-kind="명령어"><div class="ph"><i data-lucide="terminal"></i><span class="pl">명령어</span><span class="pt">PyInstaller 설치</span><button type="button" class="copy-btn" aria-label="코드 복사"><i data-lucide="copy"></i><span>복사</span></button></div>
