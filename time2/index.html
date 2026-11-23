@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>휴식 시간 타이머</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#061c18;color:#f4fffc;font-family:Arial,'Malgun Gothic',sans-serif;display:flex;align-items:center;justify-content:center;text-align:center}.wrap{width:min(1050px,94vw);padding:24px}h1{font-size:clamp(16px,2vw,23px);letter-spacing:.15em;color:#9bc7b9;font-weight:500}.clock{font:bold clamp(70px,19vw,230px)/1.2 Consolas,monospace;font-variant-numeric:tabular-nums;letter-spacing:-.06em}.row{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:20px 0}label{color:#b9d3cb}input{width:85px;padding:10px;border-radius:8px;border:0;font-size:20px;text-align:center}button{padding:12px 20px;border:1px solid #45b597;border-radius:8px;background:transparent;color:white;font-size:16px;cursor:pointer}button:hover{background:#17604f}.primary{background:#35b88f;color:#05271f;font-weight:bold}button:disabled{opacity:.45;cursor:default}.music{margin:24px auto 0;width:min(100%,380px);color:#b9d3cb;font-size:14px}.music iframe{width:100%;height:214px;border:0;border-radius:8px}.hint{color:#9bc7b9;line-height:1.6}.done{background:#3b1116}.done .clock{color:#ff8794}.status{min-height:1.5em;color:#f5d08b}@media(max-height:750px){.music iframe{height:155px}.music{margin-top:10px}.row{margin:10px 0}}
+/* 시계 영역을 첫 화면에 유지하고 음악은 아래로 스크롤해 확인합니다. */
+body { display: block; }
+.wrap { width: 100%; padding: 0; }
+.timer-screen { min-height: 100vh; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.music { margin: 0 auto; padding: 32px 0 50px; }
+</style>
+</head>
+<body><main class="wrap"><section class="timer-screen"><h1>BREAK TIME</h1><div class="clock" id="clock">05:00</div>
+<form class="row" id="form"><label for="minutes">휴식 시간</label><input id="minutes" type="number" min="1" max="999" step="1" value="5" required><span>분</span><button class="primary" type="submit" id="start">시작</button><button type="button" id="pause">일시정지</button><button type="button" id="reset">초기화</button><button type="button" id="full">전체 화면</button></form>
+<p class="status" id="status" role="status">시간을 입력하고 Enter를 누르세요.</p></section>
+<div class="music"><p>음악이 자동으로 시작되지 않으면 아래 재생 버튼을 눌러 주세요.</p><div id="player"></div><p class="hint">음악은 인터넷 연결이 필요합니다. 광고가 표시될 수 있습니다.</p></div>
+</main><script>
+// 사용할 유튜브 영상 ID. 다른 영상으로 바꾸려면 이 값을 수정하세요.
+const VIDEO_ID='tVy5grOFcJI';
+const clock=document.getElementById('clock'), minutes=document.getElementById('minutes'), statusText=document.getElementById('status');
+const form=document.getElementById('form'), pauseButton=document.getElementById('pause');
+let remaining=300, endAt=0, interval=null, player=null, playerReady=false, wantsPlayback=false, audioContext=null;
+function display(){const m=Math.floor(remaining/60),s=remaining%60; clock.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');document.title=clock.textContent+' | 휴식 시간';}
+function onYouTubeIframeAPIReady(){player=new YT.Player('player',{height:'214',width:'380',videoId:VIDEO_ID,playerVars:{playsinline:1},events:{onReady:()=>{playerReady=true;if(wantsPlayback)player.playVideo();},onError:()=>{statusText.textContent='유튜브 영상을 재생할 수 없습니다. 영상의 외부 재생 허용 여부를 확인하세요.';}}});}
+const youtubeScript=document.createElement('script');youtubeScript.src='https://www.youtube.com/iframe_api';youtubeScript.onerror=()=>{statusText.textContent='유튜브를 불러오지 못했습니다. 인터넷 연결을 확인하세요.'};document.head.appendChild(youtubeScript);
+function unlockAudio(){try{const Audio=window.AudioContext||window.webkitAudioContext;if(Audio){audioContext=audioContext||new Audio();if(audioContext.state==='suspended')audioContext.resume();}}catch(e){}}
+function alarm(){if(!audioContext)return;for(let i=0;i<3;i++){const t=audioContext.currentTime+i*.35,o=audioContext.createOscillator(),g=audioContext.createGain();o.frequency.value=880;g.gain.setValueAtTime(.001,t);g.gain.exponentialRampToValueAtTime(.2,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+.26);}}
+function stopMusic(){wantsPlayback=false;if(playerReady)player.pauseVideo();}
+function tick(){remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));display();if(remaining===0){clearInterval(interval);interval=null;stopMusic();document.body.classList.add('done');statusText.textContent='휴식 시간이 끝났습니다.';pauseButton.textContent='일시정지';alarm();}}
+form.addEventListener('submit',e=>{e.preventDefault();if(interval)return;const value=Number(minutes.value);if(!Number.isInteger(value)||value<1||value>999){minutes.reportValidity();return;}unlockAudio();remaining=value*60;endAt=Date.now()+remaining*1000;document.body.classList.remove('done');pauseButton.textContent='일시정지';statusText.textContent='휴식 시간 진행 중';wantsPlayback=true;if(playerReady)player.playVideo();display();interval=setInterval(tick,200);});
+pauseButton.addEventListener('click',()=>{if(interval){tick();if(!interval)return;clearInterval(interval);interval=null;stopMusic();pauseButton.textContent='계속';statusText.textContent='일시정지 중';}else if(remaining>0&&pauseButton.textContent==='계속'){unlockAudio();endAt=Date.now()+remaining*1000;wantsPlayback=true;if(playerReady)player.playVideo();interval=setInterval(tick,200);pauseButton.textContent='일시정지';statusText.textContent='휴식 시간 진행 중';}});
+document.getElementById('reset').addEventListener('click',()=>{clearInterval(interval);interval=null;stopMusic();remaining=(Number(minutes.value)||5)*60;document.body.classList.remove('done');pauseButton.textContent='일시정지';statusText.textContent='시간을 입력하고 Enter를 누르세요.';display();});
+document.getElementById('full').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){statusText.textContent='전체 화면을 사용할 수 없습니다.';}});
+minutes.addEventListener('input',()=>{if(!interval&&pauseButton.textContent!=='계속'&&minutes.validity.valid){remaining=Number(minutes.value)*60;display();}});
+display();
+</script></body></html>
