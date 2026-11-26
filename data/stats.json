@@ -12,21 +12,21 @@
   "subheading": "강의장에서 쌓아온 기록입니다",
   "items": [
     {
-      "value": 507,
+      "value": 571,
       "suffix": "명+",
       "label": "누적 수강생",
       "icon": "fas fa-users",
       "source": "students"
     },
     {
-      "value": 29,
+      "value": 33,
       "suffix": "회+",
       "label": "누적 강의 횟수",
       "icon": "fas fa-chalkboard-teacher",
       "source": "sessions"
     },
     {
-      "value": 424,
+      "value": 479,
       "suffix": "시간",
       "label": "누적 교육시간",
       "icon": "fas fa-clock",
